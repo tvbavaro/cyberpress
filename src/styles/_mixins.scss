@@ -1,0 +1,8 @@
+@use 'sass:map';
+@use '@styles/variables' as *;
+
+@mixin brakepoints($name) {
+    @media (max-width: map.get($brakepoints, $name)) {
+        @content;
+    }
+}

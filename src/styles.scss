@@ -1,0 +1,21 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+@use '@styles/fonts';
+
+.container {
+    max-width: $ctr-width;
+    @include brakepoints(tablet) {
+        max-width: $ctr-width-mob;
+    }
+    @include brakepoints(mobile) {
+        max-width: $ctr-width-mob;
+    }
+}
+// .header {
+//     font-size: $fs-header;
+//     font-family: 'Oswald';
+//     @include brakepoints(mobile) {
+//         font-size: $fs-header-mob;
+//     }
+// }
+
