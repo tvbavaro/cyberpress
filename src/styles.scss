@@ -11,11 +11,11 @@
         max-width: $ctr-width-mob;
     }
 }
-// .header {
-//     font-size: $fs-header;
-//     font-family: 'Oswald';
-//     @include brakepoints(mobile) {
-//         font-size: $fs-header-mob;
-//     }
-// }
+.header {
+    font-size: $fs-header;
+    font-family: 'Oswald';
+    @include brakepoints(mobile) {
+        font-size: $fs-header-mob;
+    }
+}
 
