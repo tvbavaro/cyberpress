@@ -3,19 +3,131 @@
 @use '@styles/fonts';
 
 .container {
-    max-width: $ctr-width;
+    max-width: $wd-container;
+    margin: 0 auto;
+    //padding: 0px $pd-ctr;
     @include brakepoints(tablet) {
-        max-width: $ctr-width-mob;
+        max-width: $wd-container-mob;
     }
     @include brakepoints(mobile) {
-        max-width: $ctr-width-mob;
+        max-width: $wd-container-mob;
     }
 }
 .header {
-    font-size: $fs-header;
-    font-family: 'Oswald';
-    @include brakepoints(mobile) {
-        font-size: $fs-header-mob;
+    font-family: $ff-text;
+    &__wrapper {
+        background-color: $cr-header-bg;
+        padding: 0px $pd-ctr;
     }
+    &__grid {
+        display: grid;
+        //align-items: center;
+        align-items: stretch;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: 100px;
+    }
+    &__basic {
+        grid-column: 1/3;
+        display: flex;
+        align-items: center;
+        width: 458px;
+        justify-content: space-between;
+    } 
+    &__search {
+        font-size: $fs-second-text;
+        display: flex;
+        align-items: center;
+        align-self: stretch;
+        width: 105px;
+        justify-content: space-evenly;
+    }
+    &__filters {
+        font-size: $fs-second-text;
+        display: flex;
+        align-items: center;
+        align-self: stretch;
+        width: 105px;
+        justify-content: space-evenly;
+    }
+    &__logo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 224px;
+    }
+    &__brand-name {
+        font-family: $ff-brand-name;
+        font-size: $fs-logo;
+    }
+    &__social-wrapper {
+        width: 104px;
+        display: flex;
+        justify-content: space-around;
+    }
+    &__social {
+        justify-self: center;
+        align-self: center;
+    }
+    &__navigation {
+        justify-self: flex-end;
+        display: flex;
+        align-self: stretch;
+        align-items: center;
+        width: 105px;
+        justify-content: space-around;
+    }
+    &__burger-wrapper{
+        position: relative;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+    &__burger-line{
+        width: 100%;
+        position: absolute;
+        height: 2px;
+        background: $cr-text-main;
+        display: block;
+        transition: .3s;
+        border-radius: 2px;
+        top: 11px;
+        &::before {
+            content: '';
+            top: -11px;
+            width: 100%;
+            position: absolute;
+            height: 2px;
+            background: $cr-text-main;
+            display: block;
+            transition: .3s;
+            border-radius: 2px;
+        }
+        &::after {
+            content: '';
+            bottom: -11px;
+            width: 100%;
+            position: absolute;
+            height: 2px;
+            background: $cr-text-main;
+            display: block;
+            transition: .3s;
+            border-radius: 2px;
+        }
+        &_active {
+            background: rgba(255, 255, 255, 0);
+            &::before {
+                content: "";
+                top: 0px;
+                transform: rotate(45deg);
+            }
+            &::after {
+                content: "";
+                bottom: 0;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
 }
+
 
