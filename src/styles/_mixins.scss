@@ -6,3 +6,21 @@
         @content;
     }
 }
+
+@mixin burgerline {
+    position: absolute;
+    height: 2px;
+    background: $cr-text-main;
+    display: block;
+    transition: .3s;
+    border-radius: 2px;
+}
+
+@mixin header-actions {
+    font-size: $fs-second-text;
+    width: 105px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
