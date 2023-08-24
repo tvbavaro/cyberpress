@@ -10,7 +10,8 @@
                     <div class="header__actions-wrapper">
                         <div class="search header__search" :class="{'header__search_active': togglers.isSearchOpen}" @click="openSearch">
                             <div class="search__wrapper">
-                                <img class="search__icon" src="@assets/24x24/search.svg" alt="">
+                                <img v-if="!togglers.isSearchOpen" class="search__icon" src="@assets/24x24/search.svg" alt="">
+                                <img v-else class="search__close" src="@assets/24x24/cross.svg">
                                 <span class="search__text">Search</span>
                             </div>
                         </div>
