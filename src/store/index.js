@@ -6,5 +6,7 @@ export const store = new Vuex.Store({
     },
     getters: {},
     mutation: {},
-    actions:{}  
+    actions:{
+        
+    }  
 })

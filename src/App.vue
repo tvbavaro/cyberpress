@@ -3,7 +3,7 @@
     <headerItem/>
   </header>
   <main>
-    <newsGrid/>
+    <RouterView/>
   </main>
   <footer></footer>
 </template>

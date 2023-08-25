@@ -10,7 +10,9 @@ export default defineConfig({
       '@styles': '/src/styles',
       '@fonts': '/src/fonts',
       '@views': '/src/views',
-      '@assets': '/src/assets'
+      '@assets': '/src/assets',
+      '@api': '/src/api',
+      '@constants': '/src/constants'
     },
   },
 })

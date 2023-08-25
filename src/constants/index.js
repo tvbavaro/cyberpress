@@ -1,0 +1,1 @@
+export const DEVDOMAIN = 'localhost:1337';
