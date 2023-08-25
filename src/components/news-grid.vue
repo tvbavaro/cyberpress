@@ -6,6 +6,8 @@
                 :imgUrl="imgUrl(paper.attributes,index)"
                 :header="paper.attributes.title"
                 :text="paper.attributes.text_preview"
+                :time="paper.attributes.time_to_read"
+                :createdAt="paper.attributes.createdAt"
                 :key="paper.id" />
         </section>
         <section class="main-news__grid-old">
@@ -14,6 +16,9 @@
                 :imgUrl="oldImgUrl(paper.attributes,index)"
                 :header="paper.attributes.title"
                 :text="paper.attributes.text_preview"
+                :time="paper.attributes.time_to_read"
+                :createdAt="paper.attributes.createdAt"
+                :isWideArticleDescription="index % 2 ? false : true"
                 :key="paper.id" />
         </section>
     </div>
@@ -33,13 +38,10 @@ export default {
     async created() {
         const papers = await getNewsPapers().then(res => res.json());
         this.newsPapers = papers.data
-        console.log(this.newsPapers);
-        console.log(this.$store._modules.root._rawModule.DOMAIN);
     },
     methods: {
         imgUrl(attr,index) {
             const ultraWideInds = [1,8,9,10,11];
-            console.log(index);
             if(ultraWideInds.includes(index + 1)) {
                 return attr.image_ultrawide.data.attributes.formats.category.url
             } else {
