@@ -3,6 +3,7 @@
         <section class="main-news__grid">
             <mainArticle v-for="(paper,index) in newsPapers.slice(0,15)" 
                 :class="`main-news__item-${index+1}`"
+                :id="paper.id"
                 :imgUrl="imgUrl(paper.attributes,index)"
                 :header="paper.attributes.title"
                 :text="paper.attributes.text_preview"
@@ -13,6 +14,7 @@
         <section class="main-news__grid-old">
             <mainArticle v-for="(paper,index) in newsPapers.slice(15,23)" 
                 :class="{'main-news__horizontal': !(index % 2)}"
+                :id="paper.id"
                 :imgUrl="oldImgUrl(paper.attributes,index)"
                 :header="paper.attributes.title"
                 :text="paper.attributes.text_preview"
@@ -24,7 +26,7 @@
     </div>
 </template>
 <script>
-import mainArticle from './main-article.vue';
+import mainArticle from '@components/main-article.vue';
 import { getNewsPapers } from '@api/api.js'
 export default {
     data() {

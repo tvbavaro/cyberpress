@@ -149,6 +149,7 @@
         align-items: center;
         justify-content: space-between;
         width: 224px;
+        cursor: pointer;
     }
 
     &__name {
@@ -290,6 +291,7 @@
 
     &__article {
         background-color: $cr-article-bg;
+        cursor: pointer;
     }
 
     @for $i from 1 through 15 {
@@ -368,6 +370,7 @@
         column-gap: 24px;
     }
     &__column {
+        padding: 0 24px;
         margin-bottom: 59px;
     }
     &__header {
@@ -397,4 +400,19 @@
         font-family: $ff-text;
         color: $cr-text-footer
     }
+}
+
+.paper {
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        //grid-template-rows: 500px 200px;
+    }
+    &__similar {
+        grid-column: 1/4;
+    }
+}
+
+.article {
+    grid-column: 1/4;
 }

@@ -3,7 +3,7 @@
         <div class="header__wrapper">
             <div class="header__grid">
                 <div class="header__basic">
-                    <div class="logo logo__wrapper">
+                    <div class="logo logo__wrapper" @click="handleClickHome">
                         <img class="logo__img" src="@assets/logo.png" alt="logo">
                         <span class="logo__name">InfoDefense</span>
                     </div>
@@ -103,6 +103,9 @@ export default {
         openSearch() {
             //this.closeAllModals();
             this.togglers.isSearchOpen = !this.togglers.isSearchOpen;
+        },
+        handleClickHome() {
+            this.$router.push({name: 'main'});
         }
     }
 }

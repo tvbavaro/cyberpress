@@ -1,5 +1,5 @@
 <template>
-    <article class="paper main-news__article">
+    <article class="paper main-news__article" @click="handleClick(id)">
         <div class="paper__img-wrapper">
             <img v-if="imgUrl" class="paper__img" :src="`http://${domain + imgUrl}`" alt="">
         </div>
@@ -16,6 +16,10 @@
 import { DEVDOMAIN } from '@constants';
 export default {
     props: {
+        id: {
+            type: Number,
+            required: true
+        },
         imgUrl: {
             type: String
         },
@@ -37,16 +41,21 @@ export default {
         }
     },
     created() {
-        
+
     },
     computed: {
         domain() {
             return DEVDOMAIN;
         },
         createdDate() {
-            console.log(this.isWideArticleDescription);
             return new Date(this.createdAt).toGMTString()
                 .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g).join(', ');
+        }
+    },
+    methods: {
+        handleClick(id) {
+            this.$router.push({name: 'paper', params: {id:id}});
+            console.log(this.$router);
         }
     }
 }
