@@ -1,60 +1,26 @@
 <template>
     <div class="paper">
         <div class="paper__grid">
-            <article class="article">
-                <div class="article__wrapper">
-                    <h1 class="heading">
-                        {{ paper?.attributes?.title }}
-                    </h1>
-                    <span class="paper__time">{{ createdDate }}
-                        <img class="paper__time-divider" src="@assets/24x24/divider.svg" alt="">
-                        {{ time }} min read
-                    </span>
-                    <img :src="`http://${domain + imgUrl}`" alt="" class="img">
-                    <p class="article__text">
-                        {{ paper.attributes.text_article }}
-                    </p>
-                    <div class="article__footer">
-                        <div class="article__foter-wrapper">
-                            <div class="tags">
-                                <ul class="tags__column" v-for="tag in tags" :key="tag">
-                                    <li class="tags__item">{{ tag }}</li>
-                                </ul>
-                            </div>
-                            <div class="share">
-                                <span class="share__text">Share on:</span>
-                                <div class="social">
-                                    <img class="social__twitter-icon" src="@assets/24x24/twitter.svg" alt="">
-                                    <img class="social__telegram-icon" src="@assets/24x24/telegram.svg" alt="">
-                                    <img class="social__youtube-icon" src="@assets/24x24/youtube.svg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <aside class="recommended">
+            <mainArticle class="paper__main-article" :title="paper?.attributes?.title" :text="paper.attributes.text_article"
+                :tags="tags" :imgUrl="imgUrl" :createdAt="paper.attributes.createdAt" :time="paper.attributes.time_to_read"/>
+            <aside class="recommended paper__recommended">
                 <div class="recommended__wrapper">
-                    <mainArticle v-for="(paper,index) in recommended" 
-                        :id="paper.id"
+                        <span class="recommended__heading">Recommended</span> 
+                    <previewArticle v-for="(paper, index) in recommended" :id="paper.id"
                         :imgUrl="paper.attributes.image_sq.data.attributes.formats.aside.url"
-                        :header="paper.attributes.title"
-                        :text="paper.attributes.text_preview"
-                        :time="paper.attributes.time_to_read"
-                        :createdAt="paper.attributes.createdAt"
-                        :key="paper.id" />
+                        :header="paper.attributes.title" :text="paper.attributes.text_preview"
+                        :time="paper.attributes.time_to_read" :createdAt="paper.attributes.createdAt" :key="paper.id" />
                 </div>
             </aside>
             <div class="similar paper__similar">
-                <mainArticle
-                        :id="similar.id"
-                        class="main-news__horizontal"
+                <div class="similar__wrapper">
+                    <span class="similar__heading">Similar</span>
+                    <previewArticle :id="similar.id" class="paper__horizontal"
                         :imgUrl="similar?.attributes.image_wide.data.attributes.formats.old.url"
-                        :header="similar.attributes.title"
-                        :text="similar.attributes.text_preview"
-                        :time="similar.attributes.time_to_read"
-                        :createdAt="similar.attributes.createdAt"
+                        :header="similar.attributes.title" :text="similar.attributes.text_preview"
+                        :time="similar.attributes.time_to_read" :createdAt="similar.attributes.createdAt"
                         :key="similar.id" />
+                </div>
             </div>
         </div>
     </div>
@@ -63,13 +29,15 @@
 <script>
 import { DEVDOMAIN } from '@constants';
 import { getPaper, getRecommended, getSimilar } from '@api/api.js';
+import previewArticle from '@components/preview-article.vue';
 import mainArticle from '@components/main-article.vue';
+
 export default {
     data() {
         return {
-            paper: {},
-            recommended: [],
-            similar: {}
+            paper: null,
+            recommended: null,
+            similar: null
         }
     },
     props: {
@@ -79,6 +47,7 @@ export default {
         }
     },
     components: {
+        previewArticle,
         mainArticle
     },
     async created() {

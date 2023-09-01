@@ -1,7 +1,7 @@
 <template>
-    <div class="main-news container">
+    <div class="main-news">
         <section class="main-news__grid">
-            <mainArticle v-for="(paper,index) in newsPapers.slice(0,15)" 
+            <previewArticle v-for="(paper,index) in newsPapers.slice(0,15)" 
                 :class="`main-news__item-${index+1}`"
                 :id="paper.id"
                 :imgUrl="imgUrl(paper.attributes,index)"
@@ -12,9 +12,9 @@
                 :key="paper.id" />
         </section>
         <section class="main-news__grid-old">
-            <mainArticle v-for="(paper,index) in newsPapers.slice(15,23)" 
-                :class="{'main-news__horizontal': !(index % 2)}"
+            <previewArticle v-for="(paper,index) in newsPapers.slice(15,23)" 
                 :id="paper.id"
+                :class="{'main-news__horizontal': !(index % 2)}"
                 :imgUrl="oldImgUrl(paper.attributes,index)"
                 :header="paper.attributes.title"
                 :text="paper.attributes.text_preview"
@@ -26,7 +26,7 @@
     </div>
 </template>
 <script>
-import mainArticle from '@components/main-article.vue';
+import previewArticle from '@components/preview-article.vue';
 import { getNewsPapers } from '@api/api.js'
 export default {
     data() {
@@ -35,10 +35,11 @@ export default {
         }
     },
     components: {
-        mainArticle
+        previewArticle
     },
     async created() {
         const papers = await getNewsPapers().then(res => res.json());
+        console.log(papers);
         this.newsPapers = papers.data
     },
     methods: {

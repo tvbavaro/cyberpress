@@ -1,47 +1,71 @@
 <template>
-    <article class="paper main-news__article" @click="handleClick(id)">
-        <div class="paper__img-wrapper">
-            <img v-if="imgUrl" class="paper__img" :src="`http://${domain + imgUrl}`" alt="">
-        </div>
-        <div class="paper__description" :class="{'paper__description-wide': isWideArticleDescription}">
-            <h2 class="paper__header">{{ header }}</h2>
-            <p class="paper__text">{{ text }}</p>
-            <span class="paper__time">{{ createdDate }}
-                <img class="paper__time-divider" src="@assets/24x24/divider.svg" alt="">
-                {{ time }} min read</span>
+    <article class="main-article">
+        <div class="main-article__wrapper">
+            <div class="main-article__heading-wrapper">
+                <h1 class="main-article__heading">
+                    {{ title }}
+                </h1>
+                <timesetItem :createdDate="createdDate" :time="time" />
+            </div>
+            <img :src="`http://${domain + imgUrl}`" alt="" class="main-article__img">
+            <div class="main-article__wrapper-content">
+                <p class="main-article__text">
+                {{ text }}
+            </p>
+            <div class="main-article__footer">
+                <div class="main-article__foter-wrapper">
+                    <div class="tags">
+                        <ul class="tags__column" v-for="tag in tags" :key="tag">
+                            <li class="tags__item">{{ tag }}</li>
+                        </ul>
+                    </div>
+                    <div class="share">
+                        <span class="share__text">Share on:</span>
+                        <div class="social">
+                            <img class="social__twitter-icon" src="@assets/24x24/twitter.svg" alt="">
+                            <img class="social__telegram-icon" src="@assets/24x24/telegram.svg" alt="">
+                            <img class="social__youtube-icon" src="@assets/24x24/youtube.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
         </div>
     </article>
 </template>
 <script>
 import { DEVDOMAIN } from '@constants';
+import timesetItem from '@components/timeset-item.vue';
 export default {
     props: {
-        id: {
-            type: Number,
-            required: true
-        },
-        imgUrl: {
-            type: String
-        },
-        header: {
-            type: String
-        },
-        text: {
-            type: String
-        },
-        time: {
-            type: Number
+        title: {
+            type: String,
+            requared: true
         },
         createdAt: {
-            type: String
+            type: String,
+            requared: true
         },
-        isWideArticleDescription: {
-            type: Boolean,
-            default: true
+        time: {
+            type: Number,
+            requared: true
+        },
+        imgUrl: {
+            type: String,
+            requared: true
+        },
+        text: {
+            type: String,
+            requared: true
+        },
+        tags: {
+            type: Array,
+            requared: false
         }
     },
-    created() {
-
+    components: {
+        timesetItem,
     },
     computed: {
         domain() {
@@ -50,12 +74,6 @@ export default {
         createdDate() {
             return new Date(this.createdAt).toGMTString()
                 .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g).join(', ');
-        }
-    },
-    methods: {
-        handleClick(id) {
-            this.$router.push({name: 'paper', params: {id:id}});
-            console.log(this.$router);
         }
     }
 }
