@@ -4,22 +4,22 @@
             <previewArticle v-for="(paper,index) in newsPapers.slice(0,15)" 
                 :class="`main-news__item-${index+1}`"
                 :id="paper.id"
-                :imgUrl="imgUrl(paper.attributes,index)"
-                :header="paper.attributes.title"
-                :text="paper.attributes.text_preview"
-                :time="paper.attributes.time_to_read"
-                :createdAt="paper.attributes.createdAt"
+                :imgUrl="imgUrl(paper.img,index)"
+                :header="paper.title"
+                :text="paper.text_preview"
+                :time="paper.time_to_read"
+                :createdAt="paper.createdAt"
                 :key="paper.id" />
         </section>
         <section class="main-news__grid-old">
             <previewArticle v-for="(paper,index) in newsPapers.slice(15,23)" 
                 :id="paper.id"
                 :class="{'main-news__horizontal': !(index % 2)}"
-                :imgUrl="oldImgUrl(paper.attributes,index)"
-                :header="paper.attributes.title"
-                :text="paper.attributes.text_preview"
-                :time="paper.attributes.time_to_read"
-                :createdAt="paper.attributes.createdAt"
+                :imgUrl="oldImgUrl(paper.img,index)"
+                :header="paper.title"
+                :text="paper.text_preview"
+                :time="paper.time_to_read"
+                :createdAt="paper.createdAt"
                 :isWideArticleDescription="index % 2 ? false : true"
                 :key="paper.id" />
         </section>
@@ -38,23 +38,21 @@ export default {
         previewArticle
     },
     async created() {
-        const papers = await getNewsPapers().then(res => res.json());
-        console.log(papers);
-        this.newsPapers = papers.data
+        this.newsPapers = await getNewsPapers().then(res => res);
     },
     methods: {
-        imgUrl(attr,index) {
+        imgUrl(imgs,index) {
             const ultraWideInds = [1,8,9,10,11];
             if(ultraWideInds.includes(index + 1)) {
-                return attr.image_ultrawide.data.attributes.formats.category.url
+                return imgs.category;
             } else {
-                return attr.image_sq.data.attributes.formats.category_small.url;
+                return imgs.category_small;
             }
         },
-        oldImgUrl(attr,index) {
+        oldImgUrl(imgs,index) {
             if(index % 2) {
                 return '';
-            } else return attr.image_wide.data.attributes.formats.old.url;
+            } else return imgs.old;
         }
     }
 }
