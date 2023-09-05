@@ -7,19 +7,16 @@
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <previewArticle v-for="(paperRec, index) in recommended" :id="paperRec.id"
-                        :imgUrl="paperRec.attributes.image_sq.data.attributes.formats.aside.url"
-                        :header="paperRec.attributes.title" :text="paperRec.attributes.text_preview"
-                        :time="paperRec.attributes.time_to_read" :createdAt="paperRec.attributes.createdAt" :key="paperRec.id" />
+                        :imgUrl="paperRec.img.aside_desktop" :header="paperRec.title" :text="paperRec.text_preview"
+                        :time="paperRec.time_to_read" :createdAt="paperRec.createdAt" :key="paperRec.id" />
                 </div>
             </aside>
             <div class="similar paper__similar">
                 <div class="similar__wrapper">
-                    <span class="similar__heading">Similar&nbsp;to</span>
-                    <previewArticle :id="similar.id" class="paper__horizontal"
-                        :imgUrl="similar.attributes.image_wide.data.attributes.formats.old.url"
-                        :header="similar.attributes.title" :text="similar.attributes.text_preview"
-                        :time="similar.attributes.time_to_read" :createdAt="similar.attributes.createdAt"
-                        :key="similar.id" />
+                    <span class="similar__heading">Similar to</span>
+                    <previewArticle :id="similar.id" class="paper__horizontal" :imgUrl="similar.img.desktop"
+                        :header="similar.title" :text="similar.text_preview" :time="similar.time_to_read"
+                        :createdAt="similar.createdAt" :key="similar.id" />
                 </div>
             </div>
         </div>
@@ -53,8 +50,9 @@ export default {
     },
     async created() {
         this.paper = await getPaper(this.id);
-        this.recommended = await getRecommended().then(res => res.json()).then(fetchData => fetchData.data);
-        this.similar = await getSimilar(this.id - 3).then(res => res.json()).then(fetchData => fetchData.data);
+        this.recommended = await getRecommended();
+        this.similar = await getSimilar(this.id - 3);
+        console.log(this.similar)
         if (this.paper !== null && this.recommended && this.similar) {
             this.dataReady = true;
         }
@@ -72,9 +70,10 @@ export default {
     },
     watch: {
         async id() {
-            this.paper = await getPaper(this.id).then(res => res.json()).then(fetchData => fetchData.data);
-            this.recommended = await getRecommended().then(res => res.json()).then(fetchData => fetchData.data);
-            this.similar = await getSimilar(this.id - 3).then(res => res.json()).then(fetchData => fetchData.data);
+            this.paper = await getPaper(this.id);
+            this.recommended = await getRecommended();
+            this.similar = await getSimilar(this.id - 3);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 }

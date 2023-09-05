@@ -56,8 +56,8 @@ export const getPaper = (id) => {
                     createdAt,
                     time_to_read,
                     text_article,
-                    tags: { 
-                        value: tags 
+                    tags: {
+                        value: tags
                     },
                     image_ultrawide: {
                         data: {
@@ -83,10 +83,126 @@ export const getPaper = (id) => {
 }
 
 export const getRecommended = () => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`);
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
+        .then(res => {
+            if (res.status >= 200 && res.status <= 300) {
+                return res.json();
+            } else throw new Error(res.statusText)
+        }).then(res => {
+            const dataRes = res;
+            const papersRec = [];
+            const { data } = dataRes;
+            data.forEach((
+                { id,
+                    attributes: {
+                        createdAt,
+                        text_preview,
+                        time_to_read,
+                        title,
+                        image_sq: { data: { attributes: { formats: { aside: { url: aside_desktop } } } } },
+                    },
+                }) => {
+                const paperData = {
+                    id,
+                    createdAt,
+                    time_to_read,
+                    title,
+                    text_preview,
+                    img: {
+                        aside_desktop
+                    }
+                };
+                papersRec.push(paperData);
+            });
+            return papersRec;
+        })
+        .catch(err => console.log(err))
 }
 
 export const getSimilar = (id) => {
     return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
+        .then(res => {
+            if (res.status >= 200 && res.status <= 300) {
+                return res.json();
+            } else throw new Error(res.statusText)
+        })
+        .then(res => {
+            const { data } = res;
+            const { id,
+                attributes: {
+                    title,
+                    createdAt,
+                    time_to_read,
+                    text_preview,
+                    image_wide: {
+                        data: {
+                            attributes: {
+                                formats: {
+                                    old: { url }
+                                }
+                            }
+                        }
+                    }
+                }
+            } = data;
+            const paperData = {
+                id,
+                title,
+                text_preview,
+                createdAt,
+                time_to_read,
+                img: {
+                    desktop: url
+                }
+            }
+            return paperData;
+        })
+        .catch(err => console.log(err))
+}
+
+export const getProject = (type) => {
+    return fetch(`http://${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url`)
+    .then(res => {
+        if (res.status >= 200 && res.status <= 300) {
+            return res.json();
+        } else throw new Error(res.statusText)
+    })
+    .then(res => {
+        const { data } = res;
+        const { attributes: { slogan, text, title, image_desktop: { data: { attributes: { url } } } } } = data
+        const projectData = {
+            title,
+            slogan,
+            text,
+            img: {
+                desktop: url
+            }
+        }
+        return projectData;
+    })
+    .catch(err => console.log(err))
+}
+
+export const getProjectPreview = (type) => {
+    return fetch(`http://${DEVDOMAIN}/api/${type}?fields=text_preview&fields=heading_preview&fields=slogan&populate[image_desktop_wide][fields]=url`)
+    .then(res => {
+        if (res.status >= 200 && res.status <= 300) {
+            return res.json();
+        } else throw new Error(res.statusText)
+    })
+    .then(res => {
+        const { data } = res;
+        const { attributes: { slogan, text_preview, heading_preview, image_desktop_wide: { data: { attributes: { url } } } } } = data
+        const projectData = {
+            heading_preview,
+            slogan,
+            text_preview,
+            img: {
+                desktop_wide: url
+            }
+        }
+        return projectData;
+    })
+    .catch(err => console.log(err))
 }
 

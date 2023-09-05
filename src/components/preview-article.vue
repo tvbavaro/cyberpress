@@ -6,7 +6,7 @@
             <div class="preview-article__description" :class="{ 'preview-article__description-wide': isWideArticleDescription }">
                 <h2 class="preview-article__header">{{ header }}</h2>
                 <p class="preview-article__text">{{ text }}</p>
-                <timesetItem :createdDate="createdDate" :time="time"/>
+                <timesetItem v-if="time" :createdDate="createdDate" :time="time"/>
             </div>
     </article>
 </template>
@@ -17,7 +17,6 @@ export default {
     props: {
         id: {
             type: Number,
-            required: true
         },
         imgUrl: {
             type: String
@@ -51,7 +50,7 @@ export default {
         },
         createdDate() {
             return new Date(this.createdAt).toGMTString()
-                .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g).join(', ');
+                .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g)?.join(', ');
         }
     },
     methods: {

@@ -521,6 +521,7 @@
 .similar {
     &__heading {
         display: flex;
+        white-space: nowrap;
         font: {
             family: $ff-header;
             size: $fs-header;
@@ -567,3 +568,51 @@
         margin-right: 16px;
     }
 }
+
+.project {
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        padding: 0 $pd-ctr;
+        row-gap: 64px;
+    }
+    &__article-main {
+        grid-column: 1/5;
+    }
+    &__article-preview {
+        grid-column: 1/4;
+    }
+}
+
+.project-article {
+    background-color: $cr-article-bg;
+    &__wrapper {
+        padding: 48px 0 112px;
+    }
+    &__content-wrapper {
+        display: flex
+    }
+    &__img {
+        margin-right: 48px;
+    }
+}
+
+.heading {
+    &__text {
+        @include heading;
+    }
+}
+.text {
+    &__content {
+        @include text(56px);
+    }
+}
+.slogan {
+    font: {
+        size: $fs-slogan;
+        family: $ff-slogan;
+    };
+    line-height: 47px;
+    color: $cr-text-main;
+}
+
