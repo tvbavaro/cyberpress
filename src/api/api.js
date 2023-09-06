@@ -1,7 +1,7 @@
 import { DEVDOMAIN } from "@constants"
 
-export const getNewsPapers = (sort = 'desc') => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats`)
+export const getNewsPapers = (searchPhrase = '', sort = 'desc') => {
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -40,6 +40,47 @@ export const getNewsPapers = (sort = 'desc') => {
         })
         .catch(err => console.log(err))
 }
+
+// export const getSearchPapers = (sort = 'desc') => {
+//     return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}`)
+//         .then(res => {
+//             if (res.status >= 200 && res.status <= 300) {
+//                 return res.json();
+//             } else throw new Error(res.statusText)
+//         }).then(res => {
+//             const dataRes = res;
+//             const papers = [];
+//             const { data } = dataRes;
+//             data.forEach((
+//                 { id,
+//                     attributes: {
+//                         createdAt,
+//                         text_preview,
+//                         time_to_read,
+//                         title,
+//                         image_sq: { data: { attributes: { formats: { category_small: { url: category_small } } } } },
+//                         image_ultrawide: { data: { attributes: { formats: { category: { url: category } } } } },
+//                         image_wide: { data: { attributes: { formats: { old: { url: old } } } } }
+//                     },
+//                 }) => {
+//                 const paperData = {
+//                     id,
+//                     createdAt,
+//                     time_to_read,
+//                     title,
+//                     text_preview,
+//                     img: {
+//                         category,
+//                         category_small,
+//                         old
+//                     }
+//                 };
+//                 papers.push(paperData);
+//             });
+//             return papers;
+//         })
+//         .catch(err => console.log(err))
+// }
 
 export const getPaper = (id) => {
     return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
@@ -206,3 +247,4 @@ export const getProjectPreview = (type) => {
     .catch(err => console.log(err))
 }
 
+//&filters[$or][0][title][$contains]=otter&filters[$or][1][text_preview][$contains]=ai

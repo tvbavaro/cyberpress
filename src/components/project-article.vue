@@ -1,7 +1,9 @@
 <template>
     <article class="project-article">
         <div class="project-article__wrapper">
-            <headingItem :title="title" />
+            <div class="project-article__heading-wrapper">
+                <headingItem :title="title" />
+            </div>
             <div class="project-article__content-wrapper">
                 <img class="project-article__img" :src="`http://${domain + img}`" alt="">
                 <div class="project-article__text-wrapper">

@@ -50,15 +50,13 @@
     border-radius: 2px;
 }
 
-@mixin heading($mbot: 38px) {
+@mixin heading {
     font: {
         size: $fs-header;
         family: $ff-header;
     };
     color: $cr-text-main;
     line-height: 38px;
-    margin-bottom: $mbot;
-    padding-left: 24px;
 }
 
 @mixin text($mbot: 0) {

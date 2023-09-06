@@ -1,9 +1,9 @@
 <template>
-    <div class="paper" v-if="dataReady">
-        <div class="paper__grid">
-            <mainArticle class="paper__main-article" :title="paper.title" :text="paper.text_article" :tags="tags"
+    <div class="project">
+        <div class="project__grid" v-if="dataIsReady">
+            <mainArticle class="project__main-paper" :title="paper.title" :text="paper.text_article" :tags="tags"
                 :imgUrl="imgUrl" :createdAt="paper.createdAt" :time="paper.time_to_read" />
-            <aside class="recommended paper__recommended">
+            <aside class="recommended project__recommended">
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <previewArticle v-for="(paperRec, index) in recommended" :id="paperRec.id"
@@ -11,10 +11,10 @@
                         :time="paperRec.time_to_read" :createdAt="paperRec.createdAt" :key="paperRec.id" />
                 </div>
             </aside>
-            <div class="similar paper__similar">
+            <div class="similar project__similar">
                 <div class="similar__wrapper">
                     <span class="similar__heading">Similar to</span>
-                    <previewArticle :id="similar.id" class="paper__horizontal" :imgUrl="similar.img.desktop"
+                    <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img.desktop"
                         :header="similar.title" :text="similar.text_preview" :time="similar.time_to_read"
                         :createdAt="similar.createdAt" :key="similar.id" />
                 </div>
@@ -35,7 +35,7 @@ export default {
             paper: null,
             recommended: null,
             similar: null,
-            dataReady: false,
+            dataIsReady: false,
         }
     },
     props: {
@@ -54,7 +54,7 @@ export default {
         this.similar = await getSimilar(this.id - 3);
         console.log(this.similar)
         if (this.paper !== null && this.recommended && this.similar) {
-            this.dataReady = true;
+            this.dataIsReady = true;
         }
     },
     computed: {

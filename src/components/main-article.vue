@@ -2,9 +2,10 @@
     <article class="main-article">
         <div class="main-article__wrapper">
             <div class="main-article__heading-wrapper">
-                <h1 class="main-article__heading">
+                <!-- <h1 class="main-article__heading">
                     {{ title }}
-                </h1>
+                </h1> -->
+                <headingItem class="main-article__heading" :title="title"/>
                 <timesetItem :createdDate="createdDate" :time="time" />
             </div>
             <img :src="`http://${domain + imgUrl}`" alt="" class="main-article__img">
@@ -13,7 +14,6 @@
                     {{ text }}
                 </p>
                 <div class="main-article__footer">
-                    <!-- <div class="main-article__footer-wrapper"> -->
                     <div class="tags">
                         <ul class="tags__column" v-for="tag in tags" :key="tag">
                             <li class="tags__item">{{ tag }}</li>
@@ -25,7 +25,6 @@
                             <socialIcons class="main-article__social" />
                         </div>
                     </div>
-                    <!-- </div> -->
                 </div>
             </div>
 
@@ -36,6 +35,7 @@
 import { DEVDOMAIN } from '@constants';
 import timesetItem from '@components/timeset-item.vue';
 import socialIcons from '@components/social-icons.vue';
+import headingItem from '@components/heading-item.vue';
 export default {
     props: {
         title: {
@@ -65,7 +65,8 @@ export default {
     },
     components: {
         timesetItem,
-        socialIcons
+        socialIcons,
+        headingItem
     },
     computed: {
         domain() {
