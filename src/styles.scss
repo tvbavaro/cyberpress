@@ -234,7 +234,7 @@
         padding: 0 $pd-ctr;
         align-items: center;
         background-color: $cr-menu-bg;
-        position: absolute;
+        //position: absolute;
         width: 100%;
         top: 100px;
         display: none;
@@ -645,6 +645,7 @@
 
 .list {
     &__item {
+        cursor: pointer;
         margin-bottom: 16px;
     }
     &__column :last-child {

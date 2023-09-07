@@ -16,6 +16,7 @@
 <script>
 import previewArticle from '@components/preview-article.vue';
 import { getNewsPapers } from '@api/api.js';
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
@@ -27,6 +28,12 @@ export default {
     },
     async created() {
         this.getData();
+    },
+    computed: {
+        ...mapState({
+            searchTermVuex: 'searchTerm',
+            searchTagVuex: 'searchTag'
+        })
     },
     methods: {
         imgUrl(imgs, index) {
@@ -43,7 +50,15 @@ export default {
             } else return imgs.old;
         },
         async getData() {
-            this.newsPapers = await getNewsPapers();
+            this.newsPapers = await getNewsPapers(this.searchTermVuex, this.searchTagVuex);
+        }
+    },
+    watch: {
+        searchTermVuex() {
+            this.getData();
+        },
+        searchTagVuex() {
+            this.getData();
         }
     }
 }

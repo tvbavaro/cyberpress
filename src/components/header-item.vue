@@ -39,7 +39,7 @@
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
                 <nav class="menu__grid">
-                    <listItem class="menu__list-wrapper" title="News"
+                    <listItem class="menu__list-wrapper" title="News" actionType="category"
                         :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
                     <!-- <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">News</span></li>
@@ -49,21 +49,23 @@
                         <li class="menu__item"><span class="menu__text">Nov/Oct/Sept/Aug/Jun/Jul</span></li>
                         <li class="menu__item"><span class="menu__text">2021/2022</span></li>
                     </ul> -->
-                    <ul class="menu__column">
+                    <listItem class="menu__list-wrapper" title="Popular tags" actionType="tags" :list="popularTagsVuex" />
+                    <!-- <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">Popular tags</span></li>
                         <li class="menu__item"><span class="menu__text">#Kherson</span></li>
                         <li class="menu__item"><span class="menu__text">#Evacuation</span></li>
                         <li class="menu__item"><span class="menu__text">#war_in_Ukraine</span></li>
                         <li class="menu__item"><span class="menu__text">#Russian_troops</span></li>
                         <li class="menu__item"><span class="menu__text">#Genocide2014History</span></li>
-                    </ul>
-                    <ul class="menu__column">
+                    </ul> -->
+                    <listItem class="menu__list-wrapper" title="About InfoDefence" actionType="redirect" :list="['Project','Team','Donate']" />
+                    <!-- <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">About InfoDefence</span></li>
                         <li class="menu__item"><span class="menu__text">Project</span></li>
                         <li class="menu__item"><span class="menu__text">Team</span></li>
                         <li class="menu__item"><span class="menu__text">Donate</span></li>
                         <li class="menu__item"><span class="menu__text">Contacts</span></li>
-                    </ul>
+                    </ul> -->
                     <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">Stay Connected</span></li>
                     </ul>
@@ -71,8 +73,8 @@
             </div>
             <div class="search-menu search-menu__wrapper" :class="{ 'search-menu__wrapper_active': togglers.isSearchOpen }">
                 <div class="search-menu__input-wrapper">
-                    <input class="search-menu__input" @input="search" type="text" placeholder="Search"
-                        :value="searchPhrase" />
+                    <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
+                        :value="searchTermVuex" />
                     <img class="search-menu__icon" src="@assets/24x24/search.svg" alt="">
                 </div>
             </div>
@@ -82,7 +84,7 @@
 <script>
 import socialIcons from '@components/social-icons.vue';
 import listItem from '@components/list-item.vue';
-import { mapState, mapGetters, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
         return {
@@ -92,22 +94,31 @@ export default {
             }
         }
     },
+    created() {
+        this.getPopularTagsVuex();
+    },
     components: {
         socialIcons,
         listItem
     },
     computed: {
-        ...mapState(['searchPhrase']),
+        ...mapState({
+            searchTermVuex: 'searchTerm',
+            popularTagsVuex: 'popularTags'
+        }),
         ...mapGetters({
-            lengthSearchPhraseVuex: 'lengthSearchPhrase'
+            searchTermLengthVuex: 'searchTermLength'
         }),
     },
     methods: {
         ...mapMutations({
-            updateSearchPhraseVuex: 'updateSearchPhrase'
+            setSearchTermVuex: 'setSearchTerm'
         }),
-        search(e) {
-            this.updateSearchPhraseVuex(e.target.value);
+        ...mapActions({
+            getPopularTagsVuex: 'getPopularTags'
+        }),
+        setSearch(e) {
+            this.setSearchTermVuex(e.target.value);
         },
         closeAllModals() {
             for (let key in this.togglers) {
@@ -133,12 +144,12 @@ export default {
             this.$router.push({ name: 'main' });
         }
     },
-    watch: {
-        lengthSearchPhraseVuex(newValue, oldValue) {
-            if (newValue > 2) {
-                this.$router.push({ name: 'search' });
-            } else this.$router.push({ name: 'main' });
-        }
-    }
+    // watch: {
+    //     searchTermLengthVuex(newValue, oldValue) {
+    //         if (newValue > 2) {
+    //             this.$router.push({ name: 'search' });
+    //         } else this.$router.push({ name: 'main' });
+    //     }
+    // }
 }
 </script>

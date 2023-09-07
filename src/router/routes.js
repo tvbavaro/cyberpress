@@ -24,10 +24,5 @@ export const routes = [
         path: '/team',
         name: 'team',
         component: () => import('@views/TeamView.vue')
-    },
-    {
-        path: '/search',
-        name: 'search',
-        component: () => import('@views/QuestView.vue')
     }
 ]
