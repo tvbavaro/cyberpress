@@ -1,5 +1,6 @@
 <template>
     <div class="main-news">
+        <filtersApplied class="main-news__filters-applied" v-show="searchTagVuex"/>
         <section class="main-news__grid">
             <previewArticle v-for="(paper, index) in newsPapers.slice(0, 15)" :class="`main-news__item-${index + 1}`"
                 :id="paper.id" :imgUrl="imgUrl(paper.img, index)" :header="paper.title" :text="paper.text_preview"
@@ -15,6 +16,7 @@
 </template>
 <script>
 import previewArticle from '@components/preview-article.vue';
+import filtersApplied from '@components/filters-applied.vue';
 import { getNewsPapers } from '@api/api.js';
 import { mapState } from 'vuex';
 export default {
@@ -24,7 +26,8 @@ export default {
         }
     },
     components: {
-        previewArticle
+        previewArticle,
+        filtersApplied
     },
     async created() {
         this.getData();

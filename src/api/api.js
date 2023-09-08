@@ -1,6 +1,7 @@
 import { DEVDOMAIN } from "@constants"
 
 export const getNewsPapers = (searchPhrase = '', searchTag = '',sort = 'desc') => {
+    searchTag = searchTag.split(/\#/).join('')
     return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {

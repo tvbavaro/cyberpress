@@ -36,7 +36,7 @@ export default {
         },
         handleClick(value) {
             switch (this.actionType) {
-                case 'tags': this.setSearchTagVuex(value.split(/\#/).join(''));
+                case 'tags': this.setSearchTagVuex(value);
                     break;
                 case 'redirect': this.goToPage(value.toLowerCase());
                     break;
