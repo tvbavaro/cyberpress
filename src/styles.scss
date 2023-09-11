@@ -1,7 +1,7 @@
 @use '@styles/variables' as *;
 @use '@styles/mixins' as *;
 @use '@styles/fonts';
-@use '@styles/_nullstyle';
+@use '@styles/nullstyle';
 
 .container {
     max-width: $wd-container;
@@ -207,8 +207,14 @@
     }
 
     &__item {
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         font-size: $fs-second-text;
+    }
+
+    &__social {
+        width: 104px;
+        display: flex;
+        justify-content: space-between;
     }
 
     &__column {

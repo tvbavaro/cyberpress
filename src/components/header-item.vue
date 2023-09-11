@@ -41,33 +41,14 @@
                 <nav class="menu__grid">
                     <listItem class="menu__list-wrapper" title="News" actionType="category"
                         :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
-                    <!-- <ul class="menu__column">
-                        <li class="menu__item"><span class="menu__header">News</span></li>
-                        <li class="menu__item"><span class="menu__text">Home</span></li>
-                        <li class="menu__item"><span class="menu__text">Today</span></li>
-                        <li class="menu__item"><span class="menu__text">This week/Last week</span></li>
-                        <li class="menu__item"><span class="menu__text">Nov/Oct/Sept/Aug/Jun/Jul</span></li>
-                        <li class="menu__item"><span class="menu__text">2021/2022</span></li>
-                    </ul> -->
-                    <listItem class="menu__list-wrapper" title="Popular tags" actionType="tags" :list="popularTagsVuex" />
-                    <!-- <ul class="menu__column">
-                        <li class="menu__item"><span class="menu__header">Popular tags</span></li>
-                        <li class="menu__item"><span class="menu__text">#Kherson</span></li>
-                        <li class="menu__item"><span class="menu__text">#Evacuation</span></li>
-                        <li class="menu__item"><span class="menu__text">#war_in_Ukraine</span></li>
-                        <li class="menu__item"><span class="menu__text">#Russian_troops</span></li>
-                        <li class="menu__item"><span class="menu__text">#Genocide2014History</span></li>
-                    </ul> -->
-                    <listItem class="menu__list-wrapper" title="About InfoDefence" actionType="redirect" :list="['Project','Team','Donate']" />
-                    <!-- <ul class="menu__column">
-                        <li class="menu__item"><span class="menu__header">About InfoDefence</span></li>
-                        <li class="menu__item"><span class="menu__text">Project</span></li>
-                        <li class="menu__item"><span class="menu__text">Team</span></li>
-                        <li class="menu__item"><span class="menu__text">Donate</span></li>
-                        <li class="menu__item"><span class="menu__text">Contacts</span></li>
-                    </ul> -->
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags" actionType="tags" :list="popularTagsVuex" />
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="About InfoDefence" actionType="redirect"
+                        :list="['Project', 'Team', 'Donate']" />
                     <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">Stay Connected</span></li>
+                        <li class="menu__item">
+                            <socialIcons class="menu__social"/>
+                        </li>
                     </ul>
                 </nav>
             </div>

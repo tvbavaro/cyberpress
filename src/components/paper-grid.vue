@@ -52,7 +52,6 @@ export default {
         this.paper = await getPaper(this.id);
         this.recommended = await getRecommended();
         this.similar = await getSimilar(this.id - 3);
-        console.log(this.similar)
         if (this.paper !== null && this.recommended && this.similar) {
             this.dataIsReady = true;
         }

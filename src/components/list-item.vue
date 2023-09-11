@@ -22,6 +22,9 @@ export default {
             requared: true
         }
     },
+    emits: {
+        'close-all-modals': null
+    },
     computed: {
         ...mapState({
             searchTermVuex: 'searchTerm'
@@ -35,10 +38,14 @@ export default {
             this.$router.push({ name: pageName })
         },
         handleClick(value) {
+            this.$emit('close-all-modals');
             switch (this.actionType) {
-                case 'tags': this.setSearchTagVuex(value);
+                case 'tags':
+                    this.setSearchTagVuex(value);
+                    this.goToPage('main');
                     break;
-                case 'redirect': this.goToPage(value.toLowerCase());
+                case 'redirect':
+                    this.goToPage(value.toLowerCase());
                     break;
 
                 default: console.log('no match');
