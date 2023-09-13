@@ -1,5 +1,5 @@
 <template>
-    <div class="header container">
+    <div class="header">
         <div class="header__wrapper">
             <div class="header__grid">
                 <div class="header__basic">
@@ -24,7 +24,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <socialIcons class="header__social" />
                 <div class="navigation header__navigation" :class="{ 'header__navigation_active': togglers.isMenuOpen }"
@@ -42,8 +41,12 @@
                     <listItem class="menu__list-wrapper" title="News" actionType="category"
                         :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
                     <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags" actionType="tags" :list="popularTagsVuex" />
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="About InfoDefence" actionType="redirect"
+                    <div class="menu__list-wrapper">
+                        <listItem @close-all-modals="closeAllModals" title="About InfoDefence" actionType="redirect"
                         :list="['Project', 'Team', 'Donate']" />
+                        <span class="anchor"><a class="anchor__link" href="#contacts">Contacts</a></span>
+                    </div>
+
                     <ul class="menu__column">
                         <li class="menu__item"><span class="menu__header">Stay Connected</span></li>
                         <li class="menu__item">
@@ -119,7 +122,10 @@ export default {
             if (!this.togglers.isSearchOpen) {
                 this.closeAllModals();
                 this.togglers.isSearchOpen = true;
-            } else this.togglers.isSearchOpen = false;
+            } else { 
+                //this.setSearchTermVuex('');
+                this.togglers.isSearchOpen = false;
+            }
         },
         handleClickHome() {
             this.$router.push({ name: 'main' });

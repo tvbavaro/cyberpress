@@ -1,28 +1,17 @@
 <template>
     <div class="footer container">
         <nav class="footer__menu footer__grid">
+            <listItem class="footer__list-wrapper" title="News" actionType="category"
+                :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
+            <listItem class="footer__list-wrapper" title="About InfoDefence" actionType="redirect"
+                :list="['Project', 'Team', 'Donate']" />
+            <listItem class="footer__list-wrapper" id="contacts" title="Contacts" actionType="redirect"
+                :list="['870571, Bryansk region, Chekhov, st. Glory, 55', '8(2191)741-34-34', 'inf0@infodefense.press']" />
             <ul class="footer__column">
-                <li class="footer__header">News</li>
-                <li class="footer__item">Home</li>
-                <li class="footer__item">Today</li>
-                <li class="footer__item">This week/Last week</li>
-                <li class="footer__item">Nov/Oct/Sept/Aug/Jun/Jul</li>
-                <li class="footer__item">2021/2022</li>
-            </ul>
-            <ul class="footer__column">
-                <li class="footer__header">About InfoDefence</li>
-                <li class="footer__item">Project</li>
-                <li class="footer__item">Team</li>
-                <li class="footer__item">Donate</li>
-            </ul>
-            <ul class="footer__column">
-                <li class="footer__header">Contacts</li>
-                <li class="footer__item">870571, Bryansk region, Chekhov, st. Glory, 55</li>
-                <li class="footer__item">8(2191)741-34-34</li>
-                <li class="footer__item">inf0@infodefense.press</li>
-            </ul>
-            <ul class="footer__column">
-                <li class="footer__header">Stay Connected</li>
+                <li class="footer__item"><span class="footer__header">Stay Connected</span></li>
+                <li class="footer__item">
+                    <socialIcons class="footer__social" />
+                </li>
             </ul>
             <div class="privacy privacy__wrapper">
                 <span class="privacy__copyright">© InfoDefence. All rights reserved</span>
@@ -31,3 +20,13 @@
         </nav>
     </div>
 </template>
+<script>
+import listItem from '@components/list-item.vue';
+import socialIcons from '@components/social-icons.vue';
+export default {
+    components: {
+        listItem,
+        socialIcons
+    }
+}
+</script>

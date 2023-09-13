@@ -1,13 +1,14 @@
 <template>
-    <article class="preview-article" @click="handleClick(id)">
-            <div class="preview-article__img-wrapper">
-                <img v-if="imgUrl" class="preview-article__img" :src="`http://${domain + imgUrl}`" alt="">
-            </div>
-            <div class="preview-article__description" :class="{ 'preview-article__description-wide': isWideArticleDescription }">
-                <h2 class="preview-article__header">{{ header }}</h2>
-                <p class="preview-article__text">{{ text }}</p>
-                <timesetItem v-if="time" :createdDate="createdDate" :time="time"/>
-            </div>
+    <article class="preview-article" @click="handleClick()">
+        <div class="preview-article__img-wrapper">
+            <img v-if="imgUrl" class="preview-article__img" :src="`http://${domain + imgUrl}`" alt="">
+        </div>
+        <div class="preview-article__description"
+            :class="{ 'preview-article__description-wide': isWideArticleDescription }">
+            <h2 class="preview-article__header">{{ header }}</h2>
+            <p class="preview-article__text">{{ text }}</p>
+            <timesetItem v-if="time" :createdDate="createdDate" :time="time" />
+        </div>
     </article>
 </template>
 <script>
@@ -17,6 +18,9 @@ export default {
     props: {
         id: {
             type: Number,
+        },
+        page: {
+            type: String
         },
         imgUrl: {
             type: String
@@ -54,8 +58,13 @@ export default {
         }
     },
     methods: {
-        handleClick(id) {
-            this.$router.push({ name: 'paper', params: { id: id } });
+        handleClick() {
+            if (this.id) {
+                this.$router.push({ name: 'paper', params: { id: this.id } });
+            } else {
+                this.$router.push({ name: this.page });
+            }
+
         }
     }
 }

@@ -161,7 +161,7 @@ export const getSimilar = (id) => {
 }
 
 export const getProject = (type) => {
-    return fetch(`http://${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url`)
+    return fetch(`http://${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url&populate[image_desktop][fields]=width&populate[image_desktop][fields]=height`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -169,13 +169,17 @@ export const getProject = (type) => {
         })
         .then(res => {
             const { data } = res;
-            const { attributes: { slogan, text, title, image_desktop: { data: { attributes: { url } } } } } = data
+            const { attributes: { slogan, text, title, image_desktop: { data: { attributes: { url, width, height } } } } } = data
             const projectData = {
                 title,
                 slogan,
                 text,
                 img: {
-                    desktop: url
+                    desktop: url,
+                    desktop_dementions: {
+                        width,
+                        height
+                    }
                 }
             }
             return projectData;

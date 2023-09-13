@@ -5,7 +5,8 @@
                 <headingItem :title="title" />
             </div>
             <div class="project-article__content-wrapper">
-                <img class="project-article__img" :src="`http://${domain + img}`" alt="">
+                <img class="project-article__img" :src="`http://${domain + img}`" alt="" >
+                <!-- :width="imgSize.width" :height="imgSize.height" -->
                 <div class="project-article__text-wrapper">
                     <textItem :text="text" />
                     <span class="slogan">{{ slogan }}</span>
@@ -26,6 +27,9 @@ export default {
         },
         img: {
             type: String
+        },
+        imgSize: {
+            type: Object
         },
         text: {
             type: String

@@ -3,9 +3,13 @@
         <div class="filters-applied__wrapper">
             <div class="filters-applied__wrapper-content">
                 <h5 class="filters-applied__heading">Filters applied:</h5>
-                <span class="filters-applied__text">{{ searchTagVuex }}</span>
+                <div class="filters-applied__content-wrapper">
+                    <span class="filters-applied__text">{{ searchTagVuex }}</span>
+                    <span class="filters-applied__text"> Keyword: {{ searchTermVuex }}</span>
+                </div>
+                
             </div>
-            <actionButton @click="resetTag">Reset filters</actionButton>
+            <actionButton @click="resetFilters">Reset filters</actionButton>
         </div>
     </div>
 </template>
@@ -18,14 +22,15 @@ export default {
     },
     computed: {
         ...mapState({
-            searchTagVuex: 'searchTag'
+            searchTagVuex: 'searchTag',
+            searchTermVuex: 'searchTerm'
         })
     },
     methods: {
         ...mapMutations({
             setSearchTagVuex: 'setSearchTag'
         }),
-        resetTag() {
+        resetFilters() {
             this.setSearchTagVuex('');
         }
     }

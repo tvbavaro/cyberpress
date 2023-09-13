@@ -54,18 +54,53 @@
     font: {
         size: $fs-header;
         family: $ff-header;
-    };
+    }
+
+    ;
     color: $cr-text-main;
     line-height: 38px;
 }
 
 @mixin text($mbot: 0) {
     white-space: pre-wrap;
+
     font: {
         size: $fs-text;
         family: $ff-text
-    };
+    }
+
+    ;
     color: $cr-text-main;
     line-height: 25px;
     margin-bottom: $mbot;
+}
+
+@mixin social-icons($fill-color: $cr-text-main) {
+    width: 104px;
+    display: flex;
+    justify-content: space-between;
+
+    .social__path {
+        fill: $fill-color;
+    }
+}
+
+@mixin heading-style($fs, $lh, $clr: $cr-text-main) {
+    font: {
+        family: $ff-header;
+        size: $fs;
+    }
+
+    color: $clr;
+    line-height: $lh;
+}
+
+@mixin text-style($fs, $lh, $clr: $cr-text-main) {
+    font: {
+        family: $ff-text;
+        size: $fs
+    }
+
+    color: $clr;
+    line-height: $lh;
 }

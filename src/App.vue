@@ -2,7 +2,7 @@
   <header>
     <headerItem/>
   </header>
-  <main>
+  <main class="container-content">
     <RouterView/>
   </main>
   <footer>
