@@ -5,7 +5,8 @@ export const store = new Vuex.Store({
     state: {
         searchTerm: '',
         searchTag: '',
-        popularTags: []
+        popularTags: [],
+        deviceType: ''
     },
     getters: {
         searchTermLength: state => {
@@ -21,6 +22,14 @@ export const store = new Vuex.Store({
         },
         setPopularTags(state, tags) {
             state.popularTags = tags;
+        },
+        setDeviceType(state) {
+            const currentWidth = window.innerWidth;
+            if(currentWidth > 1279) {
+                state.deviceType = 'desktop';
+            } else if (currentWidth > 767 && currentWidth <= 1279) {
+                state.deviceType = 'tablet';
+            } else state.deviceType = 'mobile';
         }
     },
     actions: {

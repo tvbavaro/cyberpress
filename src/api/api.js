@@ -1,6 +1,6 @@
 import { DEVDOMAIN } from "@constants"
 
-export const getNewsPapers = (searchPhrase = '', searchTag = '',sort = 'desc') => {
+export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') => {
     searchTag = searchTag.split(/\#/).join('')
     return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}`)
         .then(res => {
@@ -17,9 +17,9 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '',sort = 'desc') =
                         text_preview,
                         time_to_read,
                         title,
-                        image_sq: { data: { attributes: { formats: { category_small: { url: category_small } } } } },
-                        image_ultrawide: { data: { attributes: { formats: { category: { url: category } } } } },
-                        image_wide: { data: { attributes: { formats: { old: { url: old } } } } }
+                        image_sq: { data: { attributes: { formats: { category_small: { url: category_small }, category_small_tablet: { url: category_small_tablet } } } } },
+                        image_ultrawide: { data: { attributes: { formats: { category: { url: category }, category_tablet: { url: category_tablet } } } } },
+                        image_wide: { data: { attributes: { formats: { old: { url: old }, old_tablet: { url: old_tablet } } } } }
                     },
                 }) => {
                 const paperData = {
@@ -29,9 +29,16 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '',sort = 'desc') =
                     title,
                     text_preview,
                     img: {
-                        category,
-                        category_small,
-                        old
+                        desktop: {
+                            category,
+                            category_small,
+                            old
+                        },
+                        tablet: {
+                            category: category_tablet,
+                            category_small: category_small_tablet,
+                            old: old_tablet
+                        }
                     }
                 };
                 papers.push(paperData);

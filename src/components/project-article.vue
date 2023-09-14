@@ -5,7 +5,9 @@
                 <headingItem :title="title" />
             </div>
             <div class="project-article__content-wrapper">
-                <img class="project-article__img" :src="`http://${domain + img}`" alt="" >
+                <div class="project-article__img-wrapper">
+                    <img class="project-article__img" :src="`http://${domain + img}`" alt="">
+                </div>
                 <!-- :width="imgSize.width" :height="imgSize.height" -->
                 <div class="project-article__text-wrapper">
                     <textItem :text="text" />

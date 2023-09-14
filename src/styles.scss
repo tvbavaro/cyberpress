@@ -19,6 +19,10 @@
 
 .container-content {
     padding: 0 $pd-ctr;
+
+    @include brakepoints(tablet) {
+        padding: 0 $pd-ctr-tablet;
+    }
 }
 
 .header {
@@ -32,10 +36,13 @@
     }
 
     &__grid {
+        @include set-grid;
         padding: 0px $pd-ctr;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: 100px;
+
+        @include brakepoints(tablet) {
+            padding: 0 $pd-ctr-tablet;
+        }
     }
 
     &__basic {
@@ -196,15 +203,17 @@
         top: 100px;
         display: none;
 
+        @include brakepoints(tablet) {
+            padding: 0px $pd-ctr-tablet;
+        }
+
         &_active {
             display: block;
         }
     }
 
     &__grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        column-gap: 24px;
+        @include set-grid(0, 24px);
         color: $cr-text-main;
     }
 
@@ -228,6 +237,10 @@
 
     &__list-wrapper {
         padding: 24px;
+
+        @include brakepoints(tablet) {
+            padding: 16px 8px;
+        }
     }
 }
 
@@ -235,7 +248,6 @@
     &__wrapper {
         height: 88px;
         background-color: #ccc;
-        display: grid;
         grid-template-columns: repeat(4, 1fr);
         align-items: center;
         background-color: $cr-menu-bg;
@@ -278,19 +290,22 @@
 
 .main-news {
     &__grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        row-gap: 48px;
-        column-gap: 24px;
+        @include set-grid(48px, 24px);
         margin-bottom: 64px;
+
+        @include brakepoints(tablet) {
+            @include set-grid(32px, 20px);
+            margin-bottom: 32px;
+        }
     }
 
     &__grid-old {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        row-gap: 24px;
-        column-gap: 24px;
+        @include set-grid(24px, 24px);
         margin-bottom: 112px;
+
+        @include brakepoints(tablet) {
+            margin-bottom: 72px;
+        }
     }
 
     @for $i from 1 through 15 {
@@ -323,18 +338,23 @@
 
     &__description {
         padding: 16px;
-        max-width: 604px;
-        flex-shrink: 7;
+
+        @include brakepoints(tablet) {
+            padding: 16px 8px;
+        }
     }
 
     &__description-wide {
         padding: 16px 24px;
+
+        @include brakepoints(tablet) {
+            padding: 16px 8px 16px 20px;
+        }
     }
 
-
     &__header {
-        @include ellipsis(2);
         @include heading-style($fs-second-header, 30px);
+        @include ellipsis(2);
         margin-bottom: 10px;
         height: 60px;
     }
@@ -346,9 +366,14 @@
         margin-bottom: 24px;
     }
 
-
     &__img {
         max-width: 100%;
+    }
+
+    &__img-tablet {
+        max-width: 225px;
+        object-fit: contain;
+        align-self: flex-start;
     }
 
 }
@@ -409,11 +434,13 @@
 
 .footer {
     &__grid {
+        @include set-grid(0, 24px);
         background-color: $cr-footer-bg;
         padding: 48px $pd-ctr 16px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        column-gap: 24px;
+
+        @include brakepoints(tablet) {
+            padding: 24px $pd-ctr-tablet 16px;
+        }
     }
 
     &__column {
@@ -435,6 +462,11 @@
     &__list-wrapper {
         padding: 0 24px;
         margin-bottom: 59px;
+
+        @include brakepoints(tablet) {
+            padding: 0 8px;
+            margin-bottom: 56px;
+        }
     }
 
     &__social {
@@ -524,10 +556,7 @@
 
 .project {
     &__grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        row-gap: 64px;
-        column-gap: 24px;
+        @include set-grid(64px, 24px);
         margin-bottom: 112px;
     }
 
@@ -567,6 +596,7 @@
     &__text-wrapper {
         padding-left: 48px;
         padding-right: 24px;
+        flex: 1 1 652px;
     }
 
     &__content-wrapper {
@@ -599,6 +629,7 @@
         size: $fs-slogan;
         family: $ff-slogan;
     }
+
     line-height: 47px;
     color: $cr-text-main;
 }

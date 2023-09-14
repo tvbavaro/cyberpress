@@ -1,8 +1,8 @@
 <template>
     <article class="preview-article" @click="handleClick()">
-        <div class="preview-article__img-wrapper">
-            <img v-if="imgUrl" class="preview-article__img" :src="`http://${domain + imgUrl}`" alt="">
-        </div>
+        <!-- <div class="preview-article__img-wrapper"> -->
+            <img v-if="imgUrl" class="preview-article__img" :class="{'preview-article__img-tablet': isTablet}" :src="`http://${domain + imgUrl}`" alt="">
+        <!-- </div> -->
         <div class="preview-article__description"
             :class="{ 'preview-article__description-wide': isWideArticleDescription }">
             <h2 class="preview-article__header">{{ header }}</h2>
@@ -39,7 +39,10 @@ export default {
         },
         isWideArticleDescription: {
             type: Boolean,
-            default: true
+            default: false
+        },
+        isTablet: {
+            type: Boolean
         }
     },
     components: {

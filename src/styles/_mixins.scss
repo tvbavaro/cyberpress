@@ -104,3 +104,10 @@
     color: $clr;
     line-height: $lh;
 }
+
+@mixin set-grid($rgap: 0, $cgap: 0) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: $rgap;
+    column-gap: $cgap;
+}
