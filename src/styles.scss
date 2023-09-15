@@ -33,6 +33,7 @@
         background-color: $cr-header-bg;
         position: relative;
         margin-bottom: 48px;
+
         @include brakepoints(tablet) {
             margin-bottom: 32px;
         }
@@ -86,6 +87,7 @@
         @include social-icons;
         justify-self: center;
         align-self: center;
+
         @include brakepoints(tablet) {
             display: none;
         }
@@ -94,6 +96,7 @@
     &__navigation {
         justify-self: end;
         cursor: pointer;
+
         @include brakepoints(tablet) {
             grid-column: 3/5;
         }
@@ -169,6 +172,7 @@
         justify-content: space-between;
         width: 224px;
         cursor: pointer;
+
         @include brakepoints(tablet) {
             justify-content: flex-start;
         }
@@ -177,6 +181,7 @@
     &__name {
         font-family: $ff-brand-name;
         font-size: $fs-logo;
+
         @include brakepoints(tablet) {
             font-size: $fs-logo-tablet;
             margin-left: 16px;
@@ -282,6 +287,7 @@
         grid-column: 1/3;
         justify-self: center;
         justify-items: center;
+
         @include brakepoints(tablet) {
             justify-self: flex-start;
         }
@@ -296,6 +302,7 @@
         font-size: $fs-second-text;
         background-color: $cr-menu-bg;
         color: $cr-search-unput;
+
         @include brakepoints(tablet) {
             width: 438px;
         }
@@ -319,6 +326,10 @@
         @include brakepoints(tablet) {
             @include set-grid(32px, 20px);
             margin-bottom: 32px;
+        }
+
+        @include brakepoints(mobile) {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -428,6 +439,7 @@
 
     &__heading-wrapper {
         padding: 48px 24px;
+
         @include brakepoints(tablet) {
             padding: 24px 16px;
         }
@@ -435,6 +447,7 @@
 
     &__wrapper-content {
         padding: 48px 24px;
+
         @include brakepoints(tablet) {
             padding: 24px 16px;
         }
@@ -458,6 +471,7 @@
     &__social {
         @include social-icons;
         margin-right: 60px;
+
         @include brakepoints(tablet) {
             margin-right: 0;
         }
@@ -536,6 +550,7 @@
         @include heading-style($fs-header, 38px);
         display: flex;
         margin: 48px 0 32px 16px;
+
         @include brakepoints(tablet) {
             margin: 24px 0 24px 8px;
         }
@@ -554,6 +569,7 @@
         margin-left: 24px;
         margin-bottom: 16px;
         max-width: 278px;
+
         @include brakepoints(tablet) {
             width: 210px;
             margin-left: 16px;
@@ -597,6 +613,7 @@
     &__grid {
         @include set-grid(64px, 24px);
         margin-bottom: 112px;
+
         @include brakepoints(tablet) {
             @include set-grid(32px, 20px);
             margin-bottom: 72px;
@@ -638,6 +655,7 @@
 
     &__wrapper {
         padding-bottom: 112px;
+
         @include brakepoints(tablet) {
             padding-bottom: 24px;
         }
@@ -647,6 +665,7 @@
         padding-left: 48px;
         padding-right: 24px;
         flex: 1 1 652px;
+
         @include brakepoints(tablet) {
             padding: 0 8px 0 28px;
         }
@@ -662,6 +681,7 @@
 
     &__heading-wrapper {
         padding: 48px 24px 32px;
+
         @include brakepoints(tablet) {
             padding: 24px 16px;
         }
@@ -782,5 +802,15 @@
                 transform: rotate(1turn);
             }
         }
+    }
+}
+
+.slider {
+    overflow-x: scroll;
+    &__wrapper {
+        display: grid;
+        column-gap: 4px;
+        grid-auto-columns: 40%;
+        grid-auto-flow: column;
     }
 }

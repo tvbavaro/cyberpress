@@ -17,9 +17,38 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') 
                         text_preview,
                         time_to_read,
                         title,
-                        image_sq: { data: { attributes: { formats: { category_small: { url: category_small }, category_small_tablet: { url: category_small_tablet } } } } },
-                        image_ultrawide: { data: { attributes: { formats: { category: { url: category }, category_tablet: { url: category_tablet } } } } },
-                        image_wide: { data: { attributes: { formats: { old: { url: old }, old_tablet: { url: old_tablet } } } } }
+                        image_sq: {
+                            data: {
+                                attributes: {
+                                    formats: {
+                                        category_small: { url: category_small },
+                                        category_small_tablet: { url: category_small_tablet },
+                                        category_small_mobile: { url: category_small_mobile }
+                                    }
+                                }
+                            }
+                        },
+                        image_ultrawide: {
+                            data: {
+                                attributes: {
+                                    formats: {
+                                        category: { url: category },
+                                        category_tablet: { url: category_tablet },
+                                        category_mobile: { url: category_mobile }
+                                    }
+                                }
+                            }
+                        },
+                        image_wide: {
+                            data: {
+                                attributes: {
+                                    formats: {
+                                        old: { url: old },
+                                        old_tablet: { url: old_tablet }
+                                    }
+                                }
+                            }
+                        }
                     },
                 }) => {
                 const paperData = {
@@ -38,6 +67,10 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') 
                             category: category_tablet,
                             category_small: category_small_tablet,
                             old: old_tablet
+                        },
+                        mobile: {
+                            category: category_mobile,
+                            category_small: category_small_mobile
                         }
                     }
                 };
@@ -148,7 +181,7 @@ export const getSimilar = (id) => {
                             attributes: {
                                 formats: {
                                     old: { url },
-                                    old_tablet: { url: tablet_url } 
+                                    old_tablet: { url: tablet_url }
                                 }
                             }
                         }
