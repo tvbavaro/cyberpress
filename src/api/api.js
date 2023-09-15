@@ -68,7 +68,7 @@ export const getPaper = (id) => {
                     },
                     image_ultrawide: {
                         data: {
-                            attributes: { url }
+                            attributes: { url, formats: { article_tablet: { url: tablet_url } } }
                         }
                     }
                 }
@@ -81,7 +81,8 @@ export const getPaper = (id) => {
                 time_to_read,
                 tags,
                 img: {
-                    desktop: url
+                    desktop: url,
+                    tablet: tablet_url
                 }
             }
             return paperData;
@@ -106,7 +107,7 @@ export const getRecommended = () => {
                         text_preview,
                         time_to_read,
                         title,
-                        image_sq: { data: { attributes: { formats: { aside: { url: aside_desktop } } } } },
+                        image_sq: { data: { attributes: { formats: { aside: { url: aside_desktop }, aside_tablet: { url: aside_tablet } } } } },
                     },
                 }) => {
                 const paperData = {
@@ -116,7 +117,8 @@ export const getRecommended = () => {
                     title,
                     text_preview,
                     img: {
-                        aside_desktop
+                        desktop: aside_desktop,
+                        tablet: aside_tablet
                     }
                 };
                 papersRec.push(paperData);
@@ -145,7 +147,8 @@ export const getSimilar = (id) => {
                         data: {
                             attributes: {
                                 formats: {
-                                    old: { url }
+                                    old: { url },
+                                    old_tablet: { url: tablet_url } 
                                 }
                             }
                         }
@@ -159,7 +162,8 @@ export const getSimilar = (id) => {
                 createdAt,
                 time_to_read,
                 img: {
-                    desktop: url
+                    desktop: url,
+                    tablet: tablet_url
                 }
             }
             return paperData;

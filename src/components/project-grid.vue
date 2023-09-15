@@ -6,9 +6,10 @@
             <div class="similar project__similar">
                 <div class="similar__wrapper">
                     <span class="similar__heading">{{ articlePreviewData.heading_preview }}</span>
-                    <previewArticle class="project__article-preview project__horizontal"
-                        :imgUrl="articlePreviewData.img.desktop_wide" :header="articlePreviewData.heading_preview"
-                        :text="articlePreviewData.text_preview" :page="typePreview" />
+                    <previewArticle class="project__article-preview project__horizontal project__about-project-rec"
+                        :imgUrl="articlePreviewData.img.desktop_wide" :isTablet="deviceTypeVuex === 'tablet' ? true : false"
+                        :isWideArticleDescription="true" :header="articlePreviewData.heading_preview" :text="articlePreviewData.text_preview"
+                        :page="typePreview" />
                 </div>
             </div>
         </div>
@@ -20,6 +21,7 @@ import projectArticle from '@components/project-article.vue';
 import previewArticle from '@components/preview-article.vue';
 import loadItem from '@components/load-item.vue';
 import { getProject, getProjectPreview } from '@api/api';
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
@@ -49,5 +51,10 @@ export default {
             this.dataIsReady = true;
         }
     },
+    computed: {
+        ...mapState({
+            deviceTypeVuex: 'deviceType'
+        })
+    }
 }
 </script>

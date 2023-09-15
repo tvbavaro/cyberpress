@@ -1,8 +1,12 @@
 <template>
     <article class="preview-article" @click="handleClick()">
         <!-- <div class="preview-article__img-wrapper"> -->
-            <img v-if="imgUrl" class="preview-article__img" :class="{'preview-article__img-tablet': isTablet}" :src="`http://${domain + imgUrl}`" alt="">
+        <img v-if="imgUrl" class="preview-article__img" :class="{'preview-article__img-tablet': isTablet}" :src="`http://${domain + imgUrl}`" alt="">
         <!-- </div> -->
+        <!-- <picture v-if="imgUrl" :class="{'preview-article__img-tablet': isTablet}">
+            <source :srcset="`http://${domain + imgUrl}`" media="(min-width: 1279px)" />
+            <img :src="`http://${domain + imgUrl}`" alt="MDN" />
+        </picture> -->
         <div class="preview-article__description"
             :class="{ 'preview-article__description-wide': isWideArticleDescription }">
             <h2 class="preview-article__header">{{ header }}</h2>

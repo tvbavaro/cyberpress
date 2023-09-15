@@ -3,9 +3,14 @@
         <filtersApplied class="main-news__filters-applied" @reset-filters="resetFilters"
             v-show="searchTagVuex || searchTermVuex" :searchTerm="searchTermVuex" :searchTag="searchTagVuex" />
         <section class="main-news__grid">
-            <previewArticle v-for="(paper, index) in newsPapers.slice(0, 15)" :class="`main-news__item-${index + 1}`"
+            <template v-if="(deviceTypeVuex === 'desktop' || 'tablet')">
+                <previewArticle v-for="(paper, index) in newsPapers.slice(0, 15)" :class="`main-news__item-${index + 1}`"
                 :id="paper.id" :imgUrl="imgUrl(paper.img, index)" :header="paper.title" :text="paper.text_preview"
                 :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
+            </template>
+            <template v-else>
+                
+            </template>
         </section>
         <section class="main-news__grid-old">
             <previewArticle v-for="(paper, index) in newsPapers.slice(15, 23)" :id="paper.id"

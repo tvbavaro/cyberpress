@@ -7,7 +7,7 @@
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <previewArticle v-for="(paperRec, index) in recommended" :id="paperRec.id"
-                        :imgUrl="paperRec.img.aside_desktop" :header="paperRec.title" :text="paperRec.text_preview"
+                        :imgUrl="paperRec.img[this.deviceTypeVuex]" :header="paperRec.title" :text="paperRec.text_preview"
                         :time="paperRec.time_to_read" :createdAt="paperRec.createdAt" :key="paperRec.id" />
                 </div>
             </aside>
@@ -15,6 +15,8 @@
                 <div class="similar__wrapper">
                     <span class="similar__heading">Similar to</span>
                     <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img.desktop"
+                    :isTablet="deviceTypeVuex === 'tablet' ? true : false"
+                    :isWideArticleDescription="true"
                         :header="similar.title" :text="similar.text_preview" :time="similar.time_to_read"
                         :createdAt="similar.createdAt" :key="similar.id" />
                 </div>
@@ -28,6 +30,7 @@ import { DEVDOMAIN } from '@constants';
 import { getPaper, getRecommended, getSimilar } from '@api/api.js';
 import previewArticle from '@components/preview-article.vue';
 import mainArticle from '@components/main-article.vue';
+import { mapState } from 'vuex';
 
 export default {
     data() {
@@ -57,11 +60,14 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            deviceTypeVuex: 'deviceType'
+        }),
         domain() {
             return DEVDOMAIN;
         },
         imgUrl() {
-            return this.paper.img.desktop;
+            return this.paper.img[this.deviceTypeVuex];
         },
         tags() {
             return this.paper.tags.split(/\s/);

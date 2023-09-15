@@ -1,6 +1,7 @@
 //brakepoints
 $brakepoints: (
     tablet: 1279px,
+    tablet-mini: 956px,
     mobile: 767px
 );
 
@@ -16,6 +17,7 @@ $ff-slogan: 'Oswald-Stencil';
 
 //fonts-sizes
 $fs-logo: 24px;
+$fs-logo-tablet: 20px;
 
 $fs-header: 28px;
 $fs-second-header: 20px;
