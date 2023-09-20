@@ -44,7 +44,8 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') 
                                 attributes: {
                                     formats: {
                                         old: { url: old },
-                                        old_tablet: { url: old_tablet }
+                                        old_tablet: { url: old_tablet },
+                                        old_mobile: { url: old_mobile }
                                     }
                                 }
                             }
@@ -70,7 +71,8 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') 
                         },
                         mobile: {
                             category: category_mobile,
-                            category_small: category_small_mobile
+                            category_small: category_small_mobile,
+                            old: old_mobile
                         }
                     }
                 };
@@ -101,7 +103,17 @@ export const getPaper = (id) => {
                     },
                     image_ultrawide: {
                         data: {
-                            attributes: { url, formats: { article_tablet: { url: tablet_url } } }
+                            attributes: { 
+                                url, 
+                                formats: { 
+                                    article_tablet: { 
+                                        url: tablet_url 
+                                    },
+                                    article_mobile: {
+                                        url: mobile_url
+                                    } 
+                                },
+                            }
                         }
                     }
                 }
@@ -115,7 +127,8 @@ export const getPaper = (id) => {
                 tags,
                 img: {
                     desktop: url,
-                    tablet: tablet_url
+                    tablet: tablet_url,
+                    mobile: mobile_url
                 }
             }
             return paperData;
@@ -140,7 +153,23 @@ export const getRecommended = () => {
                         text_preview,
                         time_to_read,
                         title,
-                        image_sq: { data: { attributes: { formats: { aside: { url: aside_desktop }, aside_tablet: { url: aside_tablet } } } } },
+                        image_sq: { 
+                            data: { 
+                                attributes: { 
+                                    formats: { 
+                                        aside: { 
+                                            url: aside_desktop 
+                                        }, 
+                                        aside_tablet: { 
+                                            url: aside_tablet 
+                                        },
+                                        aside_mobile: {
+                                            url: aside_mobile
+                                        } 
+                                    } 
+                                } 
+                            } 
+                        },
                     },
                 }) => {
                 const paperData = {
@@ -151,7 +180,8 @@ export const getRecommended = () => {
                     text_preview,
                     img: {
                         desktop: aside_desktop,
-                        tablet: aside_tablet
+                        tablet: aside_tablet,
+                        mobile: aside_mobile
                     }
                 };
                 papersRec.push(paperData);
@@ -181,7 +211,12 @@ export const getSimilar = (id) => {
                             attributes: {
                                 formats: {
                                     old: { url },
-                                    old_tablet: { url: tablet_url }
+                                    old_tablet: { 
+                                        url: tablet_url 
+                                    },
+                                    old_mobile: {
+                                        url: old_mobile
+                                    }
                                 }
                             }
                         }
@@ -196,7 +231,8 @@ export const getSimilar = (id) => {
                 time_to_read,
                 img: {
                     desktop: url,
-                    tablet: tablet_url
+                    tablet: tablet_url,
+                    mobile: old_mobile
                 }
             }
             return paperData;

@@ -1,23 +1,27 @@
 <template>
     <article class="preview-article" @click="handleClick()">
-        <!-- <div class="preview-article__img-wrapper"> -->
-        <img v-if="imgUrl" class="preview-article__img" :class="{'preview-article__img-tablet': isTablet}" :src="`http://${domain + imgUrl}`" alt="">
-        <!-- </div> -->
-        <!-- <picture v-if="imgUrl" :class="{'preview-article__img-tablet': isTablet}">
+        <img v-if="imgUrl" 
+                    class="preview-article__img" 
+                    :class="[{'preview-article__img-tablet': isTablet},{'preview-article__img-mobile': isMobile}]" 
+                    :src="`http://${domain + imgUrl}`" alt="">
+         <!-- <picture v-if="imgUrl" :class="{'preview-article__img-tablet': isTablet}">
             <source :srcset="`http://${domain + imgUrl}`" media="(min-width: 1279px)" />
             <img :src="`http://${domain + imgUrl}`" alt="MDN" />
-        </picture> -->
+        </picture>  -->
         <div class="preview-article__description"
             :class="{ 'preview-article__description-wide': isWideArticleDescription }">
-            <h2 class="preview-article__header">{{ header }}</h2>
+            <h2 class="preview-article__header" :class="{'preview-article__header-mob_pd': isMobile}">{{ header }}</h2>
             <p class="preview-article__text">{{ text }}</p>
             <timesetItem v-if="time" :createdDate="createdDate" :time="time" />
         </div>
     </article>
 </template>
+
+
 <script>
 import { DEVDOMAIN } from '@constants';
 import timesetItem from '@components/timeset-item.vue';
+import { mapState } from 'vuex';
 export default {
     props: {
         id: {
@@ -47,6 +51,9 @@ export default {
         },
         isTablet: {
             type: Boolean
+        },
+        isMobile: {
+            type: Boolean
         }
     },
     components: {
@@ -56,6 +63,9 @@ export default {
 
     },
     computed: {
+        ...mapState({
+            deviceTypeVuex: 'deviceType'
+        }),
         domain() {
             return DEVDOMAIN;
         },

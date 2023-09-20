@@ -1,7 +1,7 @@
 <template>
     <div class="project">
         <div class="project__grid" v-if="dataIsReady">
-            <projectArticle class="project__article-main" :title="articleData.title" :img="articleData.img.desktop"
+            <projectArticle class="project__article-main" :title="articleData.title" :img="articleData.img[deviceTypeVuex]"
                 :imgSize="articleData.img.desktop_dementions" :slogan="articleData.slogan" :text="articleData.text" />
             <div class="similar project__similar">
                 <div class="similar__wrapper">
