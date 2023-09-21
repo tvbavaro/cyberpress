@@ -23,6 +23,15 @@ export default {
   },
   created() {
     this.$store.commit('setDeviceType');
+    window.addEventListener('resize', this.updateDeviceType);
+  },
+  beforeUnmount() {
+    this.removeEventListener('resize', this.updateDeviceType);
+  },
+  methods: {
+    updateDeviceType() {
+      this.$store.commit('setDeviceType');
+    }
   }
 }
 </script>

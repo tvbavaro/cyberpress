@@ -20,7 +20,7 @@
                     <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img.desktop"
                     :isTablet="deviceTypeVuex === 'tablet' ? true : false"
                     :isMobile="deviceTypeVuex === 'mobile' ? true : false"
-                    :isWideArticleDescription="true"
+                    :isWideArticleDescription="!deviceTypeVuex === 'mobile' ? true : false"
                         :header="similar.title" :text="similar.text_preview" :time="similar.time_to_read"
                         :createdAt="similar.createdAt" :key="similar.id" />
                 </div>

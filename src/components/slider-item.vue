@@ -1,11 +1,11 @@
-<template v-if="papers.length">
-    <div class="slider">
+<template >
+    <div class="slider" v-if="papers.length">
         <div class="slider__divider"></div>
         <div class="slider__wrapper">
-            <div class="slider__list" :class="{'slider__list_old' : showImg ? false : true}" :ref="refName">
+            <div class="slider__list" :class="{ 'slider__list_old': showImg ? false : true }" :ref="refName">
                 <previewArticle v-for="(paper, index) in papers" :id="paper.id"
-                    :imgUrl="showImg ? paper.img[this.deviceType].category_small : null" :header="paper.title" :text="paper.text_preview"    
-                    :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
+                    :imgUrl="showImg ? paper.img[this.deviceType].category_small : null" :header="paper.title"
+                    :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </div>
         </div>
         <div class="slider__nav-wrapper">
@@ -57,10 +57,14 @@ export default {
         previewArticle
     },
     mounted() {
-        this.$refs[this.refName].addEventListener('scroll', () => this.setSliderArrowsStyle(this.refName));
+        if (this.papers.length) {
+            this.$refs[this.refName].addEventListener('scroll', () => this.setSliderArrowsStyle(this.refName));
+        }
     },
     beforeUnmount() {
-        this.$refs[this.refName].removeEventListener('scroll', () => this.setSliderArrowsStyle);
+        if (this.$refs[this.refName]) {
+            this.$refs[this.refName].removeEventListener('scroll', () => this.setSliderArrowsStyle);
+        }
     },
     methods: {
         scrollSlideTo(currenRef, type) {
@@ -79,8 +83,8 @@ export default {
                 this.isStartPosition = false;
             }
 
-            if (this.$refs[currenRef].offsetWidth + this.$refs[currenRef].scrollLeft
-                === this.$refs[currenRef].scrollWidth) {
+            if (this.$refs[currenRef].offsetWidth + this.$refs[currenRef].scrollLeft ===
+                this.$refs[currenRef].scrollWidth) {
                 this.isEndPosition = true;
             } else if (this.$refs[currenRef].offsetWidth +
                 this.$refs[currenRef].scrollLeft <

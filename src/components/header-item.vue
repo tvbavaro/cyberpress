@@ -39,11 +39,13 @@
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
                 <nav class="menu__grid">
                     <listItem class="menu__list-wrapper" title="News" actionType="category"
-                        :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags" actionType="tags" :list="popularTagsVuex" />
+                        :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']"
+                        :isDropDown="deviceTypeVuex === 'mobile' ? true : false" />
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags" actionType="tags" :list="popularTagsVuex" 
+                    :isDropDown="deviceTypeVuex === 'mobile' ? true : false"/>
                     <div class="menu__list-wrapper">
                         <listItem @close-all-modals="closeAllModals" title="About InfoDefence" actionType="redirect"
-                        :list="['Project', 'Team', 'Donate']" />
+                        :list="['Project', 'Team', 'Donate']" :isDropDown="deviceTypeVuex === 'mobile' ? true : false"/>
                         <span class="anchor"><a class="anchor__link" href="#contacts">Contacts</a></span>
                     </div>
 
@@ -88,7 +90,9 @@ export default {
     computed: {
         ...mapState({
             searchTermVuex: 'searchTerm',
-            popularTagsVuex: 'popularTags'
+            popularTagsVuex: 'popularTags',
+            deviceTypeVuex: 'deviceType',
+            deviceVuex: 'device'
         }),
         ...mapGetters({
             searchTermLengthVuex: 'searchTermLength'

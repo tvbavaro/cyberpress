@@ -1,14 +1,16 @@
 <template>
     <div class="project">
         <div class="project__grid" v-if="dataIsReady">
-            <projectArticle class="project__article-main" :title="articleData.title" :img="articleData.img[deviceTypeVuex]"
+            <projectArticle class="project__article-main" :title="articleData.title" :img="articleData.img.desktop"
                 :imgSize="articleData.img.desktop_dementions" :slogan="articleData.slogan" :text="articleData.text" />
             <div class="similar project__similar">
                 <div class="similar__wrapper">
                     <span class="similar__heading">{{ articlePreviewData.heading_preview }}</span>
                     <previewArticle class="project__article-preview project__horizontal project__about-project-rec"
                         :imgUrl="articlePreviewData.img.desktop_wide" :isTablet="deviceTypeVuex === 'tablet' ? true : false"
-                        :isWideArticleDescription="true" :header="articlePreviewData.heading_preview" :text="articlePreviewData.text_preview"
+                        :isMobile="deviceTypeVuex === 'mobile' ? true : false"
+                        :isWideArticleDescription="!deviceTypeVuex === 'mobile' ? true : false"
+                        :header="articlePreviewData.heading_preview" :text="articlePreviewData.text_preview"
                         :page="typePreview" />
                 </div>
             </div>
