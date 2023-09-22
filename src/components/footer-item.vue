@@ -5,7 +5,7 @@
                 :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']" />
             <listItem class="footer__list-wrapper" title="About InfoDefence" actionType="redirect"
                 :list="['Project', 'Team', 'Donate']" />
-            <listItem class="footer__list-wrapper" id="contacts" title="Contacts" actionType="redirect"
+            <listItem class="footer__list-wrapper" title="Contacts" actionType="redirect"
                 :list="['870571, Bryansk region, Chekhov, st. Glory, 55', '8(2191)741-34-34', 'inf0@infodefense.press']" />
             <ul class="footer__column">
                 <li class="footer__item"><span class="footer__header">Stay Connected</span></li>

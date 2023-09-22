@@ -266,7 +266,11 @@
     }
 
     &__close {
-        @include icon-default
+        @include icon-default;
+
+        @include brakepoints(mobile) {
+            margin-right: 0;
+        }
     }
 
     &__text {
@@ -312,7 +316,7 @@
 
         @include brakepoints(mobile) {
             top: 62px;
-            padding: 0 $pd-ctr-mobile;
+            padding: $pd-ctr-mobile $pd-ctr-mobile 24px;
         }
 
         &_active {
@@ -326,12 +330,21 @@
 
         @include brakepoints(mobile) {
             grid-template-columns: auto;
+            & :nth-child(3)::after {
+                display: none;
+            }
         }
     }
 
     &__item {
         margin-bottom: 24px;
         font-size: $fs-second-text;
+
+        @include brakepoints(mobile) {
+            margin-bottom: inherit;
+            display: flex;
+            justify-content: flex-end;
+        }
     }
 
     &__social {
@@ -340,6 +353,12 @@
 
     &__column {
         padding: 24px;
+
+        @include brakepoints(mobile) {
+            padding: 8px 0 0;
+            display: flex;
+            justify-content: flex-end;
+        }
     }
 
     &__header {
@@ -352,6 +371,10 @@
 
         @include brakepoints(tablet) {
             padding: 16px 8px;
+        }
+
+        @include brakepoints(mobile) {
+            padding: 0 8px 8px;
         }
     }
 }
@@ -371,6 +394,12 @@
         &_active {
             display: grid;
         }
+
+        @include brakepoints(mobile) {
+            height: 56px;
+            grid-template-columns: auto;
+            padding: 0 $pd-ctr-mobile;
+        }
     }
 
     &__input-wrapper {
@@ -381,6 +410,10 @@
 
         @include brakepoints(tablet) {
             justify-self: flex-start;
+        }
+
+        @include brakepoints(mobile) {
+            justify-self: center;
         }
     }
 
@@ -458,6 +491,7 @@
     &__horizontal {
         display: flex;
         grid-column: 1/4;
+
         @include brakepoints(mobile) {
             grid-column: 1/2;
         }
@@ -465,6 +499,10 @@
 
     &__filters-applied {
         margin-bottom: 32px;
+
+        @include brakepoints(mobile) {
+            margin-bottom: 24px;
+        }
     }
 }
 
@@ -547,6 +585,12 @@
 }
 
 .timeset {
+
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     &__text {
         @include text-style($fs-time, 16px, $cr-time);
 
@@ -564,6 +608,10 @@
         margin: 0 8px;
         height: 6px;
         width: 6px;
+
+        @include brakepoints(mobile) {
+            margin: 0 4px;
+        }
     }
 }
 
@@ -689,10 +737,6 @@
 
     .list__header {
         @include heading-style($fs-second-header, 27px, $cr-text-footer);
-
-        @include brakepoints(mobile) {
-            font-size: $fs-header-mob;
-        }
     }
 
     .list__text {
@@ -746,9 +790,10 @@
     &__articles-wrapper {
         display: grid;
         row-gap: 24px;
+
         @include brakepoints(mobile) {
             display: grid;
-            grid-template-columns: repeat(2,1fr);
+            grid-template-columns: repeat(2, 1fr);
             column-gap: 12px;
         }
     }
@@ -837,6 +882,7 @@
     @include brakepoints(mobile) {
         display: none;
     }
+
     &__wrapper {
         display: flex;
     }
@@ -1043,11 +1089,11 @@
         }
     }
 
-    &__column  {
+    &__column {
         @include brakepoints(mobile) {
             &::after {
                 content: '';
-                display: inline-block;
+                display: block;
                 height: 2px;
                 width: 100%;
                 //max-width: 243px;
@@ -1067,10 +1113,18 @@
 
     &__header {
         @include heading-style($fs-second-header, 27px);
+
+        @include brakepoints(mobile) {
+            @include heading-style($fs-header-mob, 24px);
+        }
     }
 
     &__text {
         @include text-style($fs-second-text, 21px);
+
+        @include brakepoints(mobile) {
+            @include text-style($fs-text-mob, 18px);
+        }
     }
 }
 
@@ -1105,18 +1159,25 @@
 
     &__heading {
         @include heading-style($fs-second-header, 27px);
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+
+        @include brakepoints(mobile) {
+            @include heading-style($fs-header-mob,24px);
+        }
     }
 
     &__text {
         @include text-style($fs-second-text, 21px);
         display: block;
+
+        @include brakepoints(mobile) {
+            @include text-style($fs-text-mob,21px)
+        }
     }
 }
 
 .load-content {
     &__wrapper {
-        width: 100vw;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -1186,6 +1247,7 @@
         grid-auto-columns: 45%;
         grid-auto-flow: column;
         overflow-x: scroll;
+
         &::-webkit-scrollbar {
             display: none;
         }

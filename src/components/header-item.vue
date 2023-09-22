@@ -40,19 +40,21 @@
                 <nav class="menu__grid">
                     <listItem class="menu__list-wrapper" title="News" actionType="category"
                         :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']"
-                        :isDropDown="deviceTypeVuex === 'mobile' ? true : false" />
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags" actionType="tags" :list="popularTagsVuex" 
-                    :isDropDown="deviceTypeVuex === 'mobile' ? true : false"/>
-                    <div class="menu__list-wrapper">
-                        <listItem @close-all-modals="closeAllModals" title="About InfoDefence" actionType="redirect"
-                        :list="['Project', 'Team', 'Donate']" :isDropDown="deviceTypeVuex === 'mobile' ? true : false"/>
-                        <span class="anchor"><a class="anchor__link" href="#contacts">Contacts</a></span>
-                    </div>
+                        :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags"
+                        actionType="tags" :list="popularTagsVuex" :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="About InfoDefence"
+                        actionType="redirect" :list="['Project', 'Team', 'Donate', 'Contacts']" :isDropDown="isMobile" />
 
-                    <ul class="menu__column">
+                    <ul class="menu__column" v-if="isMobile">
+                        <li class="menu__item">
+                            <socialIcons class="menu__social" />
+                        </li>
+                    </ul>
+                    <ul class="menu__column" v-else>
                         <li class="menu__item"><span class="menu__header">Stay Connected</span></li>
                         <li class="menu__item">
-                            <socialIcons class="menu__social"/>
+                            <socialIcons class="menu__social" />
                         </li>
                     </ul>
                 </nav>
@@ -92,7 +94,8 @@ export default {
             searchTermVuex: 'searchTerm',
             popularTagsVuex: 'popularTags',
             deviceTypeVuex: 'deviceType',
-            deviceVuex: 'device'
+            //deviceVuex: 'device',
+            isMobile: 'isMobile'
         }),
         ...mapGetters({
             searchTermLengthVuex: 'searchTermLength'
@@ -107,6 +110,8 @@ export default {
         }),
         setSearch(e) {
             this.setSearchTermVuex(e.target.value);
+            window.history.replaceState(null, document.title, `${window.location.pathname}?q=${e.target.value}`);
+            console.log(window.history);
         },
         closeAllModals() {
             for (let key in this.togglers) {
@@ -126,7 +131,7 @@ export default {
             if (!this.togglers.isSearchOpen) {
                 this.closeAllModals();
                 this.togglers.isSearchOpen = true;
-            } else { 
+            } else {
                 //this.setSearchTermVuex('');
                 this.togglers.isSearchOpen = false;
             }

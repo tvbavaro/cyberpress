@@ -2,9 +2,9 @@
     <div class="slider" v-if="papers.length">
         <div class="slider__divider"></div>
         <div class="slider__wrapper">
-            <div class="slider__list" :class="{ 'slider__list_old': showImg ? false : true }" :ref="refName">
+            <div class="slider__list" :class="{ 'slider__list_old': !showImg }" :ref="refName" @scroll="setSliderArrowsStyle(refName)">
                 <previewArticle v-for="(paper, index) in papers" :id="paper.id"
-                    :imgUrl="showImg ? paper.img[this.deviceType].category_small : null" :header="paper.title"
+                    :imgUrl="showImg ? paper.img[this.deviceTypeVuex].category_small : null" :header="paper.title"
                     :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </div>
         </div>
@@ -31,6 +31,7 @@
 
 <script>
 import previewArticle from '@components/preview-article.vue';
+import { mapState } from 'vuex';
 
 export default {
     data() {
@@ -46,9 +47,6 @@ export default {
         refName: {
             type: String
         },
-        deviceType: {
-            type: String
-        },
         showImg: {
             type: Boolean
         }
@@ -56,15 +54,10 @@ export default {
     components: {
         previewArticle
     },
-    mounted() {
-        if (this.papers.length) {
-            this.$refs[this.refName].addEventListener('scroll', () => this.setSliderArrowsStyle(this.refName));
-        }
-    },
-    beforeUnmount() {
-        if (this.$refs[this.refName]) {
-            this.$refs[this.refName].removeEventListener('scroll', () => this.setSliderArrowsStyle);
-        }
+    computed: {
+        ...mapState({
+            deviceTypeVuex: 'deviceType'
+        }),
     },
     methods: {
         scrollSlideTo(currenRef, type) {
@@ -93,6 +86,6 @@ export default {
                 this.isEndPosition = false;
             }
         }
-    }
+    },
 }
 </script>

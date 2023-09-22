@@ -1,13 +1,9 @@
 <template>
     <article class="preview-article" @click="handleClick()">
-        <img v-if="imgUrl" 
+        <img v-if="imgUrl"
                     class="preview-article__img" 
                     :class="[{'preview-article__img-tablet': isTablet},{'preview-article__img-mobile': isMobile}]" 
                     :src="`http://${domain + imgUrl}`" alt="">
-         <!-- <picture v-if="imgUrl" :class="{'preview-article__img-tablet': isTablet}">
-            <source :srcset="`http://${domain + imgUrl}`" media="(min-width: 1279px)" />
-            <img :src="`http://${domain + imgUrl}`" alt="MDN" />
-        </picture>  -->
         <div class="preview-article__description"
             :class="{ 'preview-article__description-wide': isWideArticleDescription }">
             <h2 class="preview-article__header" :class="{'preview-article__header-mob_pd': isMobile}">{{ header }}</h2>
@@ -57,14 +53,11 @@ export default {
         }
     },
     components: {
-        timesetItem
-    },
-    created() {
-
+        timesetItem,
     },
     computed: {
         ...mapState({
-            deviceTypeVuex: 'deviceType'
+            deviceTypeVuex: 'deviceType',
         }),
         domain() {
             return DEVDOMAIN;
@@ -72,7 +65,7 @@ export default {
         createdDate() {
             return new Date(this.createdAt).toGMTString()
                 .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g)?.join(', ');
-        }
+        },
     },
     methods: {
         handleClick() {
