@@ -18,9 +18,29 @@ export const store = new Vuex.Store({
     mutations: {
         setSearchTerm(state, searchTermByUser) {
             state.searchTerm = searchTermByUser;
+            //this.commit('setPageURL');
+        },
+        setPageURL(state) {
+            const params = {
+                searchFilter: state.searchTerm.length ? `q=${state.searchTerm}` : '',
+                tagFilter: state.searchTag.length ? `tag=${state.searchTag}` : ''
+            }
+            const hasValueParams = Object.values(params).filter(el => el.length);
+
+            let pageURL = document.location.pathname;
+            if (hasValueParams.length > 1) {
+                pageURL += `?${hasValueParams.join('&')}`;
+            } else if (hasValueParams.length === 1) {
+                pageURL += `?${hasValueParams[0]}`;
+            }
+            const historyState = window.history.state,
+                pageTitle = document.title;
+            window.history.pushState(historyState, pageTitle, pageURL);
+
         },
         setSearchTag(state, searchTagByUserSelect) {
-            state.searchTag = searchTagByUserSelect;
+            state.searchTag = searchTagByUserSelect.replace(/\#/, '');
+            //this.commit('setPageURL');
         },
         setPopularTags(state, tags) {
             state.popularTags = tags;
@@ -48,4 +68,6 @@ export const store = new Vuex.Store({
             await getPopularTagsAPI().then(tags => commit('setPopularTags', tags));
         }
     }
-})
+});
+
+export default store;

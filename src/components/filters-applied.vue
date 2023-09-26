@@ -4,7 +4,7 @@
             <div class="filters-applied__wrapper-content">
                 <h5 class="filters-applied__heading">Filters applied:</h5>
                 <div class="filters-applied__content-wrapper">
-                    <span class="filters-applied__text">{{ searchTag }}</span>
+                    <span class="filters-applied__text" v-show="searchTag">#{{ searchTag }}</span>
                     <span class="filters-applied__text" v-show="searchTerm"> Keyword: {{ searchTerm }}</span>
                 </div>   
             </div>

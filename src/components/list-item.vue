@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setSearchTagVuex: 'setSearchTag'
+            setSearchTagVuex: 'setSearchTag',
         }),
         goToPage(pageName) {
             this.$router.push({ name: pageName });

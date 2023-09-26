@@ -63,7 +63,8 @@
                 <div class="search-menu__input-wrapper">
                     <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
                         :value="searchTermVuex" />
-                    <img class="search-menu__icon" src="@assets/24x24/search.svg" alt="">
+                    <!-- <img class="search-menu__icon" src="@assets/24x24/search.svg" alt=""> -->
+                    <i class="search-menu__icon"></i>
                 </div>
             </div>
         </div>
@@ -94,7 +95,6 @@ export default {
             searchTermVuex: 'searchTerm',
             popularTagsVuex: 'popularTags',
             deviceTypeVuex: 'deviceType',
-            //deviceVuex: 'device',
             isMobile: 'isMobile'
         }),
         ...mapGetters({
@@ -103,15 +103,18 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setSearchTermVuex: 'setSearchTerm'
+            setSearchTermVuex: 'setSearchTerm',
+            setPageURLVuex: 'setPageURL'
         }),
         ...mapActions({
             getPopularTagsVuex: 'getPopularTags'
         }),
         setSearch(e) {
-            this.setSearchTermVuex(e.target.value);
-            window.history.replaceState(null, document.title, `${window.location.pathname}?q=${e.target.value}`);
-            console.log(window.history);
+            const searchTerm = e.target.value;
+            this.setSearchTermVuex(searchTerm);
+            if(document.location.pathname !== '/') {
+                this.$router.push({ name: 'main' });
+            } else this.setPageURLVuex();
         },
         closeAllModals() {
             for (let key in this.togglers) {
@@ -132,7 +135,6 @@ export default {
                 this.closeAllModals();
                 this.togglers.isSearchOpen = true;
             } else {
-                //this.setSearchTermVuex('');
                 this.togglers.isSearchOpen = false;
             }
         },

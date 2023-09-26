@@ -29,11 +29,10 @@
         <section class="main-news__grid-old">
             <template v-if="isMobile">
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
-                <previewArticle v-for="paper in mobileOldPapersWithImg" :id="paper.id"
-                    class="main-news__horizontal" :imgUrl="paper.img[this.deviceTypeVuex].old"
-                    :isTablet="isTablet"
-                    :isMobile="isMobile" :header="paper.title" :text="paper.text_preview"
-                    :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
+                <previewArticle v-for="paper in mobileOldPapersWithImg" :id="paper.id" class="main-news__horizontal"
+                    :imgUrl="paper.img[this.deviceTypeVuex].old" :isTablet="isTablet" :isMobile="isMobile"
+                    :header="paper.title" :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt"
+                    :key="paper.id" />
 
                 <sliderItem :papers="mobileOldPapersWithoutImg" refName="sliderold" :showImg="false" />
             </template>
@@ -41,14 +40,13 @@
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
                 <previewArticle v-for="(paper, index) in newsPapers.slice(15, 23)" :id="paper.id"
                     :class="{ 'main-news__horizontal': !(index % 2) }" :imgUrl="oldImgUrl(paper.img, index)"
-                    :isTablet="isTablet"
-                    :isMobile="isMobile" :header="paper.title" :text="paper.text_preview"
+                    :isTablet="isTablet" :isMobile="isMobile" :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt"
                     :isWideArticleDescription="index % 2 ? false : true" :key="paper.id" />
             </template>
         </section>
     </div>
-    <loadItem v-else/>
+    <loadItem v-else />
 </template>
 <script>
 import previewArticle from '@components/preview-article.vue';
@@ -99,7 +97,7 @@ export default {
             });
         },
         dataIsReady() {
-            if(this.newsPapers) {
+            if (this.newsPapers) {
                 return true;
             } else return false;
         }
@@ -107,7 +105,9 @@ export default {
     methods: {
         ...mapMutations({
             setSearchTagVuex: 'setSearchTag',
-            setSearchTermVuex: 'setSearchTerm'
+            setSearchTermVuex: 'setSearchTerm',
+            setPageURLVuex: 'setPageURL',
+            setPageURLVuex: 'setPageURL'
         }),
         imgUrl(imgs, index) {
             const ultraWideInds = [1, 8, 9, 10, 11];
@@ -127,8 +127,9 @@ export default {
             this.newsPapers = await getNewsPapers(this.searchTermVuex, this.searchTagVuex);
         },
         resetFilters() {
-            this.setSearchTagVuex('');
             this.setSearchTermVuex('');
+            this.setSearchTagVuex('');
+            this.setPageURLVuex();
         },
         scrollSlideTo(currenRef, type) {
             const articleWidth = Number(this.$refs[currenRef].children[0].getBoundingClientRect().width.toFixed());
@@ -146,8 +147,8 @@ export default {
                 this.isStartPosition = false;
             }
 
-            if (this.$refs[currenRef].offsetWidth + this.$refs[currenRef].scrollLeft
-                === this.$refs[currenRef].scrollWidth) {
+            if (this.$refs[currenRef].offsetWidth + this.$refs[currenRef].scrollLeft ===
+                this.$refs[currenRef].scrollWidth) {
                 this.isEndPosition = true;
             } else if (this.$refs[currenRef].offsetWidth +
                 this.$refs[currenRef].scrollLeft <

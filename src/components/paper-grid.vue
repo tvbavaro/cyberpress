@@ -89,7 +89,6 @@ export default {
             this.paper = await getPaper(this.id);
             this.recommended = await getRecommended();
             this.similar = await getSimilar(this.id - 3);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 }
