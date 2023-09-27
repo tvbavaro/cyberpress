@@ -54,6 +54,11 @@ export default {
     components: {
         previewArticle
     },
+    created() {
+        if(this.papers.length < 3) {
+            this.isEndPosition = true;
+        }
+    },
     computed: {
         ...mapState({
             deviceTypeVuex: 'deviceType'

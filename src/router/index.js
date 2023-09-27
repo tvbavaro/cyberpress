@@ -7,7 +7,7 @@ export const router = createRouter({
     routes: routes
 });
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     store.commit('setPageURL');
 });

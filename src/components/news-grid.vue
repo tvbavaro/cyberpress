@@ -1,7 +1,8 @@
 <template>
     <div class="main-news" v-if="dataIsReady">
         <filtersApplied class="main-news__filters-applied" @reset-filters="resetFilters"
-            v-show="searchTagVuex || searchTermVuex" :searchTerm="searchTermVuex" :searchTag="searchTagVuex" />
+            v-show="searchTagVuex || searchTermVuex || choosenCategoryVuex" :searchTerm="searchTermVuex"
+            :searchTag="searchTagVuex" :choosenCategory="choosenCategoryVuex" />
         <section class="main-news__grid">
             <!-- grid for smartphones -->
             <template v-if="isMobile">
@@ -80,7 +81,8 @@ export default {
             searchTagVuex: 'searchTag',
             deviceTypeVuex: 'deviceType',
             isTablet: 'isTablet',
-            isMobile: 'isMobile'
+            isMobile: 'isMobile',
+            choosenCategoryVuex: 'choosenCategory'
         }),
         mobileOldPapersWithImg() {
             return this.newsPapers.slice(15, 23).filter((paper, index) => {
@@ -104,9 +106,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setSearchTagVuex: 'setSearchTag',
-            setSearchTermVuex: 'setSearchTerm',
-            setPageURLVuex: 'setPageURL',
+            resetFiltersVuex: 'resetFilters',
             setPageURLVuex: 'setPageURL'
         }),
         imgUrl(imgs, index) {
@@ -124,11 +124,14 @@ export default {
         },
         async getData() {
             this.newsPapers = null;
-            this.newsPapers = await getNewsPapers(this.searchTermVuex, this.searchTagVuex);
+            this.newsPapers = await getNewsPapers(
+                this.searchTermVuex,
+                this.searchTagVuex,
+                this.choosenCategoryVuex
+            );
         },
         resetFilters() {
-            this.setSearchTermVuex('');
-            this.setSearchTagVuex('');
+            this.resetFiltersVuex();
             this.setPageURLVuex();
         },
         scrollSlideTo(currenRef, type) {
@@ -163,6 +166,9 @@ export default {
             this.getData();
         },
         searchTagVuex() {
+            this.getData();
+        },
+        choosenCategoryVuex() {
             this.getData();
         }
     },

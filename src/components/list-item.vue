@@ -25,7 +25,6 @@
     </ul>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex';
 export default {
     data() {
         return {
@@ -48,38 +47,60 @@ export default {
         }
     },
     emits: {
-        'close-all-modals': null
+        'close-all-modals': null,
+        'show-contacts': null,
+        'go-home': null,
+        'reset-filters': null,
+        'set-search-tag': (value) => {
+            if(value) {
+                return value;
+            } else {
+                console.warn('Validation tag name error');
+                false;
+            }
+        },
+        'redirect-to': (pageName) => {
+            if(pageName) {
+                return pageName
+            } else {
+                console.warn('Validation page name error');
+                return false;
+            }
+        },
+        'set-category': (categoryName) => {
+            if(categoryName) {
+                return categoryName
+            } else {
+                console.warn('Validation category name error');
+                return false;
+            }
+        }
     },
     created() {
         if (this.title === 'News') {
             this.isOpen = true;
         }
     },
-    computed: {
-        ...mapState({
-            searchTermVuex: 'searchTerm'
-        })
-    },
     methods: {
-        ...mapMutations({
-            setSearchTagVuex: 'setSearchTag',
-        }),
-        goToPage(pageName) {
-            this.$router.push({ name: pageName });
-            //this.$router.afterEach(()=> {window.scrollTo({ top: 0, behavior: 'smooth' });});
-        },
         handleClick(value) {
             this.$emit('close-all-modals');
             if (value === 'Contacts') {
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                this.$emit('show-contacts');
+            } else if (value === 'Home') {
+                this.$emit('reset-filters');
+                this.$emit('redirect-to', 'main');
             } else {
                 switch (this.actionType) {
                     case 'tags':
-                        this.setSearchTagVuex(value);
-                        this.goToPage('main');
+                        this.$emit('set-search-tag', value);
+                        this.$emit('redirect-to', 'main');
                         break;
                     case 'redirect':
-                        this.goToPage(value.toLowerCase());
+                        this.$emit('redirect-to', value.toLowerCase());
+                        break;
+                    case 'category':
+                        this.$emit('set-category', value);
+                        this.$emit('redirect-to', 'main');
                         break;
 
                     default: console.log('no match');

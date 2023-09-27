@@ -5,7 +5,8 @@
                 <h5 class="filters-applied__heading">Filters applied:</h5>
                 <div class="filters-applied__content-wrapper">
                     <span class="filters-applied__text" v-show="searchTag">#{{ searchTag }}</span>
-                    <span class="filters-applied__text" v-show="searchTerm"> Keyword: {{ searchTerm }}</span>
+                    <span class="filters-applied__text" v-show="searchTerm">Keyword: {{ searchTerm }}</span>
+                    <span class="filters-applied__text" v-show="choosenCategory">Category: {{ choosenCategory }}</span>
                 </div>   
             </div>
             <actionButton @click="resetFilters">Reset filters</actionButton>
@@ -23,6 +24,9 @@ export default {
             type: String
         },
         searchTag: {
+            type: String
+        },
+        choosenCategory: {
             type: String
         }
     },

@@ -314,9 +314,9 @@ body {
     &__wrapper {
         background-color: $cr-menu-bg;
         padding: 0px $pd-ctr;
-        position: absolute;
+        //position: absolute;
         width: 100%;
-        top: 100px;
+        //top: 100px;
         display: none;
 
         @include brakepoints(tablet) {
@@ -324,7 +324,7 @@ body {
         }
 
         @include brakepoints(mobile) {
-            top: 62px;
+            //top: 62px;
             padding: $pd-ctr-mobile $pd-ctr-mobile 24px;
         }
 

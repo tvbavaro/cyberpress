@@ -34,6 +34,9 @@ export default {
     if (searchParams.tag) {
       this.setSearchTagVuex(searchParams.tag);
     }
+    if(searchParams.category) {
+      this.setCategoryVuex(searchParams.category);
+    }
   },
 
   beforeUnmount() {
@@ -44,7 +47,8 @@ export default {
     ...mapMutations({
       setDeviceTypeVuex: 'setDeviceType',
       setSearchTermVuex: 'setSearchTerm',
-      setSearchTagVuex: 'setSearchTag'
+      setSearchTagVuex: 'setSearchTag',
+      setCategoryVuex: 'setCategory'
     })
   }
 }

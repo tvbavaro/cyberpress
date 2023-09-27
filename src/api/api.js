@@ -1,8 +1,8 @@
 import { DEVDOMAIN } from "@constants"
 
-export const getNewsPapers = (searchPhrase = '', searchTag = '', sort = 'desc') => {
-    //searchTag = searchTag.split(/\#/).join('')
-    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}`)
+export const getNewsPapers = (searchPhrase = '', searchTag = '', categoryName = '', sort = 'desc') => {
+    //populate[categories][fields]=categoryname
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&pagination[pageSize]=23&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}&filters[categories][categoryname][$contains]=${categoryName}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -103,15 +103,15 @@ export const getPaper = (id) => {
                     },
                     image_ultrawide: {
                         data: {
-                            attributes: { 
-                                url, 
-                                formats: { 
-                                    article_tablet: { 
-                                        url: tablet_url 
+                            attributes: {
+                                url,
+                                formats: {
+                                    article_tablet: {
+                                        url: tablet_url
                                     },
                                     article_mobile: {
                                         url: mobile_url
-                                    } 
+                                    }
                                 },
                             }
                         }
@@ -153,22 +153,22 @@ export const getRecommended = () => {
                         text_preview,
                         time_to_read,
                         title,
-                        image_sq: { 
-                            data: { 
-                                attributes: { 
-                                    formats: { 
-                                        aside: { 
-                                            url: aside_desktop 
-                                        }, 
-                                        aside_tablet: { 
-                                            url: aside_tablet 
+                        image_sq: {
+                            data: {
+                                attributes: {
+                                    formats: {
+                                        aside: {
+                                            url: aside_desktop
+                                        },
+                                        aside_tablet: {
+                                            url: aside_tablet
                                         },
                                         aside_mobile: {
                                             url: aside_mobile
-                                        } 
-                                    } 
-                                } 
-                            } 
+                                        }
+                                    }
+                                }
+                            }
                         },
                     },
                 }) => {
@@ -211,8 +211,8 @@ export const getSimilar = (id) => {
                             attributes: {
                                 formats: {
                                     old: { url },
-                                    old_tablet: { 
-                                        url: tablet_url 
+                                    old_tablet: {
+                                        url: tablet_url
                                     },
                                     old_mobile: {
                                         url: old_mobile

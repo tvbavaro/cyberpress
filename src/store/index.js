@@ -5,6 +5,7 @@ export const store = new Vuex.Store({
     state: {
         searchTerm: '',
         searchTag: '',
+        choosenCategory: '',
         popularTags: [],
         deviceType: '',
         isTablet: false,
@@ -18,12 +19,12 @@ export const store = new Vuex.Store({
     mutations: {
         setSearchTerm(state, searchTermByUser) {
             state.searchTerm = searchTermByUser;
-            //this.commit('setPageURL');
         },
         setPageURL(state) {
             const params = {
                 searchFilter: state.searchTerm.length ? `q=${state.searchTerm}` : '',
-                tagFilter: state.searchTag.length ? `tag=${state.searchTag}` : ''
+                tagFilter: state.searchTag.length ? `tag=${state.searchTag}` : '',
+                categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory}` : ''
             }
             const hasValueParams = Object.values(params).filter(el => el.length);
 
@@ -33,14 +34,16 @@ export const store = new Vuex.Store({
             } else if (hasValueParams.length === 1) {
                 pageURL += `?${hasValueParams[0]}`;
             }
+
             const historyState = window.history.state,
                 pageTitle = document.title;
-            window.history.pushState(historyState, pageTitle, pageURL);
-
+            window.history.replaceState(historyState, pageTitle, pageURL);
         },
         setSearchTag(state, searchTagByUserSelect) {
             state.searchTag = searchTagByUserSelect.replace(/\#/, '');
-            //this.commit('setPageURL');
+        },
+        setCategory(state, choosenCategoryByUser) {
+            state.choosenCategory = choosenCategoryByUser;
         },
         setPopularTags(state, tags) {
             state.popularTags = tags;
@@ -61,6 +64,11 @@ export const store = new Vuex.Store({
                     state.deviceType = 'mobile';
                     state.isMobile = true;
             }
+        },
+        resetFilters(state) {
+            state.searchTerm = '';
+            state.searchTag = '';
+            state.choosenCategory = '';
         }
     },
     actions: {

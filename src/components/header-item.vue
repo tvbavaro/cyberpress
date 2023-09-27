@@ -3,7 +3,7 @@
         <div class="header__wrapper">
             <div class="header__grid">
                 <div class="header__basic">
-                    <div class="logo logo__wrapper" @click="handleClickHome">
+                    <div class="logo logo__wrapper" @click="handleRedirect('main')">
                         <img class="logo__img" src="@assets/logo.png" alt="logo">
                         <span class="logo__name">InfoDefense</span>
                     </div>
@@ -38,13 +38,27 @@
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
                 <nav class="menu__grid">
-                    <listItem class="menu__list-wrapper" title="News" actionType="category"
-                        :list="['Home', 'Today', 'This week/Last week', 'Nov/Oct/Sept/Aug/Jun/Jul', '2021/2022']"
-                        :isDropDown="isMobile" />
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="Popular tags"
-                        actionType="tags" :list="popularTagsVuex" :isDropDown="isMobile" />
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" title="About InfoDefence"
-                        actionType="redirect" :list="['Project', 'Team', 'Donate', 'Contacts']" :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" 
+                        @close-all-modals="closeAllModals" 
+                        @redirect-to="handleRedirect"
+                        @set-category="setCategoryVuex"
+                        @reset-filters="resetFiltersVuex"
+                        actionType="category" title="News"
+                        :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']" :isDropDown="isMobile" />
+
+                    <listItem class="menu__list-wrapper" 
+                        @close-all-modals="closeAllModals"
+                        @set-search-tag="setSearchTagVuex" 
+                        @redirect-to="handleRedirect" 
+                        title="Popular tags" actionType="tags" 
+                        :list="popularTagsVuex" :isDropDown="isMobile" />
+
+                    <listItem class="menu__list-wrapper" 
+                        @close-all-modals="closeAllModals" 
+                        @show-contacts="showContacts"
+                        @redirect-to="handleRedirect" 
+                        title="About InfoDefence" actionType="redirect"
+                        :list="['Project', 'Team', 'Donate', 'Contacts']" :isDropDown="isMobile" />
 
                     <ul class="menu__column" v-if="isMobile">
                         <li class="menu__item">
@@ -57,13 +71,15 @@
                             <socialIcons class="menu__social" />
                         </li>
                     </ul>
+
                 </nav>
             </div>
             <div class="search-menu search-menu__wrapper" :class="{ 'search-menu__wrapper_active': togglers.isSearchOpen }">
                 <div class="search-menu__input-wrapper">
-                    <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
+                    <input class="search-menu__input" 
+                        @input="setSearch" 
+                        type="text" placeholder="Search"
                         :value="searchTermVuex" />
-                    <!-- <img class="search-menu__icon" src="@assets/24x24/search.svg" alt=""> -->
                     <i class="search-menu__icon"></i>
                 </div>
             </div>
@@ -104,7 +120,10 @@ export default {
     methods: {
         ...mapMutations({
             setSearchTermVuex: 'setSearchTerm',
-            setPageURLVuex: 'setPageURL'
+            setSearchTagVuex: 'setSearchTag',
+            setCategoryVuex: 'setCategory',
+            setPageURLVuex: 'setPageURL',
+            resetFiltersVuex: 'resetFilters'
         }),
         ...mapActions({
             getPopularTagsVuex: 'getPopularTags'
@@ -112,7 +131,7 @@ export default {
         setSearch(e) {
             const searchTerm = e.target.value;
             this.setSearchTermVuex(searchTerm);
-            if(document.location.pathname !== '/') {
+            if (document.location.pathname !== '/') {
                 this.$router.push({ name: 'main' });
             } else this.setPageURLVuex();
         },
@@ -138,16 +157,12 @@ export default {
                 this.togglers.isSearchOpen = false;
             }
         },
-        handleClickHome() {
-            this.$router.push({ name: 'main' });
+        handleRedirect(pageName) {
+            this.$router.push({ name: pageName });
+        },
+        showContacts() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     },
-    // watch: {
-    //     searchTermLengthVuex(newValue, oldValue) {
-    //         if (newValue > 2) {
-    //             this.$router.push({ name: 'search' });
-    //         } else this.$router.push({ name: 'main' });
-    //     }
-    // }
 }
 </script>
