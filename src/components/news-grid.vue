@@ -1,7 +1,7 @@
 <template>
     <div class="main-news" v-if="dataIsReady">
         <filtersApplied class="main-news__filters-applied" @reset-filters="resetFilters"
-            v-show="searchTagVuex || searchTermVuex || choosenCategoryVuex" :searchTerm="searchTermVuex"
+            v-show="searchTagVuex || searchTermVuex || choosenCategoryVuex.length" :searchTerm="searchTermVuex"
             :searchTag="searchTagVuex" :choosenCategory="choosenCategoryVuex" />
         <section class="main-news__grid">
             <!-- grid for smartphones -->
@@ -123,7 +123,7 @@ export default {
             } else return imgs[this.deviceTypeVuex].old;
         },
         async getData() {
-            this.newsPapers = null;
+            //this.newsPapers = null;
             this.newsPapers = await getNewsPapers(
                 this.searchTermVuex,
                 this.searchTagVuex,
@@ -168,8 +168,11 @@ export default {
         searchTagVuex() {
             this.getData();
         },
-        choosenCategoryVuex() {
-            this.getData();
+        choosenCategoryVuex: {
+            handler() {
+                this.getData();
+            },
+            deep: true
         }
     },
 }

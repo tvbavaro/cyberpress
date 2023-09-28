@@ -6,7 +6,7 @@
                 <div class="filters-applied__content-wrapper">
                     <span class="filters-applied__text" v-show="searchTag">#{{ searchTag }}</span>
                     <span class="filters-applied__text" v-show="searchTerm">Keyword: {{ searchTerm }}</span>
-                    <span class="filters-applied__text" v-show="choosenCategory">Category: {{ choosenCategory }}</span>
+                    <span class="filters-applied__text" v-show="choosenCategory.length">Category: {{ choosenCategory.join(' ') }}</span>
                 </div>   
             </div>
             <actionButton @click="resetFilters">Reset filters</actionButton>
@@ -27,7 +27,7 @@ export default {
             type: String
         },
         choosenCategory: {
-            type: String
+            type: Array
         }
     },
     emits: {

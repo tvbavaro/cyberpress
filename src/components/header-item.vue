@@ -17,7 +17,8 @@
                                 <span class="search__text">Search</span>
                             </div>
                         </div>
-                        <div class="filters header__filters" :class="{ 'header__filters_active': togglers.isFiltersOpen }" @click="openFilters">
+                        <div class="filters header__filters" :class="{ 'header__filters_active': togglers.isFiltersOpen }"
+                            @click="openFilters">
                             <div class="filters__wrapper">
                                 <img class="filters__icon" src="@assets/24x24/filter.svg" alt="">
                                 <span class="filters__text">Filters</span>
@@ -38,26 +39,16 @@
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
                 <nav class="menu__grid">
-                    <listItem class="menu__list-wrapper" 
-                        @close-all-modals="closeAllModals" 
-                        @redirect-to="handleRedirect"
-                        @set-category="setCategoryVuex"
-                        @reset-filters="resetFiltersVuex"
-                        actionType="category" title="News"
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" @redirect-to="handleRedirect"
+                        @set-category="setCategoryVuex" @reset-filters="resetFiltersVuex" actionType="category" title="News"
                         :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']" :isDropDown="isMobile" />
 
-                    <listItem class="menu__list-wrapper" 
-                        @close-all-modals="closeAllModals"
-                        @set-search-tag="setSearchTagVuex" 
-                        @redirect-to="handleRedirect" 
-                        title="Popular tags" actionType="tags" 
-                        :list="popularTagsVuex.slice(0,5)" :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals"
+                        @set-search-tag="setSearchTagVuex" @redirect-to="handleRedirect" title="Popular tags"
+                        actionType="tags" :list="popularTagsVuex.slice(0, 5)" :isDropDown="isMobile" />
 
-                    <listItem class="menu__list-wrapper" 
-                        @close-all-modals="closeAllModals" 
-                        @show-contacts="showContacts"
-                        @redirect-to="handleRedirect" 
-                        title="About InfoDefence" actionType="redirect"
+                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" @show-contacts="showContacts"
+                        @redirect-to="handleRedirect" title="About InfoDefence" actionType="redirect"
                         :list="['Project', 'Team', 'Donate', 'Contacts']" :isDropDown="isMobile" />
 
                     <ul class="menu__column" v-if="isMobile">
@@ -76,23 +67,24 @@
             </div>
             <div class="search-menu search-menu__wrapper" :class="{ 'search-menu__wrapper_active': togglers.isSearchOpen }">
                 <div class="search-menu__input-wrapper">
-                    <input class="search-menu__input" 
-                        @input="setSearch" 
-                        type="text" placeholder="Search"
+                    <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
                         :value="searchTermVuex" />
                     <i class="search-menu__icon"></i>
                 </div>
             </div>
 
-            <div class="filters-menu filters-menu__wrapper" :class="{ 'filters-menu__wrapper_active': togglers.isFiltersOpen }">
+            <div class="filters-menu filters-menu__wrapper"
+                :class="{ 'filters-menu__wrapper_active': togglers.isFiltersOpen }">
                 <div class="filters-menu__grid">
                     <ul class="filters-menu__list list__column menu__list-wrapper">
                         <li class="filters-menu__item list__item list__item-header">
                             <h3 class="list__header">By categories</h3>
                         </li>
                         <div class="list__items-wrapper">
-                            <li class="filters-menu__item list__item" v-for="category in ['Software', 'Business', 'Governmen', 'Entertainment']" :key="category">
-                                <input class="filters-menu__checkbox" type="checkbox" :id="category" :name="category" />
+                            <li class="filters-menu__item list__item"
+                                v-for="category in ['Software', 'Business', 'Governmen', 'Entertainment']" :key="category">
+                                <input class="filters-menu__checkbox" @change="handleCategoryFilter(category)" type="checkbox"
+                                    :id="category" :name="category" :ref="category" />
                                 <label :for="category"><span class="list__text">{{ category }}</span></label>
                             </li>
                         </div>
@@ -103,7 +95,7 @@
                             <h3 class="list__header">By popular tags</h3>
                         </li>
                         <div class="list__items-wrapper">
-                            <li class="filters-menu__item list__item" v-for="tag in popularTagsVuex.slice(0,5)" :key="tag">
+                            <li class="filters-menu__item list__item" v-for="tag in popularTagsVuex.slice(0, 5)" :key="tag">
                                 <input class="filters-menu__checkbox" type="checkbox" :id="tag" :name="tag" />
                                 <label :for="tag"><span class="list__text">{{ tag }}</span></label>
                             </li>
@@ -152,7 +144,9 @@ export default {
             setSearchTagVuex: 'setSearchTag',
             setCategoryVuex: 'setCategory',
             setPageURLVuex: 'setPageURL',
-            resetFiltersVuex: 'resetFilters'
+            resetFiltersVuex: 'resetFilters',
+            addCategoryFilterVuex: 'addCategoryFilter',
+            removeCategoryFilterVuex: 'removeCategoryFilter'
         }),
         ...mapActions({
             getPopularTagsVuex: 'getPopularTags'
@@ -170,6 +164,11 @@ export default {
                     this.togglers[key] = false;
                 }
             }
+        },
+        handleCategoryFilter(category) {
+            if (this.$refs[category][0].checked) {
+                this.addCategoryFilterVuex(category);
+            } else this.removeCategoryFilterVuex(category);
         },
         openMenu() {
             if (!this.togglers.isMenuOpen) {
