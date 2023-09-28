@@ -291,7 +291,7 @@ export const getProjectPreview = (type) => {
 }
 
 export const getPopularTags = () => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=5`)
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=23`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -301,9 +301,12 @@ export const getPopularTags = () => {
             const { data } = res;
             const tags = [];
             data.forEach(({ attributes: { tags: { value: tagsList } } }) => {
-                tags.push(tagsList.split(/\s/)[0]);
+                //tags.push(tagsList.split(/\s/)[0]);
+                tagsList.split(/\s/).forEach(tag => {
+                    tags.push(tag);
+                })
             });
-            return tags;
+            return Array.from(new Set(tags));
         })
         .catch(err => console.log(err))
 }

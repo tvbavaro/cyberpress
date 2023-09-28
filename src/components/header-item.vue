@@ -17,7 +17,7 @@
                                 <span class="search__text">Search</span>
                             </div>
                         </div>
-                        <div class="filters header__filters">
+                        <div class="filters header__filters" :class="{ 'header__filters_active': togglers.isFiltersOpen }" @click="openFilters">
                             <div class="filters__wrapper">
                                 <img class="filters__icon" src="@assets/24x24/filter.svg" alt="">
                                 <span class="filters__text">Filters</span>
@@ -51,7 +51,7 @@
                         @set-search-tag="setSearchTagVuex" 
                         @redirect-to="handleRedirect" 
                         title="Popular tags" actionType="tags" 
-                        :list="popularTagsVuex" :isDropDown="isMobile" />
+                        :list="popularTagsVuex.slice(0,5)" :isDropDown="isMobile" />
 
                     <listItem class="menu__list-wrapper" 
                         @close-all-modals="closeAllModals" 
@@ -83,6 +83,34 @@
                     <i class="search-menu__icon"></i>
                 </div>
             </div>
+
+            <div class="filters-menu filters-menu__wrapper" :class="{ 'filters-menu__wrapper_active': togglers.isFiltersOpen }">
+                <div class="filters-menu__grid">
+                    <ul class="filters-menu__list list__column menu__list-wrapper">
+                        <li class="filters-menu__item list__item list__item-header">
+                            <h3 class="list__header">By categories</h3>
+                        </li>
+                        <div class="list__items-wrapper">
+                            <li class="filters-menu__item list__item" v-for="category in ['Software', 'Business', 'Governmen', 'Entertainment']" :key="category">
+                                <input class="filters-menu__checkbox" type="checkbox" :id="category" :name="category" />
+                                <label :for="category"><span class="list__text">{{ category }}</span></label>
+                            </li>
+                        </div>
+                    </ul>
+
+                    <ul class="filters-menu__list list__column menu__list-wrapper">
+                        <li class="filters-menu__item list__item list__item-header">
+                            <h3 class="list__header">By popular tags</h3>
+                        </li>
+                        <div class="list__items-wrapper">
+                            <li class="filters-menu__item list__item" v-for="tag in popularTagsVuex.slice(0,5)" :key="tag">
+                                <input class="filters-menu__checkbox" type="checkbox" :id="tag" :name="tag" />
+                                <label :for="tag"><span class="list__text">{{ tag }}</span></label>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -95,7 +123,8 @@ export default {
         return {
             togglers: {
                 isMenuOpen: false,
-                isSearchOpen: false
+                isSearchOpen: false,
+                isFiltersOpen: false
             }
         }
     },
@@ -147,7 +176,12 @@ export default {
                 this.closeAllModals();
                 this.togglers.isMenuOpen = true;
             } else this.togglers.isMenuOpen = false;
-
+        },
+        openFilters() {
+            if (!this.togglers.isFiltersOpen) {
+                this.closeAllModals();
+                this.togglers.isFiltersOpen = true;
+            } else this.togglers.isFiltersOpen = false;
         },
         openSearch() {
             if (!this.togglers.isSearchOpen) {
