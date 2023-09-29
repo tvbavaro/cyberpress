@@ -38,18 +38,17 @@
                 </div>
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
-                <nav class="menu__grid">
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" @redirect-to="handleRedirect"
-                        @set-category="setCategoryVuex" @reset-filters="resetFiltersVuex" actionType="category" title="News"
-                        :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']" :isDropDown="isMobile" />
+                <nav class="menu__grid">ß
+                    <listItem class="menu__list-wrapper" title="News" :executableFunction="setCategory"
+                        @click="closeAllModals" :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']"
+                        :isDropDown="isMobile" />
 
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals"
-                        @set-search-tag="setSearchTagVuex" @redirect-to="handleRedirect" title="Popular tags"
-                        actionType="tags" :list="popularTagsVuex.slice(0, 5)" :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" title="Popular tags" @click="closeAllModals"
+                        :executableFunction="setTag" :list="popularTagsVuex.slice(0, 5)" :isDropDown="isMobile" />
 
-                    <listItem class="menu__list-wrapper" @close-all-modals="closeAllModals" @show-contacts="showContacts"
-                        @redirect-to="handleRedirect" title="About InfoDefence" actionType="redirect"
-                        :list="['Project', 'Team', 'Donate', 'Contacts']" :isDropDown="isMobile" />
+                    <listItem class="menu__list-wrapper" title="About InfoDefence" @click="closeAllModals"
+                        :executableFunction="handleRedirect" :list="['Project', 'Team', 'Donate', 'Contacts']"
+                        :isDropDown="isMobile" />
 
                     <ul class="menu__column" v-if="isMobile">
                         <li class="menu__item">
@@ -76,19 +75,14 @@
             <div class="filters-menu filters-menu__wrapper"
                 :class="{ 'filters-menu__wrapper_active': togglers.isFiltersOpen }">
                 <div class="filters-menu__grid">
-                    <listItem class="filters-menu__list-wrapper" 
-                    @add-category-filter="handleCategoryFilter"
-                    @redirect-to="handleRedirect"
-                    title="By categories" :list="['Software', 'Business', 'Governmen', 'Entertainment']"
-                    :checkedList="choosenCategoryVuex"
-                    actionType="category-filter" :hasCheckbox="true"/>
-                    
-                    <listItem class="filters-menu__list-wrapper" 
-                    @add-tag-filter="handleTagFilter"
-                    @redirect-to="handleRedirect"
-                    title="By popular tags" :list="popularTagsVuex.slice(0, 5)" 
-                    :checkedList="searchTagVuex"
-                    actionType="tags-filter" :hasCheckbox="true"/>
+                    <listItem class="filters-menu__list-wrapper" :executableFunction="handleCategoryFilter"
+                        @click="handleRedirect('main')" title="By categories"
+                        :list="['Software', 'Business', 'Governmen', 'Entertainment']" :checkedList="choosenCategoryVuex"
+                        :hasCheckbox="true" />
+
+                    <listItem class="filters-menu__list-wrapper" :executableFunction="handleTagFilter"
+                        @click="handleRedirect('main')" title="By popular tags" :list="popularTagsVuex.slice(0, 5)"
+                        :checkedList="searchTagVuex" actionType="tags-filter" :hasCheckbox="true" />
                 </div>
             </div>
         </div>
@@ -150,6 +144,20 @@ export default {
                 this.$router.push({ name: 'main' });
             } else this.setPageURLVuex();
         },
+        setCategory(categoryName) {
+            if (categoryName === 'Home') {
+                this.resetFiltersVuex();
+                this.closeAllModals();
+                this.handleRedirect('main');
+            } else {
+                this.setCategoryVuex(categoryName);
+                this.handleRedirect('main');
+            }
+        },
+        setTag(tagName) {
+            this.setSearchTagVuex(tagName);
+            this.handleRedirect('main');
+        },
         closeAllModals() {
             for (let key in this.togglers) {
                 if (this.togglers[key]) {
@@ -157,12 +165,12 @@ export default {
                 }
             }
         },
-        handleCategoryFilter({ inputChecked, value }) {
+        handleCategoryFilter(inputChecked, value) {
             if (inputChecked) {
                 this.addCategoryFilterVuex(value);
             } else this.removeCategoryFilterVuex(value);
         },
-        handleTagFilter({ inputChecked, value }) {
+        handleTagFilter(inputChecked, value) {
             if (inputChecked) {
                 this.addTagFilterVuex(value);
             } else this.removeTagFilterVuex(value);
@@ -188,7 +196,9 @@ export default {
             }
         },
         handleRedirect(pageName) {
-            this.$router.push({ name: pageName });
+            if (pageName === 'Contacts') {
+                this.showContacts();
+            } else this.$router.push({ name: pageName.toLowerCase() });
         },
         showContacts() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });

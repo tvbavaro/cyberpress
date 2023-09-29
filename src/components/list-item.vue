@@ -1,6 +1,6 @@
 <template>
     <ul class="list__column" v-if="isDropDown">
-        <li class="list__item list__item-header" @click="isOpen = !isOpen">
+        <li class="list__item list__item-header" @click.stop="isOpen = !isOpen">
             <h3 class="list__header">{{ title }}</h3>
             <svg class="list__arrow" :class="{ 'list__arrow_close': !isOpen }" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +8,7 @@
             </svg>
         </li>
         <div class="list__items-wrapper" v-show="isOpen">
-            <li class="list__item" v-for="item in list" :key="item" @click="handleClick(item)"><span class="list__text">{{
+            <li class="list__item" v-for="item in list" :key="item" @click="executableFunction(item)"><span class="list__text">{{
                 item
             }}</span></li>
         </div>
@@ -20,12 +20,12 @@
         <div class="list__items-wrapper">
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
-                    <input class="list__checkbox" @change="handleClick($event.target.checked, item)" type="checkbox"
+                    <input class="list__checkbox" @change="executableFunction($event.target.checked, item)" type="checkbox"
                         :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
                 <template v-else>
-                    <span class="list__text" @click="handleClick(null, item)">{{ item }}</span>
+                    <span class="list__text" @click="executableFunction(item)">{{ item }}</span>
                 </template>
             </li>
         </div>
@@ -49,62 +49,15 @@ export default {
             type: Array,
             default: []
         },
-        actionType: {
-            type: String,
-            requared: true
-        },
         isDropDown: {
             type: Boolean
         },
         hasCheckbox: {
             type: Boolean,
             default: false
-        }
-    },
-    emits: {
-        'close-all-modals': null,
-        'show-contacts': null,
-        'go-home': null,
-        'reset-filters': null,
-        'set-search-tag': (value) => {
-            if (value) {
-                return value;
-            } else {
-                console.warn('Validation tag name error');
-                false;
-            }
         },
-        'redirect-to': (pageName) => {
-            if (pageName) {
-                return pageName
-            } else {
-                console.warn('Validation page name error');
-                return false;
-            }
-        },
-        'set-category': (categoryName) => {
-            if (categoryName) {
-                return categoryName;
-            } else {
-                console.warn('Validation category name error');
-                return false;
-            }
-        },
-        'add-category-filter': ({ inputChecked, value }) => {
-            if (inputChecked !== null && value) {
-                return { inputChecked, value };
-            } else {
-                console.warn('Validation category filter name error');
-                false;
-            }
-        },
-        'add-tag-filter': ({ inputChecked, value }) => {
-            if (inputChecked !== null && value) {
-                return { inputChecked, value };
-            } else {
-                console.warn('Validation tag filter name error');
-                false;
-            }
+        executableFunction: {
+            type: Function
         }
     },
     created() {
@@ -113,40 +66,6 @@ export default {
         }
     },
     methods: {
-        handleClick(inputChecked = null, value) {
-            this.$emit('close-all-modals');
-            if (value === 'Contacts') {
-                this.$emit('show-contacts');
-            } else if (value === 'Home') {
-                this.$emit('reset-filters');
-                this.$emit('redirect-to', 'main');
-            } else {
-                switch (this.actionType) {
-                    case 'tags':
-                        this.$emit('set-search-tag', value);
-                        this.$emit('redirect-to', 'main');
-                        break;
-                    case 'redirect':
-                        this.$emit('redirect-to', value.toLowerCase());
-                        break;
-                    case 'category':
-                        this.$emit('set-category', value);
-                        this.$emit('redirect-to', 'main');
-                        break;
-                    case 'category-filter':
-                        this.$emit('add-category-filter', { inputChecked, value })
-                        this.$emit('redirect-to', 'main');
-                        break;
-                    case 'tags-filter':
-                        this.$emit('add-tag-filter', { inputChecked, value })
-                        this.$emit('redirect-to', 'main');
-                        break;
-
-                    default: console.log('no match');
-                }
-            }
-
-        },
         isChecked(item) {
             if(this.checkedList.includes(item.replace(/\#/, ''))) {
                 return true
