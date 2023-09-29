@@ -1,7 +1,7 @@
 import { DEVDOMAIN } from "@constants"
 import qs from 'qs'
 
-export const getNewsPapers = (searchPhrase = '', searchTag = '', categoryName = [], sort = 'desc') => {
+export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = [], sort = 'desc') => {
     const query = qs.stringify(
         {
             fields: ['title', 'text_preview', 'time_to_read', 'createdAt'],
@@ -52,8 +52,6 @@ export const getNewsPapers = (searchPhrase = '', searchTag = '', categoryName = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-
-    console.log((`/api/newspapers?${query}`));
     // return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&pagination[pageSize]=23&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}&filters[categories][categoryname][$contains]=${categoryName}`)
     return fetch(`http://${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {

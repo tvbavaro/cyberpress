@@ -4,7 +4,7 @@ import { getPopularTags as getPopularTagsAPI } from '@api/api.js';
 export const store = new Vuex.Store({
     state: {
         searchTerm: '',
-        searchTag: '',
+        searchTag: [],
         choosenCategory: [],
         popularTags: [],
         deviceType: '',
@@ -40,7 +40,7 @@ export const store = new Vuex.Store({
             // window.history.replaceState(historyState, pageTitle, pageURL);
         },
         setSearchTag(state, searchTagByUserSelect) {
-            state.searchTag = searchTagByUserSelect.replace(/\#/, '');
+            state.searchTag = [searchTagByUserSelect.replace(/\#/, '')];
         },
         setCategory(state, choosenCategoryByUser) {
             state.choosenCategory = [choosenCategoryByUser];
@@ -51,6 +51,13 @@ export const store = new Vuex.Store({
         removeCategoryFilter(state, removedCategoryByUser) {
             const deletedIndx = state.choosenCategory.indexOf(removedCategoryByUser);
             state.choosenCategory.splice(deletedIndx, 1);
+        },
+        addTagFilter(state, addedTagByUser) {
+            state.searchTag.push(addedTagByUser.replace(/\#/, ''));
+        },
+        removeTagFilter(state, removedTagByUser) {
+            const deletedIndx = state.searchTag.indexOf(removedTagByUser.replace(/\#/, ''));
+            state.searchTag.splice(deletedIndx, 1);
         },
         setPopularTags(state, tags) {
             state.popularTags = tags;
@@ -74,7 +81,7 @@ export const store = new Vuex.Store({
         },
         resetFilters(state) {
             state.searchTerm = '';
-            state.searchTag = '';
+            state.searchTag = [];
             state.choosenCategory = [];
         }
     },

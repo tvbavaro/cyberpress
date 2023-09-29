@@ -18,9 +18,16 @@
             <h3 class="list__header">{{ title }}</h3>
         </li>
         <div class="list__items-wrapper">
-            <li class="list__item" v-for="item in list" :key="item" @click="handleClick(item)"><span class="list__text">{{
-                item
-            }}</span></li>
+            <li class="list__item" v-for="item in list" :key="item">
+                <template v-if="hasCheckbox">
+                    <input class="list__checkbox" @change="handleClick($event.target.checked, item)" type="checkbox"
+                        :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
+                    <label :for="item"><span class="list__text">{{ item }}</span></label>
+                </template>
+                <template v-else>
+                    <span class="list__text" @click="handleClick(null, item)">{{ item }}</span>
+                </template>
+            </li>
         </div>
     </ul>
 </template>
@@ -38,12 +45,20 @@ export default {
         list: {
             type: Array
         },
+        checkedList: {
+            type: Array,
+            default: []
+        },
         actionType: {
             type: String,
             requared: true
         },
         isDropDown: {
             type: Boolean
+        },
+        hasCheckbox: {
+            type: Boolean,
+            default: false
         }
     },
     emits: {
@@ -52,7 +67,7 @@ export default {
         'go-home': null,
         'reset-filters': null,
         'set-search-tag': (value) => {
-            if(value) {
+            if (value) {
                 return value;
             } else {
                 console.warn('Validation tag name error');
@@ -60,7 +75,7 @@ export default {
             }
         },
         'redirect-to': (pageName) => {
-            if(pageName) {
+            if (pageName) {
                 return pageName
             } else {
                 console.warn('Validation page name error');
@@ -68,11 +83,27 @@ export default {
             }
         },
         'set-category': (categoryName) => {
-            if(categoryName) {
-                return categoryName
+            if (categoryName) {
+                return categoryName;
             } else {
                 console.warn('Validation category name error');
                 return false;
+            }
+        },
+        'add-category-filter': ({ inputChecked, value }) => {
+            if (inputChecked !== null && value) {
+                return { inputChecked, value };
+            } else {
+                console.warn('Validation category filter name error');
+                false;
+            }
+        },
+        'add-tag-filter': ({ inputChecked, value }) => {
+            if (inputChecked !== null && value) {
+                return { inputChecked, value };
+            } else {
+                console.warn('Validation tag filter name error');
+                false;
             }
         }
     },
@@ -82,7 +113,7 @@ export default {
         }
     },
     methods: {
-        handleClick(value) {
+        handleClick(inputChecked = null, value) {
             this.$emit('close-all-modals');
             if (value === 'Contacts') {
                 this.$emit('show-contacts');
@@ -102,11 +133,24 @@ export default {
                         this.$emit('set-category', value);
                         this.$emit('redirect-to', 'main');
                         break;
+                    case 'category-filter':
+                        this.$emit('add-category-filter', { inputChecked, value })
+                        this.$emit('redirect-to', 'main');
+                        break;
+                    case 'tags-filter':
+                        this.$emit('add-tag-filter', { inputChecked, value })
+                        this.$emit('redirect-to', 'main');
+                        break;
 
                     default: console.log('no match');
                 }
             }
 
+        },
+        isChecked(item) {
+            if(this.checkedList.includes(item.replace(/\#/, ''))) {
+                return true
+            } else return false;
         }
     }
 }

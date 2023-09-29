@@ -76,31 +76,19 @@
             <div class="filters-menu filters-menu__wrapper"
                 :class="{ 'filters-menu__wrapper_active': togglers.isFiltersOpen }">
                 <div class="filters-menu__grid">
-                    <ul class="filters-menu__list list__column menu__list-wrapper">
-                        <li class="filters-menu__item list__item list__item-header">
-                            <h3 class="list__header">By categories</h3>
-                        </li>
-                        <div class="list__items-wrapper">
-                            <li class="filters-menu__item list__item"
-                                v-for="category in ['Software', 'Business', 'Governmen', 'Entertainment']" :key="category">
-                                <input class="filters-menu__checkbox" @change="handleCategoryFilter(category)" type="checkbox"
-                                    :id="category" :name="category" :ref="category" />
-                                <label :for="category"><span class="list__text">{{ category }}</span></label>
-                            </li>
-                        </div>
-                    </ul>
-
-                    <ul class="filters-menu__list list__column menu__list-wrapper">
-                        <li class="filters-menu__item list__item list__item-header">
-                            <h3 class="list__header">By popular tags</h3>
-                        </li>
-                        <div class="list__items-wrapper">
-                            <li class="filters-menu__item list__item" v-for="tag in popularTagsVuex.slice(0, 5)" :key="tag">
-                                <input class="filters-menu__checkbox" type="checkbox" :id="tag" :name="tag" />
-                                <label :for="tag"><span class="list__text">{{ tag }}</span></label>
-                            </li>
-                        </div>
-                    </ul>
+                    <listItem class="filters-menu__list-wrapper" 
+                    @add-category-filter="handleCategoryFilter"
+                    @redirect-to="handleRedirect"
+                    title="By categories" :list="['Software', 'Business', 'Governmen', 'Entertainment']"
+                    :checkedList="choosenCategoryVuex"
+                    actionType="category-filter" :hasCheckbox="true"/>
+                    
+                    <listItem class="filters-menu__list-wrapper" 
+                    @add-tag-filter="handleTagFilter"
+                    @redirect-to="handleRedirect"
+                    title="By popular tags" :list="popularTagsVuex.slice(0, 5)" 
+                    :checkedList="searchTagVuex"
+                    actionType="tags-filter" :hasCheckbox="true"/>
                 </div>
             </div>
         </div>
@@ -132,7 +120,9 @@ export default {
             searchTermVuex: 'searchTerm',
             popularTagsVuex: 'popularTags',
             deviceTypeVuex: 'deviceType',
-            isMobile: 'isMobile'
+            isMobile: 'isMobile',
+            choosenCategoryVuex: 'choosenCategory',
+            searchTagVuex: 'searchTag'
         }),
         ...mapGetters({
             searchTermLengthVuex: 'searchTermLength'
@@ -146,7 +136,9 @@ export default {
             setPageURLVuex: 'setPageURL',
             resetFiltersVuex: 'resetFilters',
             addCategoryFilterVuex: 'addCategoryFilter',
-            removeCategoryFilterVuex: 'removeCategoryFilter'
+            removeCategoryFilterVuex: 'removeCategoryFilter',
+            addTagFilterVuex: 'addTagFilter',
+            removeTagFilterVuex: 'removeTagFilter'
         }),
         ...mapActions({
             getPopularTagsVuex: 'getPopularTags'
@@ -165,10 +157,15 @@ export default {
                 }
             }
         },
-        handleCategoryFilter(category) {
-            if (this.$refs[category][0].checked) {
-                this.addCategoryFilterVuex(category);
-            } else this.removeCategoryFilterVuex(category);
+        handleCategoryFilter({ inputChecked, value }) {
+            if (inputChecked) {
+                this.addCategoryFilterVuex(value);
+            } else this.removeCategoryFilterVuex(value);
+        },
+        handleTagFilter({ inputChecked, value }) {
+            if (inputChecked) {
+                this.addTagFilterVuex(value);
+            } else this.removeTagFilterVuex(value);
         },
         openMenu() {
             if (!this.togglers.isMenuOpen) {
