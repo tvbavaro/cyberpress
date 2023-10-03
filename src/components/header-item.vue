@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
-                <nav class="menu__grid">ß
+                <nav class="menu__grid">
                     <listItem class="menu__list-wrapper" title="News" :executableFunction="setCategory"
                         @click="closeAllModals" :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']"
                         :isDropDown="isMobile" />
@@ -81,8 +81,11 @@
                         :hasCheckbox="true" />
 
                     <listItem class="filters-menu__list-wrapper" :executableFunction="handleTagFilter"
-                        @click="handleRedirect('main')" title="By popular tags" :list="popularTagsVuex.slice(0, 5)"
+                    @click="handleRedirect('main')"
+                         title="By popular tags" :list="popularTagsVuex.slice(0, 5)"
                         :checkedList="searchTagVuex" actionType="tags-filter" :hasCheckbox="true" />
+                    
+                    <dropFilter :list="popularTagsVuex" :checkedList="searchTagVuex" :executableFunction="handleTagFilter"/>
                 </div>
             </div>
         </div>
@@ -91,6 +94,7 @@
 <script>
 import socialIcons from '@components/social-icons.vue';
 import listItem from '@components/list-item.vue';
+import dropFilter from '@components/drop-filter.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
@@ -107,7 +111,8 @@ export default {
     },
     components: {
         socialIcons,
-        listItem
+        listItem,
+        dropFilter
     },
     computed: {
         ...mapState({
@@ -173,6 +178,7 @@ export default {
         handleTagFilter(inputChecked, value) {
             if (inputChecked) {
                 this.addTagFilterVuex(value);
+                //this.handleRedirect('main');
             } else this.removeTagFilterVuex(value);
         },
         openMenu() {

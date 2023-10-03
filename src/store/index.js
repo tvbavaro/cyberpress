@@ -23,8 +23,8 @@ export const store = new Vuex.Store({
         setPageURL(state) {
             // const params = {
             //     searchFilter: state.searchTerm.length ? `q=${state.searchTerm}` : '',
-            //     tagFilter: state.searchTag.length ? `tag=${state.searchTag}` : '',
-            //     categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory}` : ''
+            //     tagFilter: state.searchTag.length ? `tag=${state.searchTag.join(';')}` : '',
+            //     categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory.join('')}` : ''
             // }
             // const hasValueParams = Object.values(params).filter(el => el.length);
 

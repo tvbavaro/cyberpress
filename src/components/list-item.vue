@@ -20,7 +20,7 @@
         <div class="list__items-wrapper">
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
-                    <input class="list__checkbox" @change="executableFunction($event.target.checked, item)" type="checkbox"
+                    <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)" type="checkbox"
                         :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
