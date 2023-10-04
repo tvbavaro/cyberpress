@@ -5,14 +5,13 @@
             <div class="drop-down-filter__select" :class="{ 'drop-down-filter__select_active': isOpen }"
                 @click="toggleMenu">
                 <div class="drop-down-filter__tags-wrapper" ref="tagContainer">
-                    <!-- <span class="drop-down-filter__selected"
-                    :class="{ 'drop-down-filter__selected_active': checkedListLength }">{{ checkedTags }}</span> -->
                     <span class="drop-down-filter__selected" v-show="!checkedListLength">Choose the tag</span>
                     <span class="drop-down-filter__selected drop-down-filter__selected_active" v-show="checkedListLength"
                         v-for="tag in checkedList.slice(0, maxValue)" :key="tag">#{{ tag }}</span>
                 </div>
                 <div class="drop-down-filter__nav-wrapper">
-                    <span class="drop-down-filter__counter" v-show="(checkedListLength - maxValue) > 0">+{{ checkedListLength - maxValue}}</span>
+                    <span class="drop-down-filter__counter" v-show="(checkedListLength - maxValue) > 0">+{{
+                        checkedListLength - maxValue }}</span>
                     <div class="drop-down-filter__arrow" :class="{ 'drop-down-filter__arrow_active': isOpen }"></div>
                 </div>
 
@@ -82,30 +81,15 @@ export default {
                 let tagsWidth = 0;
                 let counter = 0;
 
-                tags.forEach(tag => {
+                for (const tag of tags) {
                     tagsWidth += tag.getBoundingClientRect().width;
-                    console.log('start');
-                    if(tagsWidth > tagsContainerWidth) {
+                    if (tagsWidth > tagsContainerWidth) {
                         this.maxValue = counter;
-                        console.log('if');
-                        return false;
+                        break;
                     } else {
-                        console.log('else');
                         counter++;
                     }
-                });
-                // if (tagsWidth > tagsContainerWidth) {
-                //     this.maxValue = tags.length - 1;
-                // } else if (tagsWidth < tagsContainerWidth) {
-                //     this.maxValue = 3;
-                // }
-                //==
-                // console.group();
-                // console.log('tagsContainerWidth', tagsContainerWidth);
-                // console.log('tags', tags);
-                // console.log('tagsWidth', tagsWidth);
-                // console.log('maxValue', this.maxValue);
-                // console.groupEnd();
+                }
             },
             deep: true
         }
