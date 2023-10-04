@@ -748,6 +748,17 @@ body {
         @include social-icons($cr-text-footer);
     }
 
+    &__list-svg {
+        margin-right: 16px;
+        height: 24px;
+        width: 24px;
+    }
+
+    &__list-item {
+        display: flex;
+        align-items: center;
+    }
+
     .list__header {
         @include heading-style($fs-second-header, 27px, $cr-text-footer);
     }
@@ -1108,7 +1119,7 @@ body {
         }
     }
 
-    &__items-wrapper :last-child {
+    &__items-wrapper li:last-of-type {
         margin-bottom: 0;
 
         @include brakepoints(mobile) {
@@ -1116,8 +1127,14 @@ body {
         }
     }
 
+
+
     &__header {
         @include heading-style($fs-second-header, 27px);
+
+        @include brakepoints(tablet) {
+            @include heading-style($fs-header-mob, 27px);
+        }
 
         @include brakepoints(mobile) {
             @include heading-style($fs-header-mob, 24px);
@@ -1126,6 +1143,10 @@ body {
 
     &__text {
         @include text-style($fs-second-text, 21px);
+
+        @include brakepoints(tablet) {
+            @include text-style($fs-text-mob, 18px);
+        }
 
         @include brakepoints(mobile) {
             @include text-style($fs-text-mob, 18px);
@@ -1183,6 +1204,11 @@ body {
 
     &__text {
         @include text-style($fs-second-text, 22px);
+        white-space: nowrap;
+
+        @include brakepoints(tablet) {
+            font-size: $fs-text-mob;
+        }
     }
 }
 
@@ -1194,6 +1220,14 @@ body {
         align-items: center;
         background-color: $cr-paper-bg;
         border-radius: 2px;
+    }
+
+    &__content-wrapper {
+        padding-right: 40px;
+
+        @include brakepoints(mobile) {
+            padding-right: 20px;
+        }
     }
 
     &__heading {
@@ -1305,9 +1339,22 @@ body {
         width: 100%;
         display: none;
 
+        @include brakepoints(tablet) {
+            padding: 0 $pd-ctr-tablet;
+        }
+
+        @include brakepoints(mobile) {
+            padding: 16px 16px 24px;
+        }
+
         &_active {
             display: block;
         }
+    }
+
+    &__btns-wrapper {
+        display: flex;
+        align-items: center;
     }
 
     &__list-wrapper {
@@ -1323,7 +1370,7 @@ body {
     }
 
     &__actions {
-        padding: 24px;
+        //padding: 24px;
         display: flex;
         align-items: flex-end;
 
@@ -1331,6 +1378,7 @@ body {
             display: flex;
             justify-content: space-between;
             width: 100%;
+            min-width: 220px;
             align-items: center;
         }
     }
@@ -1339,16 +1387,17 @@ body {
         cursor: pointer;
     }
 
-    // &__actions-wrapper {
-    //     display: flex;
-    //     justify-content: space-between;
-    //     width: 100%;
-    //     align-items: center;
-    // }
-
     &__grid {
         @include set-grid(0, 24px);
         color: $cr-text-main;
+
+        @include brakepoints(tablet) {
+            column-gap: 20px;
+        }
+
+        @include brakepoints(mobile) {
+            grid-template-columns: auto;
+        }
     }
 
     &__checkbox {
@@ -1387,19 +1436,35 @@ body {
     &__cancel-btn {
         background-color: transparent;
         border: 1px solid $cr-text-main;
-    }
+        margin-right: 20px;
 
-    &__search-btn {}
+        @include brakepoints(mobile) {
+            margin-right: 16px;
+        }
+    }
 }
 
 .drop-down-filter {
     &__wrapper {
-        padding: 24px;
+        width: 254px;
+
+        @include brakepoints(tablet) {
+            width: 208px;
+        }
+
+        @include brakepoints(mobile) {
+            width: 100%;
+            margin-bottom: 32px;
+        }
     }
 
     &__heading {
         @include heading-style($fs-second-header, 30px);
         margin-bottom: 16px;
+
+        @include brakepoints(tablet) {
+            @include heading-style($fs-header-mob, 24px);
+        }
     }
 
     &__select {
@@ -1407,17 +1472,22 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 254px;
+        //width: 254px;
         border: 1px solid $cr-text-main;
         border-radius: 4px;
         height: 40px;
         padding: 9px 14px;
+
+        @include brakepoints(tablet) {
+            font-size: $fs-text-mob;
+        }
     }
 
     &__select_active {
         border-bottom: 1px solid transparent;
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
+        background-color: $cr-dd-filter;
     }
 
     &__selected {
@@ -1434,7 +1504,11 @@ body {
 
         &_active {
             @include text-style($fs-second-text, 22px, $cr-text-main);
-            background-color: $cr-dd-filter;
+            background-color: $cr-cherry-cake;
+
+            @include brakepoints(tablet) {
+                font-size: $fs-text-mob;
+            }
         }
     }
 
@@ -1448,14 +1522,26 @@ body {
         display: flex;
         overflow: hidden;
         max-width: 168px;
-        width: 100% //width: 192px;
+        width: 100%; //width: 192px;
+
+        @include brakepoints(tablet) {
+            max-width: 130px;
+        }
+
+        @include brakepoints(mobile) {
+            max-width: 80%;
+        }
     }
 
     &__counter {
         @include text-style($fs-second-text, 22px, $cr-text-main);
         border-radius: 4px;
-        background-color: $cr-dd-filter;
+        background-color: $cr-cherry-cake;
         padding: 2px 5px;
+
+        @include brakepoints(tablet) {
+            font-size: $fs-text-mob;
+        }
     }
 
     &__arrow {
@@ -1482,18 +1568,27 @@ body {
         padding: 0 14px;
         overflow-y: scroll;
 
+        &_active {
+            display: block;
+            background-color: $cr-dd-filter;
+        }
+
         &::-webkit-scrollbar {
             width: 0;
         }
     }
 
-    &__list_active {
-        display: block;
-    }
+    // &__list_active {
+    //     display: block;
+    // }
 
     &__item {
         @include text-style($fs-second-text, 22px);
         margin-bottom: 6px;
+
+        @include brakepoints(tablet) {
+            font-size: $fs-text-mob;
+        }
     }
 
     &__checkbox {

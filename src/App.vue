@@ -28,14 +28,15 @@ export default {
     window.addEventListener('resize', this.setDeviceTypeVuex);
 
     const searchParams = Object.fromEntries(new URL(window.location).searchParams.entries());
+    console.log(searchParams);
     if (searchParams.q) {
       this.setSearchTermVuex(searchParams.q);
     }
     if (searchParams.tag) {
-      this.setSearchTagVuex(searchParams.tag);
+      this.setSearchTagVuex(searchParams.tag.split(';').map(tag => tag.replace(/\#/,'')));
     }
     if(searchParams.category) {
-      this.setCategoryVuex(searchParams.category);
+      this.setCategoryVuex(searchParams.category.split(';'));
     }
   },
 

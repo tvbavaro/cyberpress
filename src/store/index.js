@@ -21,29 +21,35 @@ export const store = new Vuex.Store({
             state.searchTerm = searchTermByUser;
         },
         setPageURL(state) {
-            // const params = {
-            //     searchFilter: state.searchTerm.length ? `q=${state.searchTerm}` : '',
-            //     tagFilter: state.searchTag.length ? `tag=${state.searchTag.join(';')}` : '',
-            //     categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory.join('')}` : ''
-            // }
-            // const hasValueParams = Object.values(params).filter(el => el.length);
+            const params = {
+                searchFilter: state.searchTerm.length ? `q=${state.searchTerm}` : '',
+                tagFilter: state.searchTag.length ? `tag=${state.searchTag.join(';')}` : '',
+                categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory.join(';')}` : ''
+            }
+            console.log(params);
+            const hasValueParams = Object.values(params).filter(el => el.length);
 
-            // let pageURL = document.location.pathname;
-            // if (hasValueParams.length > 1) {
-            //     pageURL += `?${hasValueParams.join('&')}`;
-            // } else if (hasValueParams.length === 1) {
+            let pageURL = document.location.pathname;
+            if (hasValueParams.length) {
+                pageURL += `?${hasValueParams.join('&')}`;
+            } 
+            // else if (hasValueParams.length === 1) {
             //     pageURL += `?${hasValueParams[0]}`;
             // }
 
-            // const historyState = window.history.state,
-            //     pageTitle = document.title;
-            // window.history.replaceState(historyState, pageTitle, pageURL);
+            const historyState = window.history.state,
+                pageTitle = document.title;
+            window.history.replaceState(historyState, pageTitle, pageURL);
         },
         setSearchTag(state, searchTagByUserSelect) {
-            state.searchTag = [searchTagByUserSelect.replace(/\#/, '')];
+            if(typeof searchTagByUserSelect === 'object') {
+                state.searchTag = searchTagByUserSelect;
+            } else state.searchTag = [searchTagByUserSelect.replace(/\#/, '')];
         },
         setCategory(state, choosenCategoryByUser) {
-            state.choosenCategory = [choosenCategoryByUser];
+            if(typeof choosenCategoryByUser === 'object') {
+                state.choosenCategory = choosenCategoryByUser;
+            } else state.choosenCategory = [choosenCategoryByUser];
         },
         addCategoryFilter(state, addedCategoryByUser) {
             state.choosenCategory.push(addedCategoryByUser);

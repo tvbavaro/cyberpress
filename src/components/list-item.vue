@@ -8,9 +8,19 @@
             </svg>
         </li>
         <div class="list__items-wrapper" v-show="isOpen">
-            <li class="list__item" v-for="item in list" :key="item" @click="executableFunction(item)"><span class="list__text">{{
+            <!-- <li class="list__item" v-for="item in list" :key="item" @click="executableFunction(item)"><span class="list__text">{{
                 item
-            }}</span></li>
+            }}</span></li> -->
+            <li class="list__item" v-for="item in list" :key="item">
+                <template v-if="hasCheckbox">
+                    <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
+                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
+                    <label :for="item"><span class="list__text">{{ item }}</span></label>
+                </template>
+                <template v-else>
+                    <span class="list__text" @click="executableFunction(item)">{{ item }}</span>
+                </template>
+            </li>
         </div>
     </ul>
     <ul class="list__column" v-else>
@@ -20,8 +30,8 @@
         <div class="list__items-wrapper">
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
-                    <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)" type="checkbox"
-                        :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
+                    <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
+                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
                 <template v-else>
@@ -67,7 +77,7 @@ export default {
     },
     methods: {
         isChecked(item) {
-            if(this.checkedList.includes(item.replace(/\#/, ''))) {
+            if (this.checkedList.includes(item.replace(/\#/, ''))) {
                 return true
             } else return false;
         }
