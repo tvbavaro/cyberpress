@@ -1467,6 +1467,10 @@ body {
         }
     }
 
+    &__text {
+        cursor: pointer;
+    }
+
     &__select {
         @include text-style($fs-second-text, 22px, $cr-search-unput);
         display: flex;
@@ -1592,7 +1596,8 @@ body {
     }
 
     &__checkbox {
-        position: absolute;
+        //position: absolute;
+        position: fixed;
         z-index: -1;
         opacity: 0;
     }
@@ -1623,9 +1628,4 @@ body {
         //background-color: $cr-cherry-cake;
         background-image: url("../src/assets/arrow-dd.svg");
     }
-}
-
-.test {
-    display: flex;
-    flex-direction: column;
 }
