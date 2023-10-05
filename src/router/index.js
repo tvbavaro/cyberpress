@@ -9,7 +9,9 @@ export const router = createRouter({
 
 router.afterEach((to, from) => {
     // if(to.fullPath !== from.fullPath) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },100);
         store.commit('setPageURL');
     // } else console.log('false');
 });

@@ -2,7 +2,8 @@
     <div class="slider" v-if="papers.length">
         <div class="slider__divider"></div>
         <div class="slider__wrapper">
-            <div class="slider__list" :class="{ 'slider__list_old': !showImg }" :ref="refName" @scroll="setSliderArrowsStyle(refName)">
+            <div class="slider__list" :class="{ 'slider__list_old': !showImg }" :ref="refName"
+                @scroll="setSliderArrowsStyle(refName)">
                 <previewArticle v-for="(paper, index) in papers" :id="paper.id"
                     :imgUrl="showImg ? paper.img[this.deviceTypeVuex].category_small : null" :header="paper.title"
                     :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
@@ -17,7 +18,7 @@
                         fill="#2A2A34" />
                 </svg>
             </button>
-            <button class="slider__arrow" :class="{ 'slider__arrow_unactive': isEndPosition }"
+            <button class="slider__arrow" :class="{ 'slider__arrow_unactive': isEndPosition || notEnoughtDataForSlider }"
                 @click="scrollSlideTo(refName, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -37,7 +38,7 @@ export default {
     data() {
         return {
             isStartPosition: true,
-            isEndPosition: false
+            isEndPosition: false,
         }
     },
     props: {
@@ -54,15 +55,15 @@ export default {
     components: {
         previewArticle
     },
-    created() {
-        if(this.papers.length < 3) {
-            this.isEndPosition = true;
-        }
-    },
     computed: {
         ...mapState({
             deviceTypeVuex: 'deviceType'
         }),
+        notEnoughtDataForSlider() {
+            if (this.papers.length < 3) {
+                return true;
+            } else false;
+        }
     },
     methods: {
         scrollSlideTo(currenRef, type) {
@@ -74,20 +75,20 @@ export default {
             });
         },
         setSliderArrowsStyle(currenRef) {
-            if (this.$refs[currenRef].scrollLeft === 0) {
+            const refElement = this.$refs[currenRef],
+                scrollArea = refElement.scrollWidth,
+                scrolledAlready = Number(refElement.scrollLeft.toFixed()),
+                zoneVisible = refElement.offsetWidth;
+
+            if (scrolledAlready === 0) {
                 this.isStartPosition = true;
-            } else if (this.$refs[currenRef].scrollLeft > 0 &&
-                this.isStartPosition) {
+            } else if (scrolledAlready > 0 && this.isStartPosition) {
                 this.isStartPosition = false;
             }
 
-            if (this.$refs[currenRef].offsetWidth + this.$refs[currenRef].scrollLeft ===
-                this.$refs[currenRef].scrollWidth) {
+            if (zoneVisible + scrolledAlready === scrollArea) {
                 this.isEndPosition = true;
-            } else if (this.$refs[currenRef].offsetWidth +
-                this.$refs[currenRef].scrollLeft <
-                this.$refs[currenRef].scrollWidth &&
-                this.isEndPosition) {
+            } else if (zoneVisible + scrolledAlready < scrollArea && this.isEndPosition) {
                 this.isEndPosition = false;
             }
         }

@@ -1624,3 +1624,8 @@ body {
         background-image: url("../src/assets/arrow-dd.svg");
     }
 }
+
+.test {
+    display: flex;
+    flex-direction: column;
+}
