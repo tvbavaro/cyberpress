@@ -71,7 +71,7 @@ export default {
         }
     },
     created() {
-        if (this.title === 'News') {
+        if (this.title === 'News' || this.title === 'By categories') {
             this.isOpen = true;
         }
     },

@@ -26,16 +26,12 @@ export const store = new Vuex.Store({
                 tagFilter: state.searchTag.length ? `tag=${state.searchTag.join(';')}` : '',
                 categoryFilter: state.choosenCategory.length ? `category=${state.choosenCategory.join(';')}` : ''
             }
-            console.log(params);
             const hasValueParams = Object.values(params).filter(el => el.length);
 
             let pageURL = document.location.pathname;
             if (hasValueParams.length) {
                 pageURL += `?${hasValueParams.join('&')}`;
             } 
-            // else if (hasValueParams.length === 1) {
-            //     pageURL += `?${hasValueParams[0]}`;
-            // }
 
             const historyState = window.history.state,
                 pageTitle = document.title;

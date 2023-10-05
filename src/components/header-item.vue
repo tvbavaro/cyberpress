@@ -84,7 +84,7 @@
 
                     <listItem class="filters-menu__list-wrapper" :executableFunction="handleTagFilter"
                         title="By popular tags" :list="popularTagsVuex.slice(0, 5)"
-                        :checkedList="searchTagVuex" actionType="tags-filter" :hasCheckbox="true" :isDropDown="isMobile" />
+                        :checkedList="searchTagVuex" :hasCheckbox="true" :isDropDown="isMobile" />
 
                     <dropFilter class="filters-menu__list-wrapper" :list="popularTagsVuex" :checkedList="searchTagVuex"
                         :executableFunction="handleTagFilter" />
@@ -230,9 +230,7 @@ export default {
         handleRedirect(pageName) {
             if (pageName === 'Contacts') {
                 this.showContacts();
-            } else if (document.location.pathname !== '/') {
-                this.$router.push({ name: pageName.toLowerCase() });
-            } else this.setPageURLVuex();
+            } else this.$router.push({ name: pageName.toLowerCase()});
         },
         showContacts() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
