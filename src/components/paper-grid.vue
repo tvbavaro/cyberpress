@@ -3,11 +3,11 @@
         <div class="project__grid">
             <mainArticle class="project__main-paper" :title="paper.title" :text="paper.text_article" :tags="tags"
                 :imgUrl="imgUrl" :createdAt="paper.createdAt" :time="paper.time_to_read" />
-            <aside class="recommended project__recommended">
+            <aside class="recommended project__recommended" v-if="recommended">
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <div class="recommended__articles-wrapper">
-                        <previewArticle v-for="(paperRec, index) in recommended" :id="paperRec.id"
+                        <previewArticle v-for="(paperRec, index) in recommended.slice(0, 2)" :id="paperRec.id"
                             :imgUrl="paperRec.img[this.deviceTypeVuex]" :header="paperRec.title"
                             :text="paperRec.text_preview" :time="paperRec.time_to_read" :createdAt="paperRec.createdAt"
                             :key="paperRec.id" />
@@ -15,10 +15,10 @@
 
                 </div>
             </aside>
-            <div class="similar project__similar">
+            <div class="similar project__similar" v-if="similar">
                 <div class="similar__wrapper">
                     <span class="similar__heading">Similar to</span>
-                    <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img.desktop"
+                    <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img[this.deviceTypeVuex]"
                         :isTablet="isTablet" :isMobile="isMobile"
                         :isWideArticleDescription="!deviceTypeVuex === 'mobile' ? true : false" :header="similar.title"
                         :text="similar.text_preview" :time="similar.time_to_read" :createdAt="similar.createdAt"
@@ -57,10 +57,8 @@ export default {
         mainArticle,
         loadItem
     },
-    async created() {
-        this.paper = await getPaper(this.id);
-        this.recommended = await getRecommended();
-        this.similar = await getSimilar(this.id - 3);
+    created() {
+        this.getData();
     },
     computed: {
         ...mapState({
@@ -78,17 +76,23 @@ export default {
             return this.paper.tags.split(/\s/);
         },
         dataIsReady() {
-            if (this.paper !== null && this.recommended && this.similar) {
+            if (this.paper !== null) {
                 return true;
             } else return false;
+        }
+    },
+    methods: {
+        async getData() {
+            this.paper = await getPaper(this.id);
+            this.recommended = await getRecommended(this.id, this.tags);
+            const recIds = this.recommended.map(rec => rec.id);
+            this.similar = await getSimilar([this.id,...recIds], Array.from(this.paper.categories)).then(arr => arr[0]);
         }
     },
     watch: {
         async id() {
             this.paper = this.recommended = this.similar = null;
-            this.paper = await getPaper(this.id);
-            this.recommended = await getRecommended();
-            this.similar = await getSimilar(this.id - 3);
+            this.getData();
         }
     }
 }

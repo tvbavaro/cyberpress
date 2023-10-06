@@ -28,7 +28,7 @@ export default {
     window.addEventListener('resize', this.setDeviceTypeVuex);
 
     const searchParams = Object.fromEntries(new URL(window.location).searchParams.entries());
-    console.log(searchParams);
+    //console.log(searchParams);
     if (searchParams.q) {
       this.setSearchTermVuex(searchParams.q);
     }

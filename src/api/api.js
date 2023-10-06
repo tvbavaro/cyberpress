@@ -45,7 +45,7 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                 image_wide: {
                     fields: ['formats']
                 },
-                //categories: true
+                // categories: true
             },
         },
         {
@@ -135,7 +135,25 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
 }
 
 export const getPaper = (id) => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
+    const query = qs.stringify(
+        {
+            fields: ['title', 'text_article', 'time_to_read', 'createdAt'],
+            populate: {
+                image_ultrawide: {
+                    fields: ['url', 'formats']
+                },
+                categories: {
+                    fields: ['categoryname']
+                },
+                tags: true
+            },
+        },
+        {
+            encodeValuesOnly: true, // prettify URL
+        }
+    );
+    // return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
+    return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -166,6 +184,9 @@ export const getPaper = (id) => {
                                 },
                             }
                         }
+                    },
+                    categories: {
+                        data: categoriesData
                     }
                 }
             } = data;
@@ -180,20 +201,55 @@ export const getPaper = (id) => {
                     desktop: url,
                     tablet: tablet_url,
                     mobile: mobile_url
-                }
+                },
+                categories: categoriesData.map(cat => cat.attributes.categoryname)
             }
             return paperData;
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 }
 
-export const getRecommended = () => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
+export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
+    const query = qs.stringify(
+        {
+            fields: ['title', 'text_preview', 'time_to_read', 'createdAt'],
+            sort: [`createdAt:${sort}`],
+            pagination: {
+                pageSize: 2,
+                page: 1,
+            },
+            filters: {
+                tags: {
+                    value: {
+                        $contains: searchTag
+                    }
+                },
+                id: {
+                    $ne: paperId
+                }
+            },
+            populate: {
+                image_sq: {
+                    fields: ['formats']
+                },
+                // image_wide: {
+                //     fields: ['formats']
+                // },
+                //categories: true
+            },
+        },
+        {
+            encodeValuesOnly: true, // prettify URL
+        }
+    );
+    // return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
             } else throw new Error(res.statusText)
-        }).then(res => {
+        })
+        .then(res => {
             //const dataRes = res;
             const papersRec = [];
             const { data } = res;
@@ -221,6 +277,21 @@ export const getRecommended = () => {
                                 }
                             }
                         },
+                        // image_wide: {
+                        //     data: {
+                        //         attributes: {
+                        //             formats: {
+                        //                 old: { url },
+                        //                 old_tablet: {
+                        //                     url: tablet_url
+                        //                 },
+                        //                 old_mobile: {
+                        //                     url: old_mobile
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     },
                 }) => {
                 const paperData = {
@@ -232,8 +303,13 @@ export const getRecommended = () => {
                     img: {
                         desktop: aside_desktop,
                         tablet: aside_tablet,
-                        mobile: aside_mobile
-                    }
+                        mobile: aside_mobile,
+                    },
+                    // img_old: {
+                    //     desktop: url,
+                    //     tablet: tablet_url,
+                    //     mobile: old_mobile
+                    // }
                 };
                 papersRec.push(paperData);
             });
@@ -242,53 +318,133 @@ export const getRecommended = () => {
         .catch(err => console.log(err))
 }
 
-export const getSimilar = (id) => {
-    return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
+export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 'desc') => {
+    const query = qs.stringify(
+        {
+            fields: ['title', 'text_preview', 'time_to_read', 'createdAt'],
+            sort: [`createdAt:${sort}`],
+            pagination: {
+                pageSize: 1,
+                page: 1,
+            },
+            filters: {
+                categories: {
+                    categoryname: {
+                        //$contains: categoryName,
+                        $in: categoriesNames
+                    }
+                },
+                id: {
+                    $notIn: excludeFromSearch
+                }
+            },
+            populate: {
+                image_wide: {
+                    fields: ['formats']
+                },
+            },
+        },
+        {
+            encodeValuesOnly: true, // prettify URL
+        }
+    );
+    // return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
+    return fetch(`http://${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
             } else throw new Error(res.statusText)
         })
         .then(res => {
+            //const dataRes = res;
+            const papersSim = [];
             const { data } = res;
-            const { id,
-                attributes: {
-                    title,
-                    createdAt,
-                    time_to_read,
-                    text_preview,
-                    image_wide: {
-                        data: {
-                            attributes: {
-                                formats: {
-                                    old: { url },
-                                    old_tablet: {
-                                        url: tablet_url
-                                    },
-                                    old_mobile: {
-                                        url: old_mobile
+            data.forEach((
+                { id,
+                    attributes: {
+                        title,
+                        createdAt,
+                        time_to_read,
+                        text_preview,
+                        image_wide: {
+                            data: {
+                                attributes: {
+                                    formats: {
+                                        old: { url },
+                                        old_tablet: {
+                                            url: tablet_url
+                                        },
+                                        old_mobile: {
+                                            url: old_mobile
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            } = data;
-            const paperData = {
-                id,
-                title,
-                text_preview,
-                createdAt,
-                time_to_read,
-                img: {
-                    desktop: url,
-                    tablet: tablet_url,
-                    mobile: old_mobile
-                }
-            }
-            return paperData;
+                }) => {
+                const paperData = {
+                    id,
+                    title,
+                    text_preview,
+                    createdAt,
+                    time_to_read,
+                    img: {
+                        desktop: url,
+                        tablet: tablet_url,
+                        mobile: old_mobile
+                    },
+                    // img_old: {
+                    //     desktop: url,
+                    //     tablet: tablet_url,
+                    //     mobile: old_mobile
+                    // }
+                };
+                papersSim.push(paperData);
+            });
+            return papersSim;
         })
         .catch(err => console.log(err))
+    // .then(res => {
+    //     const { data } = res;
+    //     const { id,
+    //         attributes: {
+    //             title,
+    //             createdAt,
+    //             time_to_read,
+    //             text_preview,
+    //             image_wide: {
+    //                 data: {
+    //                     attributes: {
+    //                         formats: {
+    //                             old: { url },
+    //                             old_tablet: {
+    //                                 url: tablet_url
+    //                             },
+    //                             old_mobile: {
+    //                                 url: old_mobile
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     } = data;
+    //     paperData = {
+    //         id,
+    //         title,
+    //         text_preview,
+    //         createdAt,
+    //         time_to_read,
+    //         img: {
+    //             desktop: url,
+    //             tablet: tablet_url,
+    //             mobile: old_mobile
+    //         }
+    //     }
+    //     return paperData;
+    // })
+    // .catch(err => console.log(err))
 }
 
 export const getProject = (type) => {

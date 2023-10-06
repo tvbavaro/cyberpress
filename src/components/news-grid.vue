@@ -1,5 +1,5 @@
 <template>
-    <div class="main-news" v-if="dataIsReady">
+    <div class="main-news" v-show="dataIsReady">
         <filtersApplied class="main-news__filters-applied" @reset-filters="resetFilters"
             v-show="searchTagVuex.length || searchTermVuex || choosenCategoryVuex.length" :searchTerm="searchTermVuex"
             :searchTag="searchTagVuex" :choosenCategory="choosenCategoryVuex" />
@@ -47,7 +47,7 @@
             </template>
         </section>
     </div>
-    <loadItem v-else />
+    <loadItem v-show="!dataIsReady" />
 </template>
 <script>
 import previewArticle from '@components/preview-article.vue';
@@ -62,7 +62,7 @@ export default {
             newsPapers: [],
             isStartPosition: true,
             isEndPosition: false,
-            //dataIsReady: false
+            dataIsReady: false
         }
     },
     //ultraWideInds: [1, 8, 9, 10, 11],
@@ -98,11 +98,11 @@ export default {
                 }
             });
         },
-        dataIsReady() {
-            if (this.newsPapers) {
-                return true;
-            } else return false;
-        }
+        // dataIsReady() {
+        //     if (this.newsPapers.length) {
+        //         return true;
+        //     } else return false;
+        // }
     },
     methods: {
         ...mapMutations({
@@ -124,11 +124,13 @@ export default {
         },
         async getData() {
             //this.newsPapers = null;
+            this.dataIsReady = false;
             this.newsPapers = await getNewsPapers(
                 this.searchTermVuex,
                 this.searchTagVuex,
                 this.choosenCategoryVuex
             );
+            this.dataIsReady = true;
         },
         resetFilters() {
             this.resetFiltersVuex();

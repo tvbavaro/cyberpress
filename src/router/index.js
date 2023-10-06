@@ -8,15 +8,14 @@ export const router = createRouter({
 });
 
 router.beforeEach((to,from) => {
-    console.log('before',to,from);
+   // console.log('before',to,from);
 });
 
 router.afterEach((to, from) => {
-    console.log('afetr',to,from);
-    // if(to.fullPath !== from.fullPath) {
+    if(to.fullPath !== from.fullPath) {
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         },200);
+    }
         store.commit('setPageURL');
-    // } else console.log('false');
 });
