@@ -1,27 +1,27 @@
 export const routes = [
     {
-        path: '',
+        path: '/cyberpress',
         name: 'main',
         component: () => import('@views/MainView.vue'),
     },
     {
-        path: '/paper/:id',
+        path: '/cyberpress/paper/:id',
         name: 'paper',
         component: () => import('@views/PaperView.vue'),
         props: true
     },
     {
-        path: '/project',
+        path: '/cyberpress/project',
         name: 'project',
         component: () => import('@views/ProjectView.vue')
     },
     {
-        path: '/donate',
+        path: '/cyberpress/donate',
         name: 'donate',
         component: () => import('@views/DonateView.vue')
     },
     {
-        path: '/team',
+        path: '/cyberpress/team',
         name: 'team',
         component: () => import('@views/TeamView.vue')
     }
