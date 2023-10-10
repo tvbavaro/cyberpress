@@ -255,7 +255,7 @@ body {
 
     &__img {
         height: 48px;
-        margin-right: 24px;
+        //margin-right: 24px;
 
         @include brakepoints(mobile) {
             width: 100%;

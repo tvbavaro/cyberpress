@@ -5,7 +5,7 @@
                 <div class="header__basic">
                     <div class="logo logo__wrapper" @click="handleRedirect('main')">
                         <img class="logo__img" src="@assets/logo.png" alt="logo">
-                        <span class="logo__name">InfoDefense</span>
+                        <span class="logo__name">CyberPress</span>
                     </div>
                     <div class="header__actions-wrapper">
                         <div class="search header__search" :class="{ 'header__search_active': togglers.isSearchOpen }"
@@ -48,7 +48,7 @@
                     <listItem class="menu__list-wrapper" title="Popular tags" @click="closeAllModals"
                         :executableFunction="setTag" :list="popularTagsVuex.slice(0, 5)" :isDropDown="isMobile" />
 
-                    <listItem class="menu__list-wrapper" title="About InfoDefence" @click="closeAllModals"
+                    <listItem class="menu__list-wrapper" title="About CyberPress" @click="closeAllModals"
                         :executableFunction="handleRedirect" :list="['Project', 'Team', 'Donate', 'Contacts']"
                         :isDropDown="isMobile" />
 

@@ -4,7 +4,7 @@
             <listItem class="footer__list-wrapper" :executableFunction="setCategory" title="News"
                 :list="['Home', 'Software', 'Business', 'Governmen', 'Entertainment']" />
 
-            <listItem class="footer__list-wrapper" :executableFunction="handleRedirect" title="About InfoDefence"
+            <listItem class="footer__list-wrapper" :executableFunction="handleRedirect" title="About CyberPress"
                 :list="['Project', 'Team', 'Donate']" />
 
             <ul class="list__column footer__list-wrapper">
@@ -49,7 +49,7 @@
                                     stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <span class="list__text">inf0@infodefense.press</span>
+                        <span class="list__text">info@cyber.press</span>
                     </li>
                 </div>
             </ul>
@@ -60,7 +60,7 @@
                 </li>
             </ul>
             <div class="privacy privacy__wrapper">
-                <span class="privacy__copyright">© InfoDefence. All rights reserved</span>
+                <span class="privacy__copyright">© CyberPress. All rights reserved</span>
                 <span class="privacy__copyright">Privacy | Terms of Use</span>
             </div>
         </nav>
