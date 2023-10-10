@@ -1370,7 +1370,6 @@ body {
     }
 
     &__actions {
-        //padding: 24px;
         display: flex;
         align-items: flex-end;
 
@@ -1476,7 +1475,6 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        //width: 254px;
         border: 1px solid $cr-text-main;
         border-radius: 4px;
         height: 40px;
@@ -1499,8 +1497,6 @@ body {
         padding: 2px 8px;
         margin-right: 4px;
         display: inline-block;
-        // @include text-style($fs-second-text, 22px, $cr-text-main);
-        // background-color: $cr-dd-filter;
 
         & :last-child {
             @include ellipsis(1);
@@ -1522,11 +1518,10 @@ body {
     }
 
     &__tags-wrapper {
-        //@include ellipsis(1);
         display: flex;
         overflow: hidden;
         max-width: 168px;
-        width: 100%; //width: 192px;
+        width: 100%;
 
         @include brakepoints(tablet) {
             max-width: 130px;
@@ -1582,10 +1577,6 @@ body {
         }
     }
 
-    // &__list_active {
-    //     display: block;
-    // }
-
     &__item {
         @include text-style($fs-second-text, 22px);
         margin-bottom: 6px;
@@ -1596,7 +1587,6 @@ body {
     }
 
     &__checkbox {
-        //position: absolute;
         position: fixed;
         z-index: -1;
         opacity: 0;
@@ -1615,8 +1605,6 @@ body {
         height: 18px;
         flex-shrink: 0;
         flex-grow: 0;
-        //border: 2px solid $cr-text-main;
-        //border-radius: 2px;
         margin-right: 11px;
         background-repeat: no-repeat;
         background-position: center center;
@@ -1624,8 +1612,6 @@ body {
     }
 
     &__checkbox:checked+label::before {
-        //border-color: $cr-cherry-cake;
-        //background-color: $cr-cherry-cake;
         background-image: url("../src/assets/arrow-dd.svg");
     }
 }
