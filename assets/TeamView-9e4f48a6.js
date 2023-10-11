@@ -1,1 +1,0 @@
-import{p as o}from"./project-grid-ae7c237e.js";import{_ as t,r,o as c,c as p}from"./index-e6caef56.js";import"./heading-item-59601f4b.js";const n={components:{projectGrid:o}};function s(a,i,m,_,d,f){const e=r("projectGrid");return c(),p(e,{typePage:"team",typePreview:"project"})}const $=t(n,[["render",s]]);export{$ as default};
