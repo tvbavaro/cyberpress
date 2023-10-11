@@ -1,6 +1,6 @@
 export const routes = [
     {
-        path: '/cyberpress',
+        path: '/cyberpress/',
         name: 'main',
         component: () => import('@views/MainView.vue'),
     },

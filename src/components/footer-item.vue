@@ -53,7 +53,7 @@
                     </li>
                 </div>
             </ul>
-            <ul class="footer__column">
+            <ul class="footer__column footer__list-wrapper">
                 <li class="footer__item"><span class="footer__header">Stay Connected</span></li>
                 <li class="footer__item">
                     <socialIcons class="footer__social" />

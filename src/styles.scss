@@ -466,6 +466,11 @@ body {
             margin-bottom: 32px;
         }
 
+        @include brakepoints(tablet-mini) {
+            @include set-grid(24px, 10px);
+            margin-bottom: 24px;
+        }
+
         @include brakepoints(mobile) {
             grid-template-columns: 1fr;
             row-gap: 24px;
@@ -481,10 +486,14 @@ body {
             margin-bottom: 72px;
         }
 
+        @include brakepoints(tablet-mini) {
+            @include set-grid(16px,10px);
+            margin-bottom: 56px;
+        }
+
         @include brakepoints(mobile) {
             grid-template-columns: 1fr;
             row-gap: 16px;
-            margin-bottom: 56px;
         }
     }
 
@@ -550,7 +559,7 @@ body {
         margin-bottom: 10px;
         height: 60px;
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-header-mob;
             line-height: 24px;
             margin-bottom: 16px;
@@ -572,7 +581,7 @@ body {
         height: 86px;
         margin-bottom: 24px;
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-text-mob;
             line-height: 18px;
             height: 72px;
@@ -607,7 +616,7 @@ body {
     &__text {
         @include text-style($fs-time, 16px, $cr-time);
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-time-mob;
         }
     }
@@ -665,7 +674,7 @@ body {
         white-space: pre-wrap;
         margin-bottom: 48px;
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-text-mob;
             margin-bottom: 24px;
             line-height: 18px;
@@ -825,7 +834,7 @@ body {
             margin: 24px 0 24px 8px;
         }
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-header-mob;
             line-height: 24px;
             width: 158px;
@@ -856,7 +865,7 @@ body {
             margin-left: 16px;
         }
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-header-mob;
             margin: 0 0 24px 0;
             width: 158px;
@@ -882,7 +891,7 @@ body {
         @include text-style($fs-text, 25px);
         cursor: pointer;
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-text-mob;
             line-height: 18px;
         }
@@ -918,6 +927,11 @@ body {
         @include brakepoints(tablet) {
             @include set-grid(32px, 20px);
             margin-bottom: 72px;
+        }
+
+        @include brakepoints(tablet-mini) {
+            @include set-grid(24px, 10px);
+            margin-bottom: 56px;
         }
 
         @include brakepoints(mobile) {
@@ -1040,7 +1054,7 @@ body {
     &__text {
         @include heading;
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-header-mob;
             line-height: 24px;
         }
@@ -1051,7 +1065,7 @@ body {
     &__content {
         @include text(56px);
 
-        @include brakepoints(mobile) {
+        @include brakepoints(tablet-mini) {
             font-size: $fs-text-mob;
             line-height: 18px;
             margin-bottom: 24px;
