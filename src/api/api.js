@@ -45,7 +45,7 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                 image_wide: {
                     fields: ['formats']
                 },
-                // categories: true
+                categories: true
             },
         },
         {
