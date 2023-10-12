@@ -98,11 +98,6 @@ export default {
                 }
             });
         },
-        // dataIsReady() {
-        //     if (this.newsPapers.length) {
-        //         return true;
-        //     } else return false;
-        // }
     },
     methods: {
         ...mapMutations({

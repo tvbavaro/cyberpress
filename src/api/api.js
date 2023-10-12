@@ -5,7 +5,7 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
     const query = qs.stringify(
         {
             fields: ['title', 'text_preview', 'time_to_read', 'createdAt'],
-            sort: [`createdAt:${sort}`],
+            sort: [`updatedAt:${sort}`],
             pagination: {
                 pageSize: 23,
                 //page: 1,
@@ -45,15 +45,15 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                 image_wide: {
                     fields: ['formats']
                 },
-                categories: true
+                //categories: true
             },
         },
         {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&pagination[pageSize]=23&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}&filters[categories][categoryname][$contains]=${categoryName}`)
-    return fetch(`https://${DEVDOMAIN}/api/newspapers?${query}`)
+    // return fetch(`${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&pagination[pageSize]=23&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}&filters[categories][categoryname][$contains]=${categoryName}`)
+    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -152,8 +152,8 @@ export const getPaper = (id) => {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
-    return fetch(`https://${DEVDOMAIN}/api/newspapers/${id}?${query}`)
+    // return fetch(`${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
+    return fetch(`${DEVDOMAIN}/api/newspapers/${id}?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -242,8 +242,8 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`http://${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
-    return fetch(`https://${DEVDOMAIN}/api/newspapers?${query}`)
+    // return fetch(`${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
+    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -348,8 +348,8 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`http://${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
-    return fetch(`https://${DEVDOMAIN}/api/newspapers?${query}`)
+    // return fetch(`${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
+    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -448,7 +448,7 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
 }
 
 export const getProject = (type) => {
-    return fetch(`https://${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url&populate[image_desktop][fields]=width&populate[image_desktop][fields]=height`)
+    return fetch(`${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url&populate[image_desktop][fields]=width&populate[image_desktop][fields]=height`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -475,7 +475,7 @@ export const getProject = (type) => {
 }
 
 export const getProjectPreview = (type) => {
-    return fetch(`https://${DEVDOMAIN}/api/${type}?fields=text_preview&fields=heading_preview&fields=slogan&populate[image_desktop_wide][fields]=url`)
+    return fetch(`${DEVDOMAIN}/api/${type}?fields=text_preview&fields=heading_preview&fields=slogan&populate[image_desktop_wide][fields]=url`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -498,7 +498,7 @@ export const getProjectPreview = (type) => {
 }
 
 export const getPopularTags = () => {
-    return fetch(`https://${DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=23`)
+    return fetch(`${DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=23`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
