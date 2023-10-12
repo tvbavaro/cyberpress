@@ -1,0 +1,1 @@
+import{p as e}from"./project-grid-af5467d8.js";import{_ as t,r,o as c,c as p}from"./index-4156febd.js";import"./heading-item-1ca0f996.js";const n={components:{projectGrid:e}};function s(a,i,_,m,d,f){const o=r("projectGrid");return c(),p(o,{typePage:"project",typePreview:"donate"})}const $=t(n,[["render",s]]);export{$ as default};
