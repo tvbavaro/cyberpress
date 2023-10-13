@@ -508,12 +508,23 @@ export const getPopularTags = () => {
             const { data } = res;
             const tags = [];
             data.forEach(({ attributes: { tags: { value: tagsList } } }) => {
-                //tags.push(tagsList.split(/\s/)[0]);
                 tagsList.split(/\s/).forEach(tag => {
                     tags.push(tag);
                 })
             });
-            return Array.from(new Set(tags));
+            let counted = {};
+            //count tags
+            tags.forEach(a => {
+                counted[a] = counted[a] + 1 || 1;
+            });
+            //sort by count desc
+            const sorted = Object.entries(counted).sort((a, b) => {
+                return b[1] - a[1];
+            })
+            //choose 5 most popular yags
+            const mostPopularTegs = Object.fromEntries(sorted.slice(0, 5));
+            //return tags as array without count
+            return Object.keys(mostPopularTegs);
         })
         .catch(err => console.log(err))
 }

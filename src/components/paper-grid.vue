@@ -3,7 +3,7 @@
         <div class="project__grid">
             <mainArticle class="project__main-paper" :title="paper.title" :text="paper.text_article" :tags="tags"
                 :imgUrl="imgUrl" :createdAt="paper.createdAt" :time="paper.time_to_read" />
-            <aside class="recommended project__recommended" v-if="recommended">
+            <aside class="recommended project__recommended" v-if="recommended?.length">
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <div class="recommended__articles-wrapper">

@@ -46,7 +46,7 @@
                         :isDropDown="isMobile" />
 
                     <listItem class="menu__list-wrapper" title="Popular tags" @click="closeAllModals"
-                        :executableFunction="setTag" :list="popularTagsVuex.slice(0, 5)" :isDropDown="isMobile" />
+                        :executableFunction="setTag" :list="popularTagsVuex" :isDropDown="isMobile" />
 
                     <listItem class="menu__list-wrapper" title="About CyberPress" @click="closeAllModals"
                         :executableFunction="handleRedirect" :list="['Project', 'Team', 'Donate', 'Contacts']"
@@ -83,14 +83,14 @@
                         :hasCheckbox="true" :isDropDown="isMobile" />
 
                     <listItem class="filters-menu__list-wrapper" :executableFunction="handleTagFilter"
-                        title="By popular tags" :list="popularTagsVuex.slice(0, 5)"
+                        title="By popular tags" :list="popularTagsVuex"
                         :checkedList="searchTagVuex" :hasCheckbox="true" :isDropDown="isMobile" />
 
                     <dropFilter class="filters-menu__list-wrapper" :list="popularTagsVuex" :checkedList="searchTagVuex"
                         :executableFunction="handleTagFilter" />
                     <div class="filters-menu__actions filters-menu__list-wrapper">
                         <div class="filters-menu__actions-wrapper">
-                            <svg class="filters-menu__clear-filters" @click="resetFiltersVuex" width="24" height="24"
+                            <svg class="filters-menu__clear-filters" @click="resetFiltersVuex(); setPageURLVuex()" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M4.5092 2.66663C2.30151 2.66663 1.03551 5.19467 2.38786 6.95501L2.38786 6.95501L2.39044 6.95835L8.50004 14.8421V20.3333C8.50004 20.6701 8.66957 20.9843 8.95108 21.1691C9.23259 21.354 9.58826 21.3848 9.89733 21.251L12.0001 20.3406V18.1613L10.5 18.8107V14.5C10.5 14.2782 10.4263 14.0627 10.2905 13.8874L3.97387 5.73658L3.97287 5.73527C3.64184 5.30229 3.94579 4.66663 4.5092 4.66663H19.49C20.0526 4.66663 20.3581 5.3019 20.027 5.7364L20.0257 5.73808L19.8227 6H22.0846C22.5022 4.40316 21.3203 2.66663 19.49 2.66663H4.5092Z"
@@ -101,7 +101,7 @@
                             </svg>
                             <div class="filters-menu__btns-wrapper">
                                 <actionButton class="filters-menu__cancel-btn"
-                                    @click="resetFiltersVuex(); closeAllModals()">Cancel</actionButton>
+                                    @click="resetFiltersVuex(); closeAllModals(); setPageURLVuex()">Cancel</actionButton>
                                 <actionButton class="filters-menu__search-btn"
                                     @click="closeAllModals(), handleRedirect('main')">Search</actionButton>
                             </div>
