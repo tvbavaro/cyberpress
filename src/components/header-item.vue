@@ -4,7 +4,7 @@
             <div class="header__grid">
                 <div class="header__basic">
                     <div class="logo logo__wrapper" @click="handleRedirect('main')">
-                        <img class="logo__img" src="@assets/logo.png" alt="logo">
+                        <logoItem class="logo__icon"/>
                         <span class="logo__name">CyberPress</span>
                     </div>
                     <div class="header__actions-wrapper">
@@ -119,6 +119,7 @@ import socialIcons from '@components/social-icons.vue';
 import listItem from '@components/list-item.vue';
 import dropFilter from '@components/drop-filter.vue';
 import actionButton from '@components/action-button.vue';
+import logoItem from '@components/logo-item.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
@@ -137,7 +138,8 @@ export default {
         socialIcons,
         listItem,
         dropFilter,
-        actionButton
+        actionButton,
+        logoItem
     },
     computed: {
         ...mapState({

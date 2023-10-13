@@ -262,6 +262,18 @@ body {
             margin-right: initial;
         }
     }
+
+    &__icon {
+        width: 64px;
+        height: 64px;
+
+        @include brakepoints(mobile) {
+            height: 48px;
+            width: 48px;
+        }
+    }
+
+
 }
 
 .search {
