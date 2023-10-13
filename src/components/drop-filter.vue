@@ -17,7 +17,7 @@
 
             </div>
             <ul class="drop-down-filter__list" :class="{ 'drop-down-filter__list_active': isOpen }">
-                <li class="drop-down-filter__item" v-for="(item, index) in list" :key="item + index">
+                <li class="drop-down-filter__item" v-for="(item, index) in tags" :key="item + index">
                     <input class="drop-down-filter__checkbox" @click.stop
                         @change="executableFunction($event.target.checked, item)" type="checkbox" :id="`${item}dd`"
                         :name="`${item}dd`" :checked="isChecked(item)" />
@@ -40,7 +40,8 @@ export default {
     },
     props: {
         list: {
-            type: Array
+            type: Array,
+            default: []
         },
         checkedList: {
             type: Array,
@@ -58,6 +59,10 @@ export default {
         },
         checkedListLength() {
             return this.checkedList.length;
+        },
+        tags() {
+            //default sort to avoid changing the sorting in the parent component
+            return [...this.list].sort();
         }
     },
     methods: {
@@ -92,7 +97,7 @@ export default {
                 }
             },
             deep: true
-        }
+        },
     }
 }
 </script>

@@ -46,7 +46,7 @@
                         :isDropDown="isMobile" />
 
                     <listItem class="menu__list-wrapper" title="Popular tags" @click="closeAllModals"
-                        :executableFunction="setTag" :list="popularTagsVuex" :isDropDown="isMobile" />
+                        :executableFunction="setTag" :list="popularTagsVuex.slice(0,5)" :isDropDown="isMobile" />
 
                     <listItem class="menu__list-wrapper" title="About CyberPress" @click="closeAllModals"
                         :executableFunction="handleRedirect" :list="['Project', 'Team', 'Donate', 'Contacts']"
@@ -83,7 +83,7 @@
                         :hasCheckbox="true" :isDropDown="isMobile" />
 
                     <listItem class="filters-menu__list-wrapper" :executableFunction="handleTagFilter"
-                        title="By popular tags" :list="popularTagsVuex"
+                        title="By popular tags" :list="popularTagsVuex.slice(0,5)"
                         :checkedList="searchTagVuex" :hasCheckbox="true" :isDropDown="isMobile" />
 
                     <dropFilter class="filters-menu__list-wrapper" :list="popularTagsVuex" :checkedList="searchTagVuex"
@@ -150,7 +150,7 @@ export default {
         }),
         ...mapGetters({
             searchTermLengthVuex: 'searchTermLength'
-        }),
+        })
     },
     methods: {
         ...mapMutations({

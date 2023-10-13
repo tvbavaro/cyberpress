@@ -520,11 +520,9 @@ export const getPopularTags = () => {
             //sort by count desc
             const sorted = Object.entries(counted).sort((a, b) => {
                 return b[1] - a[1];
-            })
-            //choose 5 most popular yags
-            const mostPopularTegs = Object.fromEntries(sorted.slice(0, 5));
+            });
             //return tags as array without count
-            return Object.keys(mostPopularTegs);
+            return sorted.map(tag => tag[0]);
         })
         .catch(err => console.log(err))
 }
