@@ -110,3 +110,25 @@
     row-gap: $rgap;
     column-gap: $cgap;
 }
+
+@mixin hover-primary-button() {
+    &:hover {
+        background-color: $cr-text-main;
+        border: 1px solid $cr-text-main;
+
+        .action-button__text {
+            color: $cr-text-footer;
+        }
+    }
+}
+
+@mixin active-primary-button() {
+    &:active {
+        border: 1px solid $cr-text-main;
+        background-color: $cr-cherry-cake;
+
+        .action-button__text {
+            color: $cr-text-main;
+        }
+    }
+}

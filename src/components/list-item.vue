@@ -32,10 +32,11 @@
                 <template v-if="hasCheckbox">
                     <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
                         type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
-                    <label :for="item"><span class="list__text">{{ item }}</span></label>
+                    <label class="list__label" :for="item"><span class="list__text list__text_checkbox">{{ item }}</span></label>
                 </template>
                 <template v-else>
-                    <span class="list__text" @click="executableFunction(item)">{{ item }}</span>
+                    <span class="list__text"
+                        @click="executableFunction(item)">{{ item }}</span>
                 </template>
             </li>
         </div>

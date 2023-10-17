@@ -24,7 +24,7 @@
                                     stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <span class="list__text">870571, Bryansk region, Chekhov, st. Glory, 55</span>
+                        <span class="list__text list__text_not-hovered">870571, Bryansk region, Chekhov, st. Glory, 55</span>
                     </li>
                     <li class="list__item footer__list-item">
                         <div class="list__svg-wrapper">
@@ -35,7 +35,7 @@
                                     stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <span class="list__text">8(2191)741-34-34</span>
+                        <span class="list__text list__text_not-hovered">8(2191)741-34-34</span>
                     </li>
                     <li class="list__item footer__list-item">
                         <div class="list__svg-wrapper">
@@ -49,7 +49,7 @@
                                     stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <span class="list__text">info@cyber.press</span>
+                        <span class="list__text list__text_not-hovered">info@cyber.press</span>
                     </li>
                 </div>
             </ul>
