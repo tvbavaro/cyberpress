@@ -31,19 +31,19 @@ export const store = new Vuex.Store({
             let pageURL = document.location.pathname;
             if (hasValueParams.length) {
                 pageURL += `?${hasValueParams.join('&')}`;
-            } 
+            }
 
             const historyState = window.history.state,
                 pageTitle = document.title;
             window.history.replaceState(historyState, pageTitle, pageURL);
         },
         setSearchTag(state, searchTagByUserSelect) {
-            if(typeof searchTagByUserSelect === 'object') {
+            if (typeof searchTagByUserSelect === 'object') {
                 state.searchTag = searchTagByUserSelect;
             } else state.searchTag = [searchTagByUserSelect.replace(/\#/, '')];
         },
         setCategory(state, choosenCategoryByUser) {
-            if(typeof choosenCategoryByUser === 'object') {
+            if (typeof choosenCategoryByUser === 'object') {
                 state.choosenCategory = choosenCategoryByUser;
             } else state.choosenCategory = [choosenCategoryByUser];
         },
@@ -90,6 +90,10 @@ export const store = new Vuex.Store({
     actions: {
         async getPopularTags({ commit }) {
             await getPopularTagsAPI().then(tags => commit('setPopularTags', tags));
+        },
+        setQuery({ commit }, searchTerm) {
+            commit('setSearchTerm', searchTerm);
+            commit('setPageURL');
         }
     }
 });

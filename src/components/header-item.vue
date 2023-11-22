@@ -8,7 +8,7 @@
                         <span class="logo__name">CyberPress</span>
                     </div>
                     <div class="header__actions-wrapper">
-                        <div class="search header__search" :class="{ 'header__search_active': togglers.isSearchOpen }"
+                        <button class="search header__search" :class="{ 'header__search_active': togglers.isSearchOpen }"
                             @click="openSearch">
                             <div class="search__wrapper">
                                 <img v-if="!togglers.isSearchOpen" class="search__icon" src="@assets/24x24/search.svg"
@@ -16,20 +16,20 @@
                                 <img v-else class="search__close" src="@assets/24x24/cross.svg">
                                 <span class="search__text">Search</span>
                             </div>
-                        </div>
-                        <div class="filters header__filters" :class="{ 'header__filters_active': togglers.isFiltersOpen }"
-                            @click="openFilters">
+                        </button>
+                        <button class="filters header__filters"
+                            :class="{ 'header__filters_active': togglers.isFiltersOpen }" @click="openFilters">
                             <div class="filters__wrapper">
                                 <img v-if="!togglers.isFiltersOpen" class="search__icon" src="@assets/24x24/filter.svg"
                                     alt="">
                                 <img v-else class="search__close" src="@assets/24x24/cross.svg">
                                 <span class="filters__text">Filters</span>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <socialIcons class="header__social" />
-                <div class="navigation header__navigation" :class="{ 'header__navigation_active': togglers.isMenuOpen }"
+                <button class="navigation header__navigation" :class="{ 'header__navigation_active': togglers.isMenuOpen }"
                     @click="openMenu">
                     <div class="navigation__wrapper">
                         <div class="burger header__burger-wrapper">
@@ -37,7 +37,7 @@
                         </div>
                         <span class="navigation__text">Menu</span>
                     </div>
-                </div>
+                </button>
             </div>
             <div class="menu menu__wrapper" :class="{ 'menu__wrapper_active': togglers.isMenuOpen }">
                 <nav class="menu__grid">
@@ -70,13 +70,13 @@
                 <div class="search-menu__input-wrapper">
                     <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
                         :value="searchTermVuex" />
-                    <svg class="search-menu__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="search-menu__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <ellipse cx="9.5835" cy="8.75" rx="6.25" ry="6.25" stroke="#2A2A34" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M13.75 13.75L17.5 17.5" stroke="#2A2A34" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <!-- <i class="search-menu__icon"></i> -->
                 </div>
             </div>
 
@@ -125,6 +125,7 @@ import listItem from '@components/list-item.vue';
 import dropFilter from '@components/drop-filter.vue';
 import actionButton from '@components/action-button.vue';
 import logoItem from '@components/logo-item.vue';
+import { debounce } from '../helpers/helpers';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
@@ -161,7 +162,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setSearchTermVuex: 'setSearchTerm',
+            // setSearchTermVuex: 'setSearchTerm',
             setSearchTagVuex: 'setSearchTag',
             setCategoryVuex: 'setCategory',
             setPageURLVuex: 'setPageURL',
@@ -172,14 +173,17 @@ export default {
             removeTagFilterVuex: 'removeTagFilter'
         }),
         ...mapActions({
-            getPopularTagsVuex: 'getPopularTags'
+            getPopularTagsVuex: 'getPopularTags',
+            setQueryVuex: 'setQuery'
         }),
         setSearch(e) {
+            const delay = 500;
             const searchTerm = e.target.value;
-            this.setSearchTermVuex(searchTerm);
+            const debounced = debounce(this.setQueryVuex, delay, this);
+            debounced(searchTerm);
             if (document.location.pathname !== '/') {
                 this.$router.push({ name: 'main' });
-            } else this.setPageURLVuex();
+            }
         },
         setCategory(categoryName) {
             if (categoryName === 'Home') {
