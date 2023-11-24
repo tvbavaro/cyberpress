@@ -8,7 +8,7 @@
             <template v-if="isMobile">
                 <previewArticle v-for="(paper,index) in newsPapers.slice(0, 1)" :id="paper.id"
                     :imgUrl="paper.img[this.deviceTypeVuex].category.url" 
-                    :imgSize="imgSize(paper.img, index)"
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index)"
                     :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
 
@@ -16,7 +16,7 @@
 
                 <previewArticle v-for="(paper,index) in newsPapers.slice(7, 11)" :id="paper.id"
                     :imgUrl="paper.img[this.deviceTypeVuex].category.url" 
-                    :imgSize="imgSize(paper.img, index + 7)"
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index + 7)"
                     :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
 
@@ -26,7 +26,9 @@
             <!-- grid for widescreen -->
             <template v-else>
                 <previewArticle v-for="(paper, index) in newsPapers.slice(0, 15)" :class="`main-news__item-${index + 1}`"
-                    :id="paper.id" :imgUrl="imgUrl(paper.img, index)" :imgSize="imgSize(paper.img, index)" :header="paper.title" :text="paper.text_preview"
+                    :id="paper.id" :imgUrl="imgUrl(paper.img, index)" 
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index)"
+                    :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </template>
             <!--  -->
@@ -36,7 +38,7 @@
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
                 <previewArticle v-for="(paper,index) in mobileOldPapersWithImg" :id="paper.id" class="main-news__horizontal"
                     :imgUrl="paper.img[this.deviceTypeVuex].old.url" 
-                    :imgSize="oldImgSize(paper.img, index)"
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index, true)"
                     :isTablet="isTablet" :isMobile="isMobile"
                     :header="paper.title" :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt"
                     :key="paper.id" />
@@ -47,7 +49,7 @@
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
                 <previewArticle v-for="(paper, index) in newsPapers.slice(15, 23)" :id="paper.id"
                     :class="{ 'main-news__horizontal': !(index % 2) }" :imgUrl="oldImgUrl(paper.img, index)"
-                    :imgSize="oldImgSize(paper.img, index)"
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index, true)"
                     :isTablet="isTablet" :isMobile="isMobile" :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt"
                     :isWideArticleDescription="index % 2 ? false : true" :key="paper.id" />
@@ -63,6 +65,7 @@ import sliderItem from './slider-item.vue';
 import loadItem from '@components/load-item.vue';
 import { getNewsPapers } from '@api/api.js';
 import { mapState, mapMutations } from 'vuex';
+import { getImgSize } from '../helpers/helpers'
 export default {
     data() {
         return {
@@ -72,7 +75,6 @@ export default {
             dataIsReady: false
         }
     },
-    //ultraWideInds: [1, 8, 9, 10, 11],
     components: {
         previewArticle,
         filtersApplied,
@@ -81,6 +83,7 @@ export default {
     },
     async created() {
         this.getData();
+        this.getImgSize = getImgSize;
     },
     computed: {
         ...mapState({
@@ -123,28 +126,6 @@ export default {
             if (index % 2) {
                 return '';
             } else return imgs[this.deviceTypeVuex].old.url;
-        },
-        imgSize(imgs, index) {
-            const ultraWideIndx = [1, 8, 9, 10, 11];
-            if (ultraWideIndx.includes(index + 1)) {
-                return {
-                    width: imgs[this.deviceTypeVuex].category.width,
-                    height: imgs[this.deviceTypeVuex].category.height
-                }
-            } else {
-                return {
-                    width: imgs[this.deviceTypeVuex].category_small.width,
-                    height: imgs[this.deviceTypeVuex].category_small.height
-                }
-            }
-        },
-        oldImgSize(imgs, index) {
-            if (index % 2) {
-                return {};
-            } else return {
-                width: imgs[this.deviceTypeVuex].old.width,
-                height: imgs[this.deviceTypeVuex].old.height
-            }
         },
         async getData() {
             this.dataIsReady = false;

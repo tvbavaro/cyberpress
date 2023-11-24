@@ -6,7 +6,7 @@
                 @scroll="setSliderArrowsStyle(refName)">
                 <previewArticle v-for="(paper, index) in papers" :id="paper.id"
                     :imgUrl="showImg ? paper.img[this.deviceTypeVuex].category_small.url : null"
-                    :imgSize="imgSize(paper.img, index)" :header="paper.title" :text="paper.text_preview"
+                    :imgSize="getImgSize(paper.img[this.deviceTypeVuex],index)" :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </div>
         </div>
@@ -34,6 +34,7 @@
 <script>
 import previewArticle from '@components/preview-article.vue';
 import { mapState } from 'vuex';
+import { getImgSize } from '../helpers/helpers'
 
 export default {
     data() {
@@ -56,6 +57,9 @@ export default {
     components: {
         previewArticle
     },
+    created() {
+        this.getImgSize = getImgSize;
+    },
     computed: {
         ...mapState({
             deviceTypeVuex: 'deviceType'
@@ -74,12 +78,6 @@ export default {
                 left: articleWidth * type,
                 behavior: 'smooth'
             });
-        },
-        imgSize(imgs, index) {
-            return {
-                width: imgs[this.deviceTypeVuex].category_small.width,
-                height: imgs[this.deviceTypeVuex].category_small.height
-            }
         },
         setSliderArrowsStyle(currenRef) {
             const refElement = this.$refs[currenRef],
