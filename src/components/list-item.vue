@@ -11,7 +11,7 @@
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
                     <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
-                    @keydown.enter="$event.target.checked = true; executableFunction($event.target.checked, item)"
+                    @keydown.enter="$event.target.checked = !$event.target.checked; executableFunction($event.target.checked, item)"
                         type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)"/>
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
@@ -29,7 +29,7 @@
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
                     <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
-                    @keydown.enter="$event.target.checked = true; executableFunction($event.target.checked, item)"
+                    @keydown.enter="$event.target.checked = !$event.target.checked; executableFunction($event.target.checked, item)"
                         type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)"/>
                     <label class="list__label" :for="item"><span class="list__text list__text_checkbox">{{ item }}</span></label>
                 </template>

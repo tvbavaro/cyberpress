@@ -69,7 +69,7 @@
             <div class="search-menu search-menu__wrapper" :class="{ 'search-menu__wrapper_active': togglers.isSearchOpen }">
                 <div class="search-menu__input-wrapper">
                     <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
-                        :value="searchTermVuex" ref="searchInput"/>
+                        :value="searchTermVuex" ref="searchInput" />
                     <svg class="search-menu__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <ellipse cx="9.5835" cy="8.75" rx="6.25" ry="6.25" stroke="#2A2A34" stroke-width="2"
@@ -95,15 +95,17 @@
                         :executableFunction="handleTagFilter" />
                     <div class="filters-menu__actions filters-menu__list-wrapper">
                         <div class="filters-menu__actions-wrapper">
-                            <svg class="filters-menu__clear-filters" @click="resetFiltersVuex(); setPageURLVuex()"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.5092 2.66663C2.30151 2.66663 1.03551 5.19467 2.38786 6.95501L2.38786 6.95501L2.39044 6.95835L8.50004 14.8421V20.3333C8.50004 20.6701 8.66957 20.9843 8.95108 21.1691C9.23259 21.354 9.58826 21.3848 9.89733 21.251L12.0001 20.3406V18.1613L10.5 18.8107V14.5C10.5 14.2782 10.4263 14.0627 10.2905 13.8874L3.97387 5.73658L3.97287 5.73527C3.64184 5.30229 3.94579 4.66663 4.5092 4.66663H19.49C20.0526 4.66663 20.3581 5.3019 20.027 5.7364L20.0257 5.73808L19.8227 6H22.0846C22.5022 4.40316 21.3203 2.66663 19.49 2.66663H4.5092Z"
-                                    fill="#2A2A34" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M20.0072 8.29289C20.3977 7.90237 21.0309 7.90237 21.4214 8.29289C21.8119 8.68342 21.8119 9.31658 21.4214 9.70711L19.2714 11.8571L21.4214 14.0072C21.8119 14.3977 21.8119 15.0309 21.4214 15.4214C21.0309 15.8119 20.3977 15.8119 20.0072 15.4214L17.8571 13.2714L15.7071 15.4214C15.3166 15.8119 14.6834 15.8119 14.2929 15.4214C13.9024 15.0309 13.9024 14.3977 14.2929 14.0072L16.4429 11.8571L14.2929 9.70711C13.9024 9.31658 13.9024 8.68342 14.2929 8.29289C14.6834 7.90237 15.3166 7.90237 15.7071 8.29289L17.8571 10.4429L20.0072 8.29289Z"
-                                    fill="#2A2A34" />
-                            </svg>
+                            <button class="filters-menu__clear-filters" @click="resetFiltersVuex(); setPageURLVuex()">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.5092 2.66663C2.30151 2.66663 1.03551 5.19467 2.38786 6.95501L2.38786 6.95501L2.39044 6.95835L8.50004 14.8421V20.3333C8.50004 20.6701 8.66957 20.9843 8.95108 21.1691C9.23259 21.354 9.58826 21.3848 9.89733 21.251L12.0001 20.3406V18.1613L10.5 18.8107V14.5C10.5 14.2782 10.4263 14.0627 10.2905 13.8874L3.97387 5.73658L3.97287 5.73527C3.64184 5.30229 3.94579 4.66663 4.5092 4.66663H19.49C20.0526 4.66663 20.3581 5.3019 20.027 5.7364L20.0257 5.73808L19.8227 6H22.0846C22.5022 4.40316 21.3203 2.66663 19.49 2.66663H4.5092Z"
+                                        fill="#2A2A34" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M20.0072 8.29289C20.3977 7.90237 21.0309 7.90237 21.4214 8.29289C21.8119 8.68342 21.8119 9.31658 21.4214 9.70711L19.2714 11.8571L21.4214 14.0072C21.8119 14.3977 21.8119 15.0309 21.4214 15.4214C21.0309 15.8119 20.3977 15.8119 20.0072 15.4214L17.8571 13.2714L15.7071 15.4214C15.3166 15.8119 14.6834 15.8119 14.2929 15.4214C13.9024 15.0309 13.9024 14.3977 14.2929 14.0072L16.4429 11.8571L14.2929 9.70711C13.9024 9.31658 13.9024 8.68342 14.2929 8.29289C14.6834 7.90237 15.3166 7.90237 15.7071 8.29289L17.8571 10.4429L20.0072 8.29289Z"
+                                        fill="#2A2A34" />
+                                </svg>
+                            </button>
                             <div class="filters-menu__btns-wrapper">
                                 <actionButton class="filters-menu__cancel-btn"
                                     @click="resetFiltersVuex(); closeAllModals(); setPageURLVuex()">Cancel</actionButton>
@@ -236,7 +238,7 @@ export default {
                 this.togglers.isSearchOpen = true;
                 setTimeout(() => {
                     this.$refs.searchInput.focus();
-                },100)
+                }, 100)
             } else {
                 this.togglers.isSearchOpen = false;
             }

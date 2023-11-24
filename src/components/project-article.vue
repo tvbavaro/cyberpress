@@ -6,7 +6,7 @@
             </div>
             <div class="project-article__content-wrapper">
                 <div class="project-article__img-wrapper">
-                    <img class="project-article__img" :src="`${domain + img}`" alt="">
+                    <img class="project-article__img" :src="`${domain + img}`" alt="" :width="imgSize.width" :height="imgSize.height">
                 </div>
                 <!-- :width="imgSize.width" :height="imgSize.height" -->
                 <div class="project-article__text-wrapper">

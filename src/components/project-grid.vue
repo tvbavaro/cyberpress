@@ -7,7 +7,9 @@
                 <div class="similar__wrapper">
                     <span class="similar__heading">{{ articlePreviewData.heading_preview }}</span>
                     <previewArticle class="project__article-preview project__horizontal project__about-project-rec"
-                        :imgUrl="articlePreviewData.img.desktop_wide" :isTablet="deviceTypeVuex === 'tablet' ? true : false"
+                        :imgUrl="articlePreviewData.img.desktop_wide" 
+                        :imgSize="articleData.img.desktop_dementions"
+                        :isTablet="deviceTypeVuex === 'tablet' ? true : false"
                         :isMobile="deviceTypeVuex === 'mobile' ? true : false"
                         :isWideArticleDescription="!deviceTypeVuex === 'mobile' ? true : false"
                         :header="articlePreviewData.heading_preview" :text="articlePreviewData.text_preview"

@@ -660,13 +660,17 @@ export const getProjectPreview = (type) => {
         })
         .then(res => {
             const { data } = res;
-            const { attributes: { slogan, text_preview, heading_preview, image_desktop_wide: { data: { attributes: { url } } } } } = data
+            const { attributes: { slogan, text_preview, heading_preview, image_desktop_wide: { data: { attributes: { url,width,height } } } } } = data
             const projectData = {
                 heading_preview,
                 slogan,
                 text_preview,
                 img: {
-                    desktop_wide: url
+                    desktop_wide: url,
+                    desktop_dementions: {
+                        width,
+                        height
+                    }
                 }
             }
             return projectData;

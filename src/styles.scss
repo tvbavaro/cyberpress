@@ -1277,6 +1277,7 @@ body {
 
     &__img {
         max-width: 100%;
+        height: auto;
     }
 
     &__heading-wrapper {
@@ -1532,8 +1533,13 @@ body {
 
     &__clear-filters {
         cursor: pointer;
+        background-color: transparent;
+        
+        &:hover svg path {
+            fill: $cr-cherry-cake;
+        }
 
-        &:hover path {
+        &:focus svg path{
             fill: $cr-cherry-cake;
         }
     }

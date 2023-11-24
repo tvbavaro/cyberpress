@@ -61,7 +61,7 @@
 <script>
 import previewArticle from '@components/preview-article.vue';
 import filtersApplied from '@components/filters-applied.vue';
-import sliderItem from './slider-item.vue';
+import sliderItem from '@components/slider-item.vue';
 import loadItem from '@components/load-item.vue';
 import { getNewsPapers } from '@api/api.js';
 import { mapState, mapMutations } from 'vuex';
