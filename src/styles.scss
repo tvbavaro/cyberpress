@@ -97,6 +97,10 @@ body {
             background-color: $cr-menu-bg;
         }
 
+        &:focus {
+            background-color: $cr-menu-bg;
+        }
+
         &_active {
             background-color: $cr-menu-bg;
         }
@@ -111,6 +115,10 @@ body {
         }
 
         &:hover {
+            background-color: $cr-menu-bg;
+        }
+
+        &:focus {
             background-color: $cr-menu-bg;
         }
 
@@ -142,6 +150,10 @@ body {
         }
 
         &:hover {
+            background-color: $cr-menu-bg;
+        }
+
+        &:focus {
             background-color: $cr-menu-bg;
         }
 
@@ -579,6 +591,9 @@ body {
 .preview-article {
     background-color: $cr-article-bg;
     cursor: pointer;
+    &:focus {
+        outline: 2px solid $cr-cherry-cake;
+    }
 
     &__description {
         padding: 16px;
@@ -831,6 +846,10 @@ body {
             color: $cr-cherry-cake;
         }
 
+        &:focus {
+            color: $cr-cherry-cake;
+        }
+
         &_checkbox {
             &:hover {
                 color: $cr-text-main;
@@ -863,8 +882,6 @@ body {
         align-items: center;
         user-select: none;
         cursor: pointer;
-
-
     }
 
     &__checkbox+label::before {
@@ -897,6 +914,10 @@ body {
             border-color: $cr-cherry-cake;
             background-color: $cr-cherry-cake;
         }
+    }
+
+    &__checkbox:focus+label::before {
+        border-color: $cr-cherry-cake;
     }
 }
 
@@ -1320,6 +1341,7 @@ body {
 .action-button {
     @include hover-primary-button;
     @include active-primary-button;
+    @include focus-primary-button;
     display: flex;
     align-items: center;
     background-color: $cr-cherry-cake;

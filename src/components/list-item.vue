@@ -8,17 +8,15 @@
             </svg>
         </li>
         <div class="list__items-wrapper" v-show="isOpen">
-            <!-- <li class="list__item" v-for="item in list" :key="item" @click="executableFunction(item)"><span class="list__text">{{
-                item
-            }}</span></li> -->
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
                     <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
-                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
+                    @keydown.enter="$event.target.checked = true; executableFunction($event.target.checked, item)"
+                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)"/>
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
                 <template v-else>
-                    <span class="list__text" @click="executableFunction(item)">{{ item }}</span>
+                    <span class="list__text" @click="executableFunction(item)" @keydown.enter="executableFunction(item)" tabindex="0">{{ item }}</span>
                 </template>
             </li>
         </div>
@@ -31,12 +29,13 @@
             <li class="list__item" v-for="item in list" :key="item">
                 <template v-if="hasCheckbox">
                     <input class="list__checkbox" @click.stop @change="executableFunction($event.target.checked, item)"
-                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)" />
+                    @keydown.enter="$event.target.checked = true; executableFunction($event.target.checked, item)"
+                        type="checkbox" :id="item" :name="item" :ref="item" :checked="isChecked(item)"/>
                     <label class="list__label" :for="item"><span class="list__text list__text_checkbox">{{ item }}</span></label>
                 </template>
                 <template v-else>
                     <span class="list__text"
-                        @click="executableFunction(item)">{{ item }}</span>
+                        @click="executableFunction(item)" @keydown.enter="executableFunction(item)" tabindex="0">{{ item }}</span>
                 </template>
             </li>
         </div>

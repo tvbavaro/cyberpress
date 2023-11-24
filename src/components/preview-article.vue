@@ -1,5 +1,5 @@
 <template>
-    <article class="preview-article" @click="handleClick()">
+    <article class="preview-article" @click="handleClick()" @keydown.enter="handleClick()" tabindex="0">
         <img v-if="imgUrl"
                     class="preview-article__img" 
                     :class="[{'preview-article__img-tablet': isTablet},{'preview-article__img-mobile': isMobile}]" 

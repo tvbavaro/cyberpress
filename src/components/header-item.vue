@@ -3,13 +3,13 @@
         <div class="header__wrapper">
             <div class="header__grid">
                 <div class="header__basic">
-                    <div class="logo logo__wrapper" @click="handleRedirect('main')">
+                    <div class="logo logo__wrapper" @click="handleRedirect('main')" tabindex="0">
                         <logoItem class="logo__icon" />
                         <span class="logo__name">CyberPress</span>
                     </div>
                     <div class="header__actions-wrapper">
                         <button class="search header__search" :class="{ 'header__search_active': togglers.isSearchOpen }"
-                            @click="openSearch">
+                            @click="openSearch" tabindex="0">
                             <div class="search__wrapper">
                                 <img v-if="!togglers.isSearchOpen" class="search__icon" src="@assets/24x24/search.svg"
                                     alt="">
@@ -18,7 +18,7 @@
                             </div>
                         </button>
                         <button class="filters header__filters"
-                            :class="{ 'header__filters_active': togglers.isFiltersOpen }" @click="openFilters">
+                            :class="{ 'header__filters_active': togglers.isFiltersOpen }" @click="openFilters" tabindex="0">
                             <div class="filters__wrapper">
                                 <img v-if="!togglers.isFiltersOpen" class="search__icon" src="@assets/24x24/filter.svg"
                                     alt="">
@@ -30,7 +30,7 @@
                 </div>
                 <socialIcons class="header__social" />
                 <button class="navigation header__navigation" :class="{ 'header__navigation_active': togglers.isMenuOpen }"
-                    @click="openMenu">
+                    @click="openMenu" tabindex="0">
                     <div class="navigation__wrapper">
                         <div class="burger header__burger-wrapper">
                             <span class="burger__line" :class="{ 'burger__line_active': togglers.isMenuOpen }"></span>
@@ -69,7 +69,7 @@
             <div class="search-menu search-menu__wrapper" :class="{ 'search-menu__wrapper_active': togglers.isSearchOpen }">
                 <div class="search-menu__input-wrapper">
                     <input class="search-menu__input" @input="setSearch" type="text" placeholder="Search"
-                        :value="searchTermVuex" />
+                        :value="searchTermVuex" ref="searchInput"/>
                     <svg class="search-menu__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <ellipse cx="9.5835" cy="8.75" rx="6.25" ry="6.25" stroke="#2A2A34" stroke-width="2"
@@ -234,6 +234,9 @@ export default {
             if (!this.togglers.isSearchOpen) {
                 this.closeAllModals();
                 this.togglers.isSearchOpen = true;
+                setTimeout(() => {
+                    this.$refs.searchInput.focus();
+                },100)
             } else {
                 this.togglers.isSearchOpen = false;
             }
