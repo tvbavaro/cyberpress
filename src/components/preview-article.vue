@@ -3,7 +3,7 @@
         <img v-if="imgUrl"
                     class="preview-article__img" 
                     :class="[{'preview-article__img-tablet': isTablet},{'preview-article__img-mobile': isMobile}]" 
-                    :src="`${domain + imgUrl}`" alt="">
+                    :src="`${domain + imgUrl}`" alt="" :width="imgSize.width" :height="imgSize.height">
         <div class="preview-article__description"
             :class="{ 'preview-article__description-wide': isWideArticleDescription }">
             <h2 class="preview-article__header" :class="{'preview-article__header-mob_pd': isMobile}">{{ header }}</h2>
@@ -28,6 +28,10 @@ export default {
         },
         imgUrl: {
             type: String
+        },
+        imgSize: {
+            type: Object,
+            requared: true
         },
         header: {
             type: String

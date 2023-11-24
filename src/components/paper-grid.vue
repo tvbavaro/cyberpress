@@ -2,13 +2,13 @@
     <div class="project" v-if="dataIsReady">
         <div class="project__grid">
             <mainArticle class="project__main-paper" :title="paper.title" :text="paper.text_article" :tags="tags"
-                :imgUrl="imgUrl" :createdAt="paper.createdAt" :time="paper.time_to_read" />
+                :imgUrl="imgUrl" :imgSize="imgSize" :createdAt="paper.createdAt" :time="paper.time_to_read" />
             <aside class="recommended project__recommended" v-if="recommended?.length">
                 <div class="recommended__wrapper">
                     <span class="recommended__heading">Recommended</span>
                     <div class="recommended__articles-wrapper">
                         <previewArticle v-for="(paperRec, index) in recommended.slice(0, 2)" :id="paperRec.id"
-                            :imgUrl="paperRec.img[this.deviceTypeVuex]" :header="paperRec.title"
+                            :imgUrl="paperRec.img[this.deviceTypeVuex].url" :imgSize="imgRecSize" :header="paperRec.title"
                             :text="paperRec.text_preview" :time="paperRec.time_to_read" :createdAt="paperRec.createdAt"
                             :key="paperRec.id" />
                     </div>
@@ -18,8 +18,8 @@
             <div class="similar project__similar" v-if="similar">
                 <div class="similar__wrapper">
                     <span class="similar__heading">Similar to</span>
-                    <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img[this.deviceTypeVuex]"
-                        :isTablet="isTablet" :isMobile="isMobile"
+                    <previewArticle :id="similar.id" class="project__horizontal" :imgUrl="similar.img[this.deviceTypeVuex].url"
+                        :imgSize="imgSimilarSize" :isTablet="isTablet" :isMobile="isMobile"
                         :isWideArticleDescription="!deviceTypeVuex === 'mobile' ? true : false" :header="similar.title"
                         :text="similar.text_preview" :time="similar.time_to_read" :createdAt="similar.createdAt"
                         :key="similar.id" />
@@ -70,7 +70,32 @@ export default {
             return DEVDOMAIN;
         },
         imgUrl() {
-            return this.paper.img[this.deviceTypeVuex];
+            return this.paper.img[this.deviceTypeVuex].url;
+        },
+        imgSize() {
+            const { width, height } = this.paper.img[this.deviceTypeVuex];
+            return {
+                width,
+                height
+            }
+        },
+        imgRecSize() {
+            if (this.recommended.length) {
+                const { width, height } = this.recommended[0].img[this.deviceTypeVuex];
+                return {
+                    width,
+                    height
+                }
+            } else return false;
+        },
+        imgSimilarSize() {
+            if (this.similar) {
+                const { width, height } = this.similar.img[this.deviceTypeVuex];
+                return {
+                    width,
+                    height
+                }
+            } else return false;
         },
         tags() {
             return this.paper.tags.split(/\s/);
@@ -86,8 +111,8 @@ export default {
             this.paper = await getPaper(this.id);
             this.recommended = await getRecommended(this.id, this.tags);
             const recIds = this.recommended.map(rec => rec.id);
-            this.similar = await getSimilar([this.id,...recIds], Array.from(this.paper.categories)).then(arr => arr[0]);
-        }
+            this.similar = await getSimilar([this.id, ...recIds], Array.from(this.paper.categories)).then(arr => arr[0]);
+        },
     },
     watch: {
         async id() {

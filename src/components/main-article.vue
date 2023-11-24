@@ -5,7 +5,7 @@
                 <headingItem class="main-article__heading" :title="title" />
                 <timesetItem :createdDate="createdDate" :time="time" />
             </div>
-            <img :src="`${domain + imgUrl}`" alt="" class="main-article__img">
+            <img :src="`${domain + imgUrl}`" alt="" class="main-article__img" :width="imgSize.width" :height="imgSize.height">
             <div class="main-article__wrapper-content">
                 <p class="main-article__text">
                     {{ text }}
@@ -49,6 +49,10 @@ export default {
         },
         imgUrl: {
             type: String,
+            requared: true
+        },
+        imgSize: {
+            type: Object,
             requared: true
         },
         text: {

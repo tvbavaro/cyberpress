@@ -6,14 +6,18 @@
         <section class="main-news__grid">
             <!-- grid for smartphones -->
             <template v-if="isMobile">
-                <previewArticle v-for="paper in newsPapers.slice(0, 1)" :id="paper.id"
-                    :imgUrl="paper.img[this.deviceTypeVuex].category" :header="paper.title" :text="paper.text_preview"
+                <previewArticle v-for="(paper,index) in newsPapers.slice(0, 1)" :id="paper.id"
+                    :imgUrl="paper.img[this.deviceTypeVuex].category.url" 
+                    :imgSize="imgSize(paper.img, index)"
+                    :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
 
                 <sliderItem :papers="newsPapers.slice(1, 7)" refName="slidertop" :showImg="true" />
 
-                <previewArticle v-for="paper in newsPapers.slice(7, 11)" :id="paper.id"
-                    :imgUrl="paper.img[this.deviceTypeVuex].category" :header="paper.title" :text="paper.text_preview"
+                <previewArticle v-for="(paper,index) in newsPapers.slice(7, 11)" :id="paper.id"
+                    :imgUrl="paper.img[this.deviceTypeVuex].category.url" 
+                    :imgSize="imgSize(paper.img, index + 7)"
+                    :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
 
                 <sliderItem :papers="newsPapers.slice(11, 15)" refName="sliderbottom" :showImg="true" />
@@ -22,7 +26,7 @@
             <!-- grid for widescreen -->
             <template v-else>
                 <previewArticle v-for="(paper, index) in newsPapers.slice(0, 15)" :class="`main-news__item-${index + 1}`"
-                    :id="paper.id" :imgUrl="imgUrl(paper.img, index)" :header="paper.title" :text="paper.text_preview"
+                    :id="paper.id" :imgUrl="imgUrl(paper.img, index)" :imgSize="imgSize(paper.img, index)" :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </template>
             <!--  -->
@@ -30,8 +34,10 @@
         <section class="main-news__grid-old">
             <template v-if="isMobile">
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
-                <previewArticle v-for="paper in mobileOldPapersWithImg" :id="paper.id" class="main-news__horizontal"
-                    :imgUrl="paper.img[this.deviceTypeVuex].old" :isTablet="isTablet" :isMobile="isMobile"
+                <previewArticle v-for="(paper,index) in mobileOldPapersWithImg" :id="paper.id" class="main-news__horizontal"
+                    :imgUrl="paper.img[this.deviceTypeVuex].old.url" 
+                    :imgSize="oldImgSize(paper.img, index)"
+                    :isTablet="isTablet" :isMobile="isMobile"
                     :header="paper.title" :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt"
                     :key="paper.id" />
 
@@ -41,6 +47,7 @@
                 <!--подумать над неймингом пропсов, не отражает реального действия -->
                 <previewArticle v-for="(paper, index) in newsPapers.slice(15, 23)" :id="paper.id"
                     :class="{ 'main-news__horizontal': !(index % 2) }" :imgUrl="oldImgUrl(paper.img, index)"
+                    :imgSize="oldImgSize(paper.img, index)"
                     :isTablet="isTablet" :isMobile="isMobile" :header="paper.title" :text="paper.text_preview"
                     :time="paper.time_to_read" :createdAt="paper.createdAt"
                     :isWideArticleDescription="index % 2 ? false : true" :key="paper.id" />
@@ -105,20 +112,41 @@ export default {
             setPageURLVuex: 'setPageURL'
         }),
         imgUrl(imgs, index) {
-            const ultraWideInds = [1, 8, 9, 10, 11];
-            if (ultraWideInds.includes(index + 1)) {
-                return imgs[this.deviceTypeVuex].category;
+            const ultraWideIndx = [1, 8, 9, 10, 11];
+            if (ultraWideIndx.includes(index + 1)) {
+                return imgs[this.deviceTypeVuex].category.url;
             } else {
-                return imgs[this.deviceTypeVuex].category_small;
+                return imgs[this.deviceTypeVuex].category_small.url;
             }
         },
         oldImgUrl(imgs, index) {
             if (index % 2) {
                 return '';
-            } else return imgs[this.deviceTypeVuex].old;
+            } else return imgs[this.deviceTypeVuex].old.url;
+        },
+        imgSize(imgs, index) {
+            const ultraWideIndx = [1, 8, 9, 10, 11];
+            if (ultraWideIndx.includes(index + 1)) {
+                return {
+                    width: imgs[this.deviceTypeVuex].category.width,
+                    height: imgs[this.deviceTypeVuex].category.height
+                }
+            } else {
+                return {
+                    width: imgs[this.deviceTypeVuex].category_small.width,
+                    height: imgs[this.deviceTypeVuex].category_small.height
+                }
+            }
+        },
+        oldImgSize(imgs, index) {
+            if (index % 2) {
+                return {};
+            } else return {
+                width: imgs[this.deviceTypeVuex].old.width,
+                height: imgs[this.deviceTypeVuex].old.height
+            }
         },
         async getData() {
-            //this.newsPapers = null;
             this.dataIsReady = false;
             this.newsPapers = await getNewsPapers(
                 this.searchTermVuex,

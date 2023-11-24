@@ -5,8 +5,9 @@
             <div class="slider__list" :class="{ 'slider__list_old': !showImg }" :ref="refName"
                 @scroll="setSliderArrowsStyle(refName)">
                 <previewArticle v-for="(paper, index) in papers" :id="paper.id"
-                    :imgUrl="showImg ? paper.img[this.deviceTypeVuex].category_small : null" :header="paper.title"
-                    :text="paper.text_preview" :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
+                    :imgUrl="showImg ? paper.img[this.deviceTypeVuex].category_small.url : null"
+                    :imgSize="imgSize(paper.img, index)" :header="paper.title" :text="paper.text_preview"
+                    :time="paper.time_to_read" :createdAt="paper.createdAt" :key="paper.id" />
             </div>
         </div>
         <div class="slider__nav-wrapper">
@@ -73,6 +74,12 @@ export default {
                 left: articleWidth * type,
                 behavior: 'smooth'
             });
+        },
+        imgSize(imgs, index) {
+            return {
+                width: imgs[this.deviceTypeVuex].category_small.width,
+                height: imgs[this.deviceTypeVuex].category_small.height
+            }
         },
         setSliderArrowsStyle(currenRef) {
             const refElement = this.$refs[currenRef],

@@ -72,9 +72,21 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                             data: {
                                 attributes: {
                                     formats: {
-                                        category_small: { url: category_small },
-                                        category_small_tablet: { url: category_small_tablet },
-                                        category_small_mobile: { url: category_small_mobile }
+                                        category_small: {
+                                            url: category_small_url,
+                                            width: category_small_width,
+                                            height: category_small_height
+                                        },
+                                        category_small_tablet: {
+                                            url: category_small_tablet_url,
+                                            width: category_small_tablet_width,
+                                            height: category_small_tablet_height
+                                        },
+                                        category_small_mobile: {
+                                            url: category_small_mobile_url,
+                                            width: category_small_mobile_width,
+                                            height: category_small_mobile_height
+                                        }
                                     }
                                 }
                             }
@@ -83,9 +95,21 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                             data: {
                                 attributes: {
                                     formats: {
-                                        category: { url: category },
-                                        category_tablet: { url: category_tablet },
-                                        category_mobile: { url: category_mobile }
+                                        category: {
+                                            url: category_url,
+                                            width: category_width,
+                                            height: category_height
+                                        },
+                                        category_tablet: {
+                                            url: category_tablet_url,
+                                            width: category_tablet_width,
+                                            height: category_tablet_height
+                                        },
+                                        category_mobile: {
+                                            url: category_mobile_url,
+                                            width: category_mobile_width,
+                                            height: category_mobile_height
+                                        }
                                     }
                                 }
                             }
@@ -94,9 +118,21 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                             data: {
                                 attributes: {
                                     formats: {
-                                        old: { url: old },
-                                        old_tablet: { url: old_tablet },
-                                        old_mobile: { url: old_mobile }
+                                        old: {
+                                            url: old_url,
+                                            width: old_width,
+                                            height: old_height
+                                        },
+                                        old_tablet: {
+                                            url: old_tablet_url,
+                                            width: old_tablet_width,
+                                            height: old_tablet_height
+                                        },
+                                        old_mobile: {
+                                            url: old_mobile_url,
+                                            width: old_mobile_width,
+                                            height: old_mobile_height
+                                        }
                                     }
                                 }
                             }
@@ -111,21 +147,75 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                     text_preview,
                     img: {
                         desktop: {
-                            category,
-                            category_small,
-                            old
+                            category: {
+                                url: category_url,
+                                width: category_width,
+                                height: category_height
+                            },
+                            category_small: {
+                                url: category_small_url,
+                                width: category_small_width,
+                                height: category_small_height
+                            },
+                            old: {
+                                url: old_url,
+                                width: old_width,
+                                height: old_height
+                            },
                         },
                         tablet: {
-                            category: category_tablet,
-                            category_small: category_small_tablet,
-                            old: old_tablet
+                            category: {
+                                url: category_tablet_url,
+                                width: category_tablet_width,
+                                height: category_tablet_height
+                            },
+                            category_small: {
+                                url: category_small_tablet_url,
+                                width: category_small_tablet_width,
+                                height: category_small_tablet_height
+                            },
+                            old: {
+                                url: old_tablet_url,
+                                width: old_tablet_width,
+                                height: old_tablet_height
+                            },
                         },
                         mobile: {
-                            category: category_mobile,
-                            category_small: category_small_mobile,
-                            old: old_mobile
+                            category: {
+                                url: category_mobile_url,
+                                width: category_mobile_width,
+                                height: category_mobile_height
+                            },
+                            category_small: {
+                                url: category_small_mobile_url,
+                                width: category_small_mobile_width,
+                                height: category_small_mobile_height
+                            },
+                            old: {
+                                url: old_mobile_url,
+                                width: old_mobile_width,
+                                height: old_mobile_height
+                            }
                         }
-                    }
+                    },
+
+                    // img: {
+                    //     desktop: {
+                    //         category,
+                    //         category_small,
+                    //         old
+                    //     },
+                    //     tablet: {
+                    //         category: category_tablet,
+                    //         category_small: category_small_tablet,
+                    //         old: old_tablet
+                    //     },
+                    //     mobile: {
+                    //         category: category_mobile,
+                    //         category_small: category_small_mobile,
+                    //         old: old_mobile
+                    //     }
+                    // }
                 };
                 papers.push(paperData);
             });
@@ -140,7 +230,7 @@ export const getPaper = (id) => {
             fields: ['title', 'text_article', 'time_to_read', 'createdAt'],
             populate: {
                 image_ultrawide: {
-                    fields: ['url', 'formats']
+                    fields: ['url', 'width', 'height', 'formats']
                 },
                 categories: {
                     fields: ['categoryname']
@@ -160,6 +250,7 @@ export const getPaper = (id) => {
             } else throw new Error(res.statusText)
         })
         .then(res => {
+            console.log(res);
             const { data } = res;
             const { id,
                 attributes: {
@@ -174,12 +265,18 @@ export const getPaper = (id) => {
                         data: {
                             attributes: {
                                 url,
+                                width,
+                                height,
                                 formats: {
                                     article_tablet: {
-                                        url: tablet_url
+                                        url: tablet_url,
+                                        width: tablet_width,
+                                        height: tablet_height
                                     },
                                     article_mobile: {
-                                        url: mobile_url
+                                        url: mobile_url,
+                                        width: mobile_width,
+                                        height: mobile_height
                                     }
                                 },
                             }
@@ -198,9 +295,21 @@ export const getPaper = (id) => {
                 time_to_read,
                 tags,
                 img: {
-                    desktop: url,
-                    tablet: tablet_url,
-                    mobile: mobile_url
+                    desktop: {
+                        url,
+                        width,
+                        height
+                    },
+                    tablet: {
+                        url: tablet_url,
+                        width: tablet_width,
+                        height: tablet_height
+                    },
+                    mobile: {
+                        url: mobile_url,
+                        width: mobile_width,
+                        height: mobile_height
+                    }
                 },
                 categories: categoriesData.map(cat => cat.attributes.categoryname)
             }
@@ -230,7 +339,7 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
             },
             populate: {
                 image_sq: {
-                    fields: ['formats']
+                    fields: ['formats', 'width', 'height']
                 },
                 // image_wide: {
                 //     fields: ['formats']
@@ -265,13 +374,19 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
                                 attributes: {
                                     formats: {
                                         aside: {
-                                            url: aside_desktop
+                                            url: aside_desktop_url,
+                                            width: aside_desktop_width,
+                                            height: aside_desktop_height
                                         },
                                         aside_tablet: {
-                                            url: aside_tablet
+                                            url: aside_tablet_url,
+                                            width: aside_tablet_width,
+                                            height: aside_tablet_height
                                         },
                                         aside_mobile: {
-                                            url: aside_mobile
+                                            url: aside_mobile_url,
+                                            width: aside_mobile_width,
+                                            height: aside_mobile_height
                                         }
                                     }
                                 }
@@ -301,10 +416,39 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
                     title,
                     text_preview,
                     img: {
-                        desktop: aside_desktop,
-                        tablet: aside_tablet,
-                        mobile: aside_mobile,
+                        desktop: {
+                            url: aside_desktop_url,
+                            width: aside_desktop_width,
+                            height: aside_desktop_height
+                        },
+                        tablet: {
+                            url: aside_tablet_url,
+                            width: aside_tablet_width,
+                            height: aside_tablet_height
+                        },
+                        mobile: {
+                            url: aside_mobile_url,
+                            width: aside_mobile_width,
+                            height: aside_mobile_height
+                        }
                     },
+                    // img: {
+                    //     desktop: {
+                    //         url,
+                    //         width,
+                    //         height
+                    //     },
+                    //     tablet: {
+                    //         url: tablet_url,
+                    //         width: tablet_width,
+                    //         height: tablet_height
+                    //     },
+                    //     mobile: {
+                    //         url: mobile_url,
+                    //         width: mobile_width,
+                    //         height: mobile_height
+                    //     }
+                    // },
                     // img_old: {
                     //     desktop: url,
                     //     tablet: tablet_url,
@@ -340,7 +484,7 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             },
             populate: {
                 image_wide: {
-                    fields: ['formats']
+                    fields: ['formats', 'width', 'height']
                 },
             },
         },
@@ -370,16 +514,37 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
                             data: {
                                 attributes: {
                                     formats: {
-                                        old: { url },
+                                        old: {
+                                            url: old_desktop_url,
+                                            width: old_desktop_width,
+                                            height: old_desktop_height
+                                        },
                                         old_tablet: {
-                                            url: tablet_url
+                                            url: old_tablet_url,
+                                            width: old_tablet_width,
+                                            height: old_tablet_height
                                         },
                                         old_mobile: {
-                                            url: old_mobile
+                                            url: old_mobile_url,
+                                            width: old_mobile_width,
+                                            height: old_mobile_height
                                         }
                                     }
                                 }
                             }
+                            // data: {
+                            //     attributes: {
+                            //         formats: {
+                            //             old: { url },
+                            //             old_tablet: {
+                            //                 url: tablet_url
+                            //             },
+                            //             old_mobile: {
+                            //                 url: old_mobile
+                            //             }
+                            //         }
+                            //     }
+                            // }
                         }
                     }
                 }) => {
@@ -390,15 +555,27 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
                     createdAt,
                     time_to_read,
                     img: {
-                        desktop: url,
-                        tablet: tablet_url,
-                        mobile: old_mobile
+                        desktop: {
+                            url: old_desktop_url,
+                            width: old_desktop_width,
+                            height: old_desktop_height
+                        },
+                        tablet: {
+                            url: old_tablet_url,
+                            width: old_tablet_width,
+                            height: old_tablet_height
+                        },
+                        mobile: {
+                            url: old_mobile_url,
+                            width: old_mobile_width,
+                            height: old_mobile_height
+                        }
                     },
-                    // img_old: {
+                    // img: {
                     //     desktop: url,
                     //     tablet: tablet_url,
                     //     mobile: old_mobile
-                    // }
+                    // },
                 };
                 papersSim.push(paperData);
             });
