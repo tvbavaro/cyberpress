@@ -52,7 +52,6 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:${sort}&pagination[pageSize]=23&populate[image_ultrawide][fields]=formats&populate[image_sq][fields]=formats&populate[image_wide][fields]=formats&filters[$or][0][title][$contains]=${searchPhrase}&filters[$or][1][text_article][$contains]=${searchPhrase}&filters[tags][value][$contains]=${searchTag}&filters[categories][categoryname][$contains]=${categoryName}`)
     return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
@@ -198,24 +197,6 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
                             }
                         }
                     },
-
-                    // img: {
-                    //     desktop: {
-                    //         category,
-                    //         category_small,
-                    //         old
-                    //     },
-                    //     tablet: {
-                    //         category: category_tablet,
-                    //         category_small: category_small_tablet,
-                    //         old: old_tablet
-                    //     },
-                    //     mobile: {
-                    //         category: category_mobile,
-                    //         category_small: category_small_mobile,
-                    //         old: old_mobile
-                    //     }
-                    // }
                 };
                 papers.push(paperData);
             });
@@ -242,7 +223,6 @@ export const getPaper = (id) => {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_article&fields=time_to_read&fields=createdAt&populate[image_ultrawide][fields]=formats&populate[image_ultrawide][fields]=url&populate=tags`)
     return fetch(`${DEVDOMAIN}/api/newspapers/${id}?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
@@ -250,7 +230,6 @@ export const getPaper = (id) => {
             } else throw new Error(res.statusText)
         })
         .then(res => {
-            console.log(res);
             const { data } = res;
             const { id,
                 attributes: {
@@ -341,17 +320,12 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
                 image_sq: {
                     fields: ['formats', 'width', 'height']
                 },
-                // image_wide: {
-                //     fields: ['formats']
-                // },
-                //categories: true
             },
         },
         {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`${DEVDOMAIN}/api/newspapers?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&sort=createdAt:desc&populate[image_sq][fields]=formats&pagination[page]=1&pagination[pageSize]=2`)
     return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
@@ -359,7 +333,6 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
             } else throw new Error(res.statusText)
         })
         .then(res => {
-            //const dataRes = res;
             const papersRec = [];
             const { data } = res;
             data.forEach((
@@ -392,21 +365,6 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
                                 }
                             }
                         },
-                        // image_wide: {
-                        //     data: {
-                        //         attributes: {
-                        //             formats: {
-                        //                 old: { url },
-                        //                 old_tablet: {
-                        //                     url: tablet_url
-                        //                 },
-                        //                 old_mobile: {
-                        //                     url: old_mobile
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
                     },
                 }) => {
                 const paperData = {
@@ -432,28 +390,6 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
                             height: aside_mobile_height
                         }
                     },
-                    // img: {
-                    //     desktop: {
-                    //         url,
-                    //         width,
-                    //         height
-                    //     },
-                    //     tablet: {
-                    //         url: tablet_url,
-                    //         width: tablet_width,
-                    //         height: tablet_height
-                    //     },
-                    //     mobile: {
-                    //         url: mobile_url,
-                    //         width: mobile_width,
-                    //         height: mobile_height
-                    //     }
-                    // },
-                    // img_old: {
-                    //     desktop: url,
-                    //     tablet: tablet_url,
-                    //     mobile: old_mobile
-                    // }
                 };
                 papersRec.push(paperData);
             });
@@ -474,7 +410,6 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             filters: {
                 categories: {
                     categoryname: {
-                        //$contains: categoryName,
                         $in: categoriesNames
                     }
                 },
@@ -492,7 +427,6 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-    // return fetch(`${DEVDOMAIN}/api/newspapers/${id}?fields=title&fields=text_preview&fields=time_to_read&fields=createdAt&populate[image_wide][fields]=formats&populate[image_wide][fields]=url`)
     return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
@@ -500,7 +434,6 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             } else throw new Error(res.statusText)
         })
         .then(res => {
-            //const dataRes = res;
             const papersSim = [];
             const { data } = res;
             data.forEach((
@@ -532,19 +465,6 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
                                     }
                                 }
                             }
-                            // data: {
-                            //     attributes: {
-                            //         formats: {
-                            //             old: { url },
-                            //             old_tablet: {
-                            //                 url: tablet_url
-                            //             },
-                            //             old_mobile: {
-                            //                 url: old_mobile
-                            //             }
-                            //         }
-                            //     }
-                            // }
                         }
                     }
                 }) => {
@@ -571,57 +491,12 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
                             height: old_mobile_height
                         }
                     },
-                    // img: {
-                    //     desktop: url,
-                    //     tablet: tablet_url,
-                    //     mobile: old_mobile
-                    // },
                 };
                 papersSim.push(paperData);
             });
             return papersSim;
         })
         .catch(err => console.log(err))
-    // .then(res => {
-    //     const { data } = res;
-    //     const { id,
-    //         attributes: {
-    //             title,
-    //             createdAt,
-    //             time_to_read,
-    //             text_preview,
-    //             image_wide: {
-    //                 data: {
-    //                     attributes: {
-    //                         formats: {
-    //                             old: { url },
-    //                             old_tablet: {
-    //                                 url: tablet_url
-    //                             },
-    //                             old_mobile: {
-    //                                 url: old_mobile
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     } = data;
-    //     paperData = {
-    //         id,
-    //         title,
-    //         text_preview,
-    //         createdAt,
-    //         time_to_read,
-    //         img: {
-    //             desktop: url,
-    //             tablet: tablet_url,
-    //             mobile: old_mobile
-    //         }
-    //     }
-    //     return paperData;
-    // })
-    // .catch(err => console.log(err))
 }
 
 export const getProject = (type) => {

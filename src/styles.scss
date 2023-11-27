@@ -503,16 +503,6 @@ body {
         width: 24px;
         margin-left: -37px;
     }
-
-    // &__icon {
-    //     background-image: url('../src/assets/24x24/search.svg');
-    //     background-size: 100%;
-    //     background-position: center;
-    //     background-repeat: no-repeat;
-    //     height: 24px;
-    //     width: 24px;
-    //     margin-left: -37px;
-    // }
 }
 
 .main-news {
@@ -730,7 +720,6 @@ body {
     }
 
     &__img {
-        // max-width: 100%;
         width: 100%;
         height: auto;
     }
@@ -1001,15 +990,6 @@ body {
     .list__header {
         @include heading-style($fs-second-header, 27px, $cr-text-footer);
     }
-
-    // .list__text {
-    //     @include text-style($fs-second-text, 21px, $cr-text-footer);
-
-    //     @include brakepoints(mobile) {
-    //         font-size: $fs-text-mob;
-    //     }
-    // }
-
 }
 
 .privacy {
@@ -1349,7 +1329,6 @@ body {
     border: 1px solid transparent;
     border-radius: 4px;
     padding: 6px 16px;
-    //height: 34px;
 
     &__text {
         @include text-style($fs-second-text, 22px);
@@ -1532,6 +1511,7 @@ body {
     }
 
     &__clear-filters {
+        display: flex;
         cursor: pointer;
         background-color: transparent;
         
@@ -1612,26 +1592,6 @@ body {
         @include hover-primary-button;
         @include active-primary-button;
         border: 1px solid $cr-cherry-cake;
-
-        // &:hover {
-        //     background-color: $cr-text-main;
-        //     border: 1px solid $cr-text-main;
-
-        //     .action-button__text {
-        //         color: $cr-text-footer;
-        //     }
-        // }
-
-
-
-        // &:active {
-        //     border: 1px solid $cr-text-main;
-        //     background-color: $cr-cherry-cake;
-
-        //     .action-button__text {
-        //         color: $cr-text-main;
-        //     }
-        // }
     }
 }
 
