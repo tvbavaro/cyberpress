@@ -13,7 +13,8 @@ export default defineConfig({
       '@views': '/src/views',
       '@assets': '/src/assets',
       '@api': '/src/api',
-      '@constants': '/src/constants'
+      '@constants': '/src/constants',
+      '@icons': '/src/components/icons',
     },
   },
 })
