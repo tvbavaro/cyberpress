@@ -21,7 +21,7 @@
 
 import headingItem from '@components/heading-item.vue';
 import textItem from '@components/text-item.vue';
-import { DEVDOMAIN } from '@constants';
+import { END_POINT_DEVDOMAIN } from '@constants';
 export default {
     props: {
         title: {
@@ -46,7 +46,7 @@ export default {
     },
     computed: {
         domain() {
-            return DEVDOMAIN;
+            return END_POINT_DEVDOMAIN;
         },
     }
 }

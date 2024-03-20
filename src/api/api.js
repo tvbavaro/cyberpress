@@ -1,4 +1,4 @@
-import { DEVDOMAIN } from "@constants"
+import { END_POINT_DEVDOMAIN } from "@constants"
 import qs from 'qs'
 
 export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = [], sort = 'desc') => {
@@ -52,7 +52,7 @@ export const getNewsPapers = (searchPhrase = '', searchTag = [], categoryName = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -223,7 +223,7 @@ export const getPaper = (id) => {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    return fetch(`${DEVDOMAIN}/api/newspapers/${id}?${query}`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/newspapers/${id}?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -326,7 +326,7 @@ export const getRecommended = (paperId = 0, searchTag = [], sort = 'desc') => {
             encodeValuesOnly: true, // prettify URL
         }
     );
-    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -427,7 +427,7 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
             encodeValuesOnly: true, // prettify URL
         }
     );
-    return fetch(`${DEVDOMAIN}/api/newspapers?${query}`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/newspapers?${query}`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -500,7 +500,7 @@ export const getSimilar = (excludeFromSearch = [], categoriesNames = [], sort = 
 }
 
 export const getProject = (type) => {
-    return fetch(`${DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url&populate[image_desktop][fields]=width&populate[image_desktop][fields]=height`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/${type}?fields=title&fields=text&fields=slogan&populate[image_desktop][fields]=url&populate[image_desktop][fields]=width&populate[image_desktop][fields]=height`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -527,7 +527,7 @@ export const getProject = (type) => {
 }
 
 export const getProjectPreview = (type) => {
-    return fetch(`${DEVDOMAIN}/api/${type}?fields=text_preview&fields=heading_preview&fields=slogan&populate[image_desktop_wide][fields]=url`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/${type}?fields=text_preview&fields=heading_preview&fields=slogan&populate[image_desktop_wide][fields]=url`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();
@@ -554,7 +554,7 @@ export const getProjectPreview = (type) => {
 }
 
 export const getPopularTags = () => {
-    return fetch(`${DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=23`)
+    return fetch(`${END_POINT_DEVDOMAIN}/api/newspapers?populate=tags&fields=time_to_read&pagination[page]=1&pagination[pageSize]=23`)
         .then(res => {
             if (res.status >= 200 && res.status <= 300) {
                 return res.json();

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { DEVDOMAIN } from '@constants';
+import { END_POINT_DEVDOMAIN } from '@constants';
 import { getPaper, getRecommended, getSimilar } from '@api/api.js';
 import previewArticle from '@components/preview-article.vue';
 import mainArticle from '@components/main-article.vue';
@@ -73,7 +73,7 @@ export default {
             isMobile: 'isMobile'
         }),
         domain() {
-            return DEVDOMAIN;
+            return END_POINT_DEVDOMAIN;
         },
         imgUrl() {
             return this.paper.img[this.deviceTypeVuex].url;

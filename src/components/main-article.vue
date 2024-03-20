@@ -28,7 +28,7 @@
     </article>
 </template>
 <script>
-import { DEVDOMAIN } from '@constants';
+import { END_POINT_DEVDOMAIN } from '@constants';
 import { mapMutations } from 'vuex';
 import timesetItem from '@components/timeset-item.vue';
 import socialIcons from '@components/social-icons.vue';
@@ -71,7 +71,7 @@ export default {
     },
     computed: {
         domain() {
-            return DEVDOMAIN;
+            return END_POINT_DEVDOMAIN;
         },
         createdDate() {
             return new Date(this.createdAt).toGMTString()

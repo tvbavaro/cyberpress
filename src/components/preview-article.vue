@@ -15,7 +15,7 @@
 
 
 <script>
-import { DEVDOMAIN } from '@constants';
+import { END_POINT_DEVDOMAIN } from '@constants';
 import timesetItem from '@components/timeset-item.vue';
 import { mapState } from 'vuex';
 export default {
@@ -64,7 +64,7 @@ export default {
             deviceTypeVuex: 'deviceType',
         }),
         domain() {
-            return DEVDOMAIN;
+            return END_POINT_DEVDOMAIN;
         },
         createdDate() {
             return new Date(this.createdAt).toGMTString()

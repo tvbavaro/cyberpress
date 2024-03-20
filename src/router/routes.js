@@ -1,28 +1,34 @@
+export const PAGE_HOME = 'main';
+export const PAGE_PAPER = 'paper';
+export const PAGE_PROJECT = 'project';
+export const PAGE_DONATE = 'donate';
+export const PAGE_TEAM = 'team';
+
 export const routes = [
     {
         path: '/cyberpress/',
-        name: 'main',
+        name: PAGE_HOME,
         component: () => import('@views/MainView.vue'),
     },
     {
         path: '/cyberpress/paper/:id',
-        name: 'paper',
+        name: PAGE_PAPER,
         component: () => import('@views/PaperView.vue'),
         props: true
     },
     {
         path: '/cyberpress/project',
-        name: 'project',
+        name: PAGE_PROJECT,
         component: () => import('@views/ProjectView.vue')
     },
     {
         path: '/cyberpress/donate',
-        name: 'donate',
+        name: PAGE_DONATE,
         component: () => import('@views/DonateView.vue')
     },
     {
         path: '/cyberpress/team',
-        name: 'team',
+        name: PAGE_TEAM,
         component: () => import('@views/TeamView.vue')
     }
 ]

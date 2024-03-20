@@ -16,7 +16,7 @@
                     <label :for="item"><span class="list__text">{{ item }}</span></label>
                 </template>
                 <template v-else>
-                    <span class="list__text" @click="executableFunction(item)" @keydown.enter="executableFunction(item)" tabindex="0">{{ item }}</span>
+                    <span class="list__text" @click="handleRedirect(item)" @keydown.enter="handleRedirect(item)" tabindex="0">{{ item }}</span>
                 </template>
             </li>
         </div>
@@ -42,6 +42,7 @@
     </ul>
 </template>
 <script>
+
 export default {
     data() {
         return {
