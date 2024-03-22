@@ -27,7 +27,7 @@ export const ICON_LOCATION = 'locationIcon';
 export const ICON_PHONE = 'phoneIcon';
 export const ICON_MESSAGE = 'messageIcon';
 export const ICON_CROSS = 'crossIcon';
-export const ICON_TIME_SET_DIVIDER = 'timesetDivider';
+export const ICON_TIMESET_DIVIDER = 'timesetDivider';
 
 
 export const ICONS = {
@@ -44,5 +44,5 @@ export const ICONS = {
     [ICON_PHONE]: phoneIcon,
     [ICON_MESSAGE]: messageIcon,
     [ICON_CROSS]: crossIcon,
-    [ICON_TIME_SET_DIVIDER]: timesetDivider,
+    [ICON_TIMESET_DIVIDER]: timesetDivider,
 }

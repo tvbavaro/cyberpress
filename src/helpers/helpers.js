@@ -42,14 +42,6 @@ export function handleRedirect(pageName) {
   } else this.$router.push({ name: pageName.toLowerCase() });
 }
 
-export function closeAllModals() {
-  for (let key in this.togglers) {
-    if (this.togglers[key]) {
-      this.togglers[key] = false;
-    }
-  }
-}
-
 export function formatDate(date) {
   return new Date(date)
     .toGMTString()

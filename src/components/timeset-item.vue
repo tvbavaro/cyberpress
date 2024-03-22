@@ -3,7 +3,7 @@
         <div class="timeset__wrapper">
             <div class="timeset__date">
                 <span class="timeset__text timeset__diflex">{{ formattedDate }}
-                    <baseIcon class="timeset__divider" :name="ICON_TIME_SET_DIVIDER" />
+                    <baseIcon class="timeset__divider" :name="ICON_TIMESET_DIVIDER" />
                 </span>
             </div>
             <div class="timeset__time">
@@ -16,13 +16,13 @@
 </template>
 <script>
 import { formatDate } from '../helpers/helpers';
-import { ICON_TIME_SET_DIVIDER } from '@icons';
+import { ICON_TIMESET_DIVIDER } from '@icons';
 import baseIcon from '@components/base-icon.vue';
 
 export default {
     data() {
         return {
-            ICON_TIME_SET_DIVIDER
+            ICON_TIMESET_DIVIDER
         }
     },
     components: {

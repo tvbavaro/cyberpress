@@ -28,7 +28,11 @@
               tabindex="0"
             >
               <div class="filters__wrapper">
-                <baseIcon v-if="!togglers.isFiltersOpen" class="search__icon" :name="ICON_FILTER" />
+                <baseIcon
+                  v-if="!togglers.isFiltersOpen"
+                  class="search__icon"
+                  :name="ICON_FILTER"
+                />
                 <baseIcon v-else class="search__close" :name="ICON_CROSS" />
                 <span class="filters__text">Filters</span>
               </div>
@@ -195,10 +199,15 @@ import dropFilter from "@components/drop-filter.vue";
 import actionButton from "@components/action-button.vue";
 import logoItem from "@components/logo-item.vue";
 import baseIcon from "@components/base-icon.vue";
-import { debounce, handleRedirect, closeAllModals } from "../helpers/helpers";
+import { debounce, handleRedirect } from "@helpers";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { PAGE_HOME } from "../router/routes";
-import { ICON_FILTER, ICON_RESET_FILTERS, ICON_SEARCH, ICON_CROSS } from "@icons";
+import { PAGE_HOME } from "@router/routes";
+import {
+  ICON_FILTER,
+  ICON_RESET_FILTERS,
+  ICON_SEARCH,
+  ICON_CROSS,
+} from "@icons";
 
 export default {
   data() {
@@ -240,7 +249,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      // setSearchTermVuex: 'setSearchTerm',
       setSearchTagVuex: "setSearchTag",
       setCategoryVuex: "setCategory",
       setPageURLVuex: "setPageURL",
@@ -255,7 +263,13 @@ export default {
       setQueryVuex: "setQuery",
     }),
     handleRedirect,
-    closeAllModals,
+    closeAllModals() {
+      for (let key in this.togglers) {
+        if (this.togglers[key]) {
+          this.togglers[key] = false;
+        }
+      }
+    },
     setSearch(e) {
       const delay = 500;
       const searchTerm = e.target.value;
