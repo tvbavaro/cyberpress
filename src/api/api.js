@@ -1,3 +1,47 @@
+//=== sample for refactoring 
+// async function fetchData(url) {
+//     try {
+//         let response = await fetch(url);
+//         let data = await response.json();
+//         return data;
+//     } catch (error) {
+//         throw new Error('Error loading data');
+//     }
+// }
+
+// async function loadData() {
+//     try {
+//         let data = await fetchData('https://api.example.com/data');
+//         console.log('Data loaded successfully:', data);
+//     } catch (error) {
+//         console.error('Error loading data:', error);
+//     }
+// }
+
+// loadData();
+
+//=========
+// function fetchData() {
+//     return fetch('https://api.example.com/data')
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Failed to fetch data');
+//             }
+//             return response.json();
+//         });
+// }
+
+// async function processData() {
+//     try {
+//         const data = await fetchData();
+//         console.log('Data loaded successfully:', data);
+//     } catch (error) {
+//         console.error('Error:', error.message);
+//     }
+// }
+
+// processData();
+
 import { END_POINT_DEVDOMAIN } from "@constants"
 import qs from 'qs'
 

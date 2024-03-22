@@ -12,17 +12,12 @@
               tabindex="0"
             >
               <div class="search__wrapper">
-                <img
+                <baseIcon
                   v-if="!togglers.isSearchOpen"
                   class="search__icon"
-                  src="@assets/24x24/search.svg"
-                  alt=""
+                  :name="ICON_SEARCH"
                 />
-                <img
-                  v-else
-                  class="search__close"
-                  src="@assets/24x24/cross.svg"
-                />
+                <baseIcon v-else class="search__close" :name="ICON_CROSS" />
                 <span class="search__text">Search</span>
               </div>
             </button>
@@ -33,17 +28,8 @@
               tabindex="0"
             >
               <div class="filters__wrapper">
-                <img
-                  v-if="!togglers.isFiltersOpen"
-                  class="search__icon"
-                  src="@assets/24x24/filter.svg"
-                  alt=""
-                />
-                <img
-                  v-else
-                  class="search__close"
-                  src="@assets/24x24/cross.svg"
-                />
+                <baseIcon v-if="!togglers.isFiltersOpen" class="search__icon" :name="ICON_FILTER" />
+                <baseIcon v-else class="search__close" :name="ICON_CROSS" />
                 <span class="filters__text">Filters</span>
               </div>
             </button>
@@ -133,7 +119,7 @@
             :value="searchTermVuex"
             ref="searchInput"
           />
-          <baseIcon :name="ICON_SEARCH" />
+          <baseIcon class="search-menu__icon" :name="ICON_SEARCH" />
         </div>
       </div>
 
@@ -212,13 +198,15 @@ import baseIcon from "@components/base-icon.vue";
 import { debounce, handleRedirect, closeAllModals } from "../helpers/helpers";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { PAGE_HOME } from "../router/routes";
-import { ICON_RESET_FILTERS, ICON_SEARCH } from "@icons";
+import { ICON_FILTER, ICON_RESET_FILTERS, ICON_SEARCH, ICON_CROSS } from "@icons";
 
 export default {
   data() {
     return {
       ICON_SEARCH,
+      ICON_FILTER,
       ICON_RESET_FILTERS,
+      ICON_CROSS,
       togglers: {
         isMenuOpen: false,
         isSearchOpen: false,
