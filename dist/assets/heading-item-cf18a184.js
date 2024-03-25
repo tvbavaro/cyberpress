@@ -1,1 +1,0 @@
-import{_ as e,i as s,o as a,e as o,f as i,h as n}from"./index-35aadbb8.js";const c={props:{title:{type:String,validator:s}}},r={class:"heading"},_={class:"heading__text"};function d(p,h,t,l,f,g){return a(),o("div",r,[i("h1",_,n(t.title),1)])}const x=e(c,[["render",d]]);export{x as h};
