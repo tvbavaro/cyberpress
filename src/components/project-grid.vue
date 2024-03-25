@@ -21,11 +21,13 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import projectArticle from '@components/project-article.vue';
 import previewArticle from '@components/preview-article.vue';
 import loadItem from '@components/load-item.vue';
 import { getProject, getProjectPreview } from '@api/api';
-import { mapState } from 'vuex';
+import { isString } from '@helpers/validators';
+
 export default {
     data() {
         return {
@@ -37,10 +39,12 @@ export default {
     props: {
         typePage: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         typePreview: {
-            type: String
+            type: String,
+            validator: isString
         }
     },
     components: {

@@ -15,7 +15,7 @@ export default defineConfig({
       '@api': '/src/api',
       '@constants': '/src/constants',
       '@icons': '/src/components/icons',
-      '@helpers': '/src/helpers/helpers',
+      '@helpers': '/src/helpers',
       '@store': '/src/store',
       '@router': '/src/router',
     },

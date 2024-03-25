@@ -4,6 +4,7 @@
 
 <script>
 import { ICONS } from '@icons';
+import { isValidIcon } from '@helpers/validators';
 
 export default {
     props: {
@@ -11,7 +12,7 @@ export default {
             requare: true,
             default: null,
             type: String,
-            validator: null
+            validator: isValidIcon
         }
     },
     computed: {

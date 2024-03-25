@@ -45,11 +45,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import previewArticle from "@components/preview-article.vue";
 import baseIcon from "@components/base-icon.vue";
-import { ICON_ARROW_LEFT, ICON_ARROW_RIGHT } from "./icons";
-import { mapState } from "vuex";
-import { getImgSize } from "../helpers/helpers";
+import { ICON_ARROW_LEFT, ICON_ARROW_RIGHT } from "@icons";
+import { getImgSize } from "@helpers/helpers";
+import { isArray, isString, isBoolean } from '@helpers/validators';
 
 export default {
   data() {
@@ -63,12 +64,15 @@ export default {
   props: {
     papers: {
       type: Array,
+      validator: isArray
     },
     refName: {
       type: String,
+      validator: isString
     },
     showImg: {
       type: Boolean,
+      validator: isBoolean
     },
   },
   components: {

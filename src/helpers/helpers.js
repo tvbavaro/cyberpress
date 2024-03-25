@@ -1,3 +1,5 @@
+import { isValidPage } from "@helpers/validators";
+
 export function debounce(func, delay = 500, context) {
   return function perform(...args) {
     let previousCall = context.lastCall;
@@ -39,7 +41,11 @@ export function getImgSize(img, indx, old = false, paper = false) {
 export function handleRedirect(pageName) {
   if (pageName === "Contacts") {
     showContacts();
-  } else this.$router.push({ name: pageName.toLowerCase() });
+    return;
+  }
+  if (isValidPage(pageName)) {
+    this.$router.push({ name: pageName.toLowerCase() });
+  } else console.error(`Invalid page name: ${pageName}`);
 }
 
 export function formatDate(date) {

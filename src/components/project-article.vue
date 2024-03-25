@@ -26,22 +26,29 @@
 import headingItem from "@components/heading-item.vue";
 import textItem from "@components/text-item.vue";
 import { END_POINT_DEVDOMAIN } from "@constants";
+import { isString, isObject } from '@helpers/validators';
+
 export default {
   props: {
     title: {
       type: String,
+      validator: isString
     },
     img: {
       type: String,
+      validator: isString
     },
     imgSize: {
       type: Object,
+      validator: isObject
     },
     text: {
       type: String,
+      validator: isString
     },
     slogan: {
       type: String,
+      validator: isString
     },
   },
   components: {

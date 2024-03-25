@@ -3,7 +3,7 @@
         <div class="main-article__wrapper">
             <div class="main-article__heading-wrapper">
                 <headingItem class="main-article__heading" :title="title" />
-                <timesetItem :createdDate="createdDate" :time="time" />
+                <timesetItem :createdAt="createdAt" :time="time" />
             </div>
             <img :src="`${domain + imgUrl}`" alt="" class="main-article__img" :width="imgSize.width" :height="imgSize.height">
             <div class="main-article__wrapper-content">
@@ -28,40 +28,48 @@
     </article>
 </template>
 <script>
-import { END_POINT_DEVDOMAIN } from '@constants';
 import { mapMutations } from 'vuex';
+import { END_POINT_DEVDOMAIN } from '@constants';
 import timesetItem from '@components/timeset-item.vue';
 import socialIcons from '@components/social-icons.vue';
 import headingItem from '@components/heading-item.vue';
+import { isString, isNumber, isObject, isArray } from '@helpers/validators';
 export default {
     props: {
         title: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         createdAt: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         time: {
             type: Number,
-            requared: true
+            requared: true,
+            validator: isNumber
         },
         imgUrl: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         imgSize: {
             type: Object,
-            requared: true
+            requared: true,
+            validator: isObject
         },
         text: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         tags: {
             type: Array,
-            requared: false
+            requared: false,
+            validator: isArray
         }
     },
     components: {
@@ -72,10 +80,6 @@ export default {
     computed: {
         domain() {
             return END_POINT_DEVDOMAIN;
-        },
-        createdDate() {
-            return new Date(this.createdAt).toGMTString()
-                .match(/([A-Za-z]{3}\s\d{2})|(\d{2}:\d{2})/g).join(', ');
         }
     },
     methods: {

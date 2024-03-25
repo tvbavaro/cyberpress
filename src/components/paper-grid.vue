@@ -41,7 +41,8 @@ import previewArticle from '@components/preview-article.vue';
 import mainArticle from '@components/main-article.vue';
 import loadItem from '@components/load-item.vue';
 import { mapState } from 'vuex';
-import { getImgSize } from '../helpers/helpers'
+import { getImgSize } from '../helpers/helpers';
+import { isString } from '@helpers/validators';
 
 export default {
     data() {
@@ -54,7 +55,8 @@ export default {
     props: {
         id: { //from routes
             type: String,
-            required: true
+            required: true,
+            validator: isString
         }
     },
     components: {

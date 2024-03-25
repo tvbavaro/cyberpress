@@ -4,6 +4,14 @@ export const PAGE_PROJECT = 'project';
 export const PAGE_DONATE = 'donate';
 export const PAGE_TEAM = 'team';
 
+export const PAGE_NAMES = [
+    PAGE_HOME,
+    PAGE_PAPER,
+    PAGE_PROJECT,
+    PAGE_DONATE,
+    PAGE_TEAM
+]
+
 export const routes = [
     {
         path: '/cyberpress/',

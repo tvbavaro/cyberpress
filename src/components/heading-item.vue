@@ -6,11 +6,13 @@
     </div>
 </template>
 <script>
+import { isString } from '@helpers/validators';
 
 export default {
     props: {
         title: {
-            type: String
+            type: String,
+            validator: isString
         }
     }
 }

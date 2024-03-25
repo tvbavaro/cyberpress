@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { isArray, isFunction } from '@helpers/validators';
 export default {
     data() {
         return {
@@ -41,14 +42,17 @@ export default {
     props: {
         list: {
             type: Array,
-            default: []
+            default: [],
+            validator: isArray
         },
         checkedList: {
             type: Array,
-            default: []
+            default: [],
+            validator: isArray
         },
         executableFunction: {
-            type: Function
+            type: Function,
+            validator: isFunction
         }
     },
     computed: {

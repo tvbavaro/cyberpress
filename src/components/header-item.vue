@@ -199,7 +199,7 @@ import dropFilter from "@components/drop-filter.vue";
 import actionButton from "@components/action-button.vue";
 import logoItem from "@components/logo-item.vue";
 import baseIcon from "@components/base-icon.vue";
-import { debounce, handleRedirect } from "@helpers";
+import { debounce, handleRedirect } from "@helpers/helpers";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { PAGE_HOME } from "@router/routes";
 import {
@@ -216,6 +216,7 @@ export default {
       ICON_FILTER,
       ICON_RESET_FILTERS,
       ICON_CROSS,
+      PAGE_HOME,
       togglers: {
         isMenuOpen: false,
         isSearchOpen: false,

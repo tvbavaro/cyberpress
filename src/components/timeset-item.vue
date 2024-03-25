@@ -18,6 +18,7 @@
 import { formatDate } from '../helpers/helpers';
 import { ICON_TIMESET_DIVIDER } from '@icons';
 import baseIcon from '@components/base-icon.vue';
+import { isString, isNumber } from '@helpers/validators';
 
 export default {
     data() {
@@ -31,11 +32,13 @@ export default {
     props: {
         createdAt: {
             type: String,
-            requared: true
+            requared: true,
+            validator: isString
         },
         time: {
             type: Number,
-            requared: true
+            requared: true,
+            validator: isNumber
         }
     },
     computed: {
